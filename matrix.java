@@ -59,9 +59,9 @@ public class matrix {
     // displayMatrix
     // matrix buat access row, matrix[] buat access col
     public static void displayMatrix (double[][] m) {
-        for(int i = 0; i < m.length; i++) {
-            for(int j = 0; j < m[i].length; j++) {
-                if(j < m[i].length-1) {
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[i].length; j++) {
+                if (j < m[i].length-1) {
                     System.out.print(m[i][j] + " ");
                 }
                 else {
@@ -76,8 +76,8 @@ public class matrix {
         int row = getRow(m1);
         int col = getCol(m1);
         double[][] m3 = new double[row][col];
-        for(int i = 0; i < row; i++) {
-            for(int j = 0; j < col; j++) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
                 m3[i][j] = m1[i][j] + m2[i][j];
             }
         }
@@ -89,8 +89,8 @@ public class matrix {
         int row = getRow(m1);
         int col = getCol(m1);
         double[][] m3 = new double[row][col];
-        for(int i = 0; i < row; i++) {
-            for(int j = 0; j < col; j++) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
                 m3[i][j] = m1[i][j] - m2[i][j];
             }
         }
