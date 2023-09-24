@@ -1,91 +1,145 @@
-public class gauss extends matrix {
+import java.util.Scanner;
 
-    // manatau butuh
-    // mengalikan baris dengan konstanta
-    public static double[][] kali_baris (double[][] m, int row, int k) {
-        for (int j = 0; j < getCol(m); j++) {
-            m[row][j] = m[row][j] * k;
+public class matrix {
+    public double[][] matrix;
+    public int nRows;
+    public int nCols;
+
+    public static Scanner scan; // buat user input
+    
+    /* KONSTRUKTOR belom, masih bikin matrixnya manual di tiap function */
+    
+    /* SELECTOR */
+    public static int getRow(double[][] m) {
+        return m.length;
+    }
+    
+    
+    public static int getCol(double[][] m) {
+        return m[0].length;
+    }
+
+    public static int getLastIdxRow(double[][] m) {
+        return (getRow(m) - 1);
+    }
+
+    public static int getLastIdxCol(double[][] m) {
+        return (getCol(m) - 1);
+    }
+
+    /* FUNCTION */
+
+    // readMatrix
+    public static double[][] readMatrixKeyboard() {
+        scan = new Scanner(System.in);
+        System.out.print("row: "); int row = scan.nextInt();
+        System.out.print("col: "); int col = scan.nextInt();
+        // bikin matrix uk. row x col
+        double[][] m = new double[row][col];
+        // isi matrix
+        System.out.println("Elemen matriks: ");
+        for(int i = 0;i < row;i++) {
+            for(int j = 0;j < col;j++) {
+                m[i][j] = scan.nextDouble();
+            }
         }
+
         return m;
     }
 
-    // swap/tukar baris
-    public static double[][] tukar_baris (double[][] m, int row1, int row2) {
-        for (int j = 0; j < getCol(m); j++) {
-            double temp = m[row1][j];
-            m[row1][j] = m[row2][j];
-            m[row2][j] = temp;
+    // displayMatrix
+    // matrix buat access row, matrix[] buat access col
+    public static void displayMatrix (double[][] m) {
+        for(int i = 0; i < m.length; i++) {
+            for(int j = 0; j < m[i].length; j++) {
+                if(j < m[i].length-1) {
+                    System.out.print(m[i][j] + " ");
+                }
+                else {
+                    System.out.println(m[i][j]);
+                }
+            }
         }
-        return m;
     }
 
-    // tambahin baris ke baris lain
-    public static double[][] tambah_baris(double[][] m, int row_asal, int row_yangdiubah) {
-        for (int j = 0; j < getCol(m); j++) {
-            m[row_yangdiubah][j] += m[row_asal][j];
+    // addMatrix
+    public static double[][] addMatrix (double[][] m1, double[][] m2) {
+        int row = getRow(m1);
+        int col = getCol(m1);
+        double[][] m3 = new double[row][col];
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++) {
+                m3[i][j] = m1[i][j] + m2[i][j];
+            }
         }
-        return m;
+        return m3;
     }
 
-    // kurangin baris
-    public static double[][] kurang_baris(double[][] m, int row_asal, int row_yangdiubah) {
-        for (int j = 0; j < getCol(m); j++) {
-            m[row_yangdiubah][j] -= m[row_asal][j];
+    // substractMatrix
+    public static double[][] substractMatrix (double[][] m1, double[][] m2) {
+        int row = getRow(m1);
+        int col = getCol(m1);
+        double[][] m3 = new double[row][col];
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++) {
+                m3[i][j] = m1[i][j] - m2[i][j];
+            }
         }
-        return m;
+        return m3;
     }
 
-    public static double[] eliminasiGauss(double[][] m) {
+    // multiplyMatrix
+    public static double[][] multiplyMatrixMatrix (double[][] m1, double[][] m2) {
+        int row = getRow(m1);
+        int col = getCol(m2);
+        double[][] m3 = new double[row][col];
+        for (int i = 0; i < getRow(m1); i++) {
+            for (int j = 0; j < getCol(m2); j++) {
+                for (int k = 0; k < getCol(m1); k++) {
+                    m3[i][j] += m1[i][k] * m2[k][j];
+                }
+            }
+        }
+        return m3;
+    }
+
+    // multiplyByConst
+    public static double[][] multiplyByConst (double[][] m, int x) {
         int row = getRow(m);
-        double[] hasil = new double[row];
-
-        for (int baris = 0; baris < row; baris++) {
-            // mau cari 1 utama dan nukar baris
-            int baris1utama = baris;
-            for (int i = baris + 1; i < row; i++) {
-                if ((m[i][baris]) > (m[baris1utama][baris])) {
-                    baris1utama = i;
-                }
-            }
-
-            double[] temp = m[baris];
-            m[baris] = m[baris1utama];
-            m[baris1utama] = temp;
-
-            // jadikan elemen diagonal menjadi 1
-            double pembagi = m[baris][baris];
-            for (int j = baris; j < row + 1; j++) {
-                m[baris][j] /= pembagi;
-            }
-
-            // eliminasi baris lainnya
-            for (int i = 0; i < row; i++) {
-                if (i != baris) {
-                    double faktor = m[i][baris];
-                    for (int j = baris; j < row + 1; j++) {
-                        m[i][j] -= faktor * m[baris][j];
-                    }
-                }
-            }
-        }
-
-        displayMatrix(m);
-
+        int col = getCol(m);
+        double[][] mX = new double[row][col];
         for (int i = 0; i < row; i++) {
-            hasil[i] = m[i][row];
+            for (int j = 0; j < col; j++) {
+                mX[i][j] = m[i][j] * x;
+            }
         }
-        
-        return hasil;
+        return mX;
     }
 
-    public static void main(String[] args) {
-        double[][] matriks = readMatrixKeyboard();
-        double[] solusi = eliminasiGauss(matriks);
-
-        System.out.println("Solusi:");
-        for (int i = 0; i < solusi.length; i++) {
-            System.out.printf("x%d = %.2f\n", i + 1, solusi[i]);
+    // isMatrixEqual
+    public static boolean isMatrixEqual (double[][] m1, double[][] m2) {
+        if (getRow(m1) != getRow(m2) || getCol(m1) != getCol(m2)) {
+            return false;
         }
+        for (int i = 0; i < getRow(m1); i++) {
+            for (int j = 0; j < getCol(m1); j++) {
+                if (m1[i][j] != m2[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
+
+    // isMatrixNotEqual
+    public static boolean isMatrixNotEqual (double[][] m1, double[][] m2) {
+        return (! (isMatrixEqual(m1, m2)));
+    }
+
+    // isMatrixSizeEqual
+    public static boolean isMatrixSizeEqual (double[][] m1, double[][] m2) {
+        return ((getRow(m1) == getRow(m2)) && (getCol(m1) == getCol(m2)));
+    }
+
+
 }
-
