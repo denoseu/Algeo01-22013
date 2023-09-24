@@ -1,11 +1,11 @@
-// displayMatrix done
-// addMatrix done
-// subtractMatrix done
-// multiplyMatrix done
-// multiplybyCons done
-// isMatrixEqual done
-// isMatrixNotEqual done
-// isMatrixSizeEqual done
+// countElmt
+// isSquare
+// isSymmetric
+// isIdentity
+// isSparse
+// negation
+// determinant
+// transpose
 
 import java.util.Scanner;
 
@@ -150,5 +150,73 @@ public class matrix {
         return ((getRow(m1) == getRow(m2)) && (getCol(m1) == getCol(m2)));
     }
 
+
+    // countElmt
+    public static int countElmt(double[][] m) {
+        return (getCol(m) * getRow(m));
+    }
+
+    // isSquare
+    public static boolean isSquare (double[][] m) {
+        return (getCol(m) == getRow(m));
+    }
+    // isSymmetric
+    public static boolean isSymmetric (double[][] m){
+        if (isSquare(m)){
+            for (int i=0;i<getRow(m);i++){
+                for (int j=0; j<getCol(m);j++){
+                    if (m[i][j] != m[j][i]){
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    // isIdentity
+    public static boolean isIdentity(double[][] m){
+        if(isSquare(m)){
+            for (int i=0;i<getRow(m);i++){
+                for (int j=0;j<getCol(m);j++){
+                    if (i==j){
+                        if (m[i][j] !=1){
+                            return false;
+                        }
+                    } else {
+                        if (m[i][j] != 0){
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    // isSparse
+    public static boolean isSparse(double[][] m){
+        double count = 0;
+        for (int i =0;i < getRow(m);i++){
+            for (int j=0; j<getCol(m); j++){
+                if (m[i][j] !=0){
+                    count += 1;
+                }
+            }
+        }
+        return (count <= (countElmt(m) * 5/100));
+    }
+    // negation
+   
+    // transpose
+    public static void transpose(double[][] m){
+        for (int i=0;i<getRow(m);i++){
+            for (int j=0;j<getCol(m);j++){
+                double temp = m[i][j];
+                m[i][j] = m[j][i];
+                m[j][i] = temp;
+            }
+        }
+    }
 
 }
