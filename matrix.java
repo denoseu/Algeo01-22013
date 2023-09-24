@@ -207,7 +207,13 @@ public class matrix {
         return (count <= (countElmt(m) * 5/100));
     }
     // negation
-   
+    public static void negation(double[][] m){
+        for (int i=0;i<getRow(m);i++){
+            for (int j=0; j<getCol(m);j++){
+                m[i][j] *= -1;
+            }
+        }
+   }
     // transpose
     public static void transpose(double[][] m){
         for (int i=0;i<getRow(m);i++){
