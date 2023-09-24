@@ -43,7 +43,7 @@ public class gauss extends matrix {
             // mau cari 1 utama dan nukar baris
             int baris1utama = baris;
             for (int i = baris + 1; i < row; i++) {
-                if (Math.abs(m[i][baris]) > Math.abs(m[baris1utama][baris])) {
+                if ((m[i][baris]) > (m[baris1utama][baris])) {
                     baris1utama = i;
                 }
             }
@@ -53,9 +53,9 @@ public class gauss extends matrix {
             m[baris1utama] = temp;
 
             // jadikan elemen diagonal menjadi 1
-            double elemen1utama = m[baris][baris];
+            double pembagi = m[baris][baris];
             for (int j = baris; j < row + 1; j++) {
-                m[baris][j] /= elemen1utama;
+                m[baris][j] /= pembagi;
             }
 
             // eliminasi baris lainnya
@@ -68,6 +68,8 @@ public class gauss extends matrix {
                 }
             }
         }
+
+        displayMatrix(m);
 
         for (int i = 0; i < row; i++) {
             hasil[i] = m[i][row];
