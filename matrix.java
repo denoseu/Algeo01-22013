@@ -43,7 +43,7 @@ public class gauss extends matrix {
             // mau cari 1 utama dan nukar baris
             int baris1utama = baris;
             for (int i = baris + 1; i < row; i++) {
-                if (Math.abs(m[i][baris]) > Math.abs(m[baris1utama][baris])) {
+                if ((m[i][baris]) > (m[baris1utama][baris])) {
                     baris1utama = i;
                 }
             }
