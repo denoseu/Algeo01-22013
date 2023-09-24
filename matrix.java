@@ -1,12 +1,3 @@
-// displayMatrix done
-// addMatrix done
-// subtractMatrix done
-// multiplyMatrix done
-// multiplybyCons done
-// isMatrixEqual done
-// isMatrixNotEqual done
-// isMatrixSizeEqual done
-
 import java.util.Scanner;
 
 public class matrix {
