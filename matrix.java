@@ -53,9 +53,9 @@ public class gauss extends matrix {
             m[baris1utama] = temp;
 
             // jadikan elemen diagonal menjadi 1
-            double elemen1utama = m[baris][baris];
+            double pembagi = m[baris][baris];
             for (int j = baris; j < row + 1; j++) {
-                m[baris][j] /= elemen1utama;
+                m[baris][j] /= pembagi;
             }
 
             // eliminasi baris lainnya
@@ -69,7 +69,7 @@ public class gauss extends matrix {
             }
         }
 
-        // displayMatrix(m);
+        displayMatrix(m);
 
         for (int i = 0; i < row; i++) {
             hasil[i] = m[i][row];
