@@ -1,11 +1,11 @@
-// countElmt
-// isSquare
-// isSymmetric
-// isIdentity
-// isSparse
-// negation
-// determinant
-// transpose
+// displayMatrix done
+// addMatrix done
+// subtractMatrix done
+// multiplyMatrix done
+// multiplybyCons done
+// isMatrixEqual done
+// isMatrixNotEqual done
+// isMatrixSizeEqual done
 
 import java.util.Scanner;
 
@@ -41,8 +41,8 @@ public class matrix {
     // readMatrix
     public static double[][] readMatrixKeyboard() {
         scan = new Scanner(System.in);
-        System.out.print("row: "); int row = scan.nextInt();
-        System.out.print("col: "); int col = scan.nextInt();
+        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
         // bikin matrix uk. row x col
         double[][] m = new double[row][col];
         // isi matrix
@@ -54,21 +54,6 @@ public class matrix {
         }
 
         return m;
-    }
-
-    // displayMatrix
-    // matrix buat access row, matrix[] buat access col
-    public static void displayMatrix (double[][] m) {
-        for (int i = 0; i < m.length; i++) {
-            for (int j = 0; j < m[i].length; j++) {
-                if (j < m[i].length-1) {
-                    System.out.print(m[i][j] + " ");
-                }
-                else {
-                    System.out.println(m[i][j]);
-                }
-            }
-        }
     }
 
     // addMatrix
