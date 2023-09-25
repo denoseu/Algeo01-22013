@@ -4,6 +4,25 @@ import java.io.FileNotFoundException;
 
 public class matrixIO {
 
+    // Membaca Matrix dari Keyboard
+    public static Scanner scan;
+    public static double[][] readMatrixKeyboard() {
+        scan = new Scanner(System.in);
+        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
+        // bikin matrix uk. row x col
+        double[][] m = new double[row][col];
+        // isi matrix
+        System.out.println("Elemen matriks: ");
+        for(int i = 0;i < row;i++) {
+            for(int j = 0;j < col;j++) {
+                m[i][j] = scan.nextDouble();
+            }
+        }
+
+        return m;
+    }
+
     // Membaca Matrix dari File
     public static double[][] fileToMatrix(){
         Scanner nameSc = new Scanner(System.in);
