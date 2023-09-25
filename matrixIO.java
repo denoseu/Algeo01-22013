@@ -58,7 +58,7 @@ public class matrixIO {
             System.out.println("File tidak ditemukan. Telah terjadi kesalahan");
             System.out.println("Sistem akan mengeluarkan matrix 1x1 kosong");
             double[][] matrix = new double[1][1];
-            matrix[1][1] = 0;
+            matrix[0][0] = 0;
             return matrix;
 
         }
