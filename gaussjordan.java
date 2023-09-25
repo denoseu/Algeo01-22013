@@ -94,7 +94,7 @@ public class gaussjordan extends matrix {
     }
 
     public static void main(String[] args) {
-        double[][] matriks = readMatrixKeyboard();
+        double[][] matriks = matrixIO.readMatrixKeyboard();
         double[] solusi = eliminasiGauss(matriks);
 
         for (int i = 0; i < solusi.length; i++) {
