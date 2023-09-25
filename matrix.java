@@ -56,21 +56,6 @@ public class matrix {
         return m;
     }
 
-    // displayMatrix
-    // matrix buat access row, matrix[] buat access col
-    public static void displayMatrix (double[][] m) {
-        for (int i = 0; i < m.length; i++) {
-            for (int j = 0; j < m[i].length; j++) {
-                if (j < m[i].length-1) {
-                    System.out.print(m[i][j] + " ");
-                }
-                else {
-                    System.out.println(m[i][j]);
-                }
-            }
-        }
-    }
-
     // addMatrix
     public static double[][] addMatrix (double[][] m1, double[][] m2) {
         int row = getRow(m1);

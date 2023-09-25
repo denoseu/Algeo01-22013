@@ -5,9 +5,8 @@ import java.io.FileNotFoundException;
 public class matrixIO {
 
     // Membaca Matrix dari Keyboard
-    public static Scanner scan;
     public static double[][] readMatrixKeyboard() {
-        scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
         System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
         // bikin matrix uk. row x col
@@ -19,7 +18,7 @@ public class matrixIO {
                 m[i][j] = scan.nextDouble();
             }
         }
-
+        scan.close();
         return m;
     }
 
@@ -64,6 +63,21 @@ public class matrixIO {
 
         }
 
+    }
+    
+    // Menampilkan matrix pada layar
+    // matrix buat access row, matrix[] buat access col
+    public static void displayMatrix (double[][] m) {
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[i].length; j++) {
+                if (j < m[i].length-1) {
+                    System.out.print(m[i][j] + " ");
+                }
+                else {
+                    System.out.println(m[i][j]);
+                }
+            }
+        }
     }
     // Mendapatkan banyak nRow dan nCol dari file
     public static int[] countRowCol(String path){
