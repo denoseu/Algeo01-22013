@@ -106,7 +106,7 @@ public class gaussjordan extends matrix {
 
         System.out.println("Solusi:");
         for (int i = 0; i < solusi.length; i++) {
-            System.out.printf("x%d = %.2f\n", i+1, solusi[i]);
+            System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
         }
     }
 }
