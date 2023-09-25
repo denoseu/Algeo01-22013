@@ -37,7 +37,9 @@ public class gaussjordan extends matrix {
     }
 
     // eliminasi gauss-jordan
-    public static double[] eliminasiGauss(double[][] m) {
+    public static double[] eliminasiGauss (double[][] m) {
+        boolean noSolution = false;
+        boolean manySolution = false;
         int row = getRow(m);
         double[] hasil = new double[row]; // array buat nyimpen hasil
 
@@ -58,6 +60,15 @@ public class gaussjordan extends matrix {
 
             // System.out.println("tukar baris i dengan baris dengan elemen terbesar");
             // displayMatrix(m);
+
+            if (gauss.noSolusi(m)) {
+                noSolution = true;
+                break;
+            }
+            else if (gauss.Nol(m)) {
+                manySolution = true;
+                break; // persamaan parametriknya menyusul ya :)
+            }
 
             // jadikan elemen diagonal menjadi 1 (mo bikin 1 utama)
             double pembagi = m[i][i];
@@ -84,29 +95,38 @@ public class gaussjordan extends matrix {
 
         // System.out.println("matriks final");
         // displayMatrix(m);
-
-        for (int i = 0; i < row; i++) {
-            hasil[i] = m[i][row]; // isi hasil
-
-        }
         
+        if (noSolution == true) {
+            hasil[0] = -999;
+        }
+        else if (manySolution == true) {
+            hasil[0] = -2000;
+        }
+        else {
+            for (int i = 0; i < row; i++) {
+            hasil[i] = Math.round(m[i][row]); // isi hasil
+            }
+        
+        }
         return hasil;
     }
 
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         double[][] matriks = matrixIO.readMatrixKeyboard();
         double[] solusi = eliminasiGauss(matriks);
 
-        for (int i = 0; i < solusi.length; i++) {
-            // utk hasil yang -0
-            if (solusi[i] == -0) {
-                solusi[i] *= 0;
-            }
+        if (solusi[0] == -999) {
+            System.out.println("Matriks tidak memiliki solusi.");
         }
+        else if (solusi[0] == -2000) {
+            System.out.println("Matriks memiliki banyak solusi."); // persamaan parametrik menyusul
+        }
+        else {
+            System.out.println("Solusi:");
+            for (int i = 0; i < solusi.length; i++) {
+                System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
+            }
 
-        System.out.println("Solusi:");
-        for (int i = 0; i < solusi.length; i++) {
-            System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
         }
     }
 }
