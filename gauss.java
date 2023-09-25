@@ -45,8 +45,8 @@ public class gauss extends matrix {
                     for (int p = 0; p < row+1; p++) {
                         m[i][p] /= bukannol; 
                     }
-                    System.out.println(" ");
-                    displayMatrix(m);
+                    // System.out.println(" ");
+                    // displayMatrix(m);
 
                     // menolkan elemen dibawah 1 utama
                     for (int k = i + 1; k < row; k++) {
@@ -55,8 +55,8 @@ public class gauss extends matrix {
                             m[k][l] -= faktor * m[i][l];
                         }
                     }
-                    System.out.println(" ");
-                    displayMatrix(m);
+                    // System.out.println(" ");
+                    // displayMatrix(m);
                     break;
                 }
             }
