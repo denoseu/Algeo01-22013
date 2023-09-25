@@ -6,6 +6,6 @@ Kelompok 13 - Kaydenji
 
 Anggota :
 
-Denise Felicia Tiowanni (13522013)
-Angelica Kierra Ninta Gurning (13522048)
-Kayla Namira Mariadi (13522050)
+1. Denise Felicia Tiowanni (13522013) <br/>
+2. Angelica Kierra Ninta Gurning (13522048) <br/>
+3. Kayla Namira Mariadi (13522050) <br/>
