@@ -38,7 +38,11 @@ public class cramer {
     public static void main(String[] args){
         double[][] m;
         m = matrixIO.readMatrixKeyboard();
-        matrixIO.displayMatrix(kaidahCramer(m));
+
+        System.out.println("Solusi:");
+        for (int i = 0; i < kaidahCramer(m).length; i++) {
+            System.out.printf("x%d = %.3f\n", i+1, kaidahCramer(m)[i]);
+        }
     }
     */
 }
