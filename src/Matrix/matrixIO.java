@@ -6,22 +6,46 @@ import java.io.IOException;
 
 public class matrixIO {
     /*------ INPUT ------- */
-    // Membaca Matrix dari Keyboard
+    // Membaca Matrix dari Keyboard untuk SPL
+    public static Scanner scan;
     public static double[][] readMatrixKeyboard() {
-        Scanner scan = new Scanner(System.in);
+        scan = new Scanner(System.in);
         System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
         System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
-        // bikin matrix uk. row x col
-        double[][] m = new double[row][col];
+        // bikin matrix uk. row x col (A)
+        double[][] a = new double[row][col];
         // isi matrix
-        System.out.println("Elemen matriks: ");
+        System.out.println("Elemen matriks A: ");
         for(int i = 0;i < row;i++) {
             for(int j = 0;j < col;j++) {
-                m[i][j] = scan.nextDouble();
+                a[i][j] = scan.nextDouble();
             }
         }
-        scan.close();
-        return m;
+
+        // bikin matrix uk. row A x 1 col (B)
+        double[][] b = new double[matrixOP.getRow(a)][1];
+        // isi opmatrixOP
+        System.out.println("Elemen matriks B: ");
+        for(int p = 0; p < matrixOP.getRow(a); p++) {
+            for(int q = 0; q < 1; q++) {
+                b[p][q] = scan.nextDouble();
+            }
+        }
+
+        // menggabungkan matriks A dan B
+        
+        int numRows1 = matrixOP.getRow(a);
+        int numCols1 = matrixOP.getCol(a);
+        int numCols2 = matrixOP.getCol(b);
+
+        double[][] mergedMatrix = new double[numRows1][numCols1 + numCols2];
+
+        for (int i = 0; i < numRows1; i++) {
+            System.arraycopy(a[i], 0, mergedMatrix[i], 0, numCols1);
+            System.arraycopy(b[i], 0, mergedMatrix[i], numCols1, numCols2);
+        }
+
+        return mergedMatrix;
     }
 
     // Membaca Matrix dari File
