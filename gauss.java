@@ -42,10 +42,10 @@ public class gauss extends matrix {
                     double bukannol = m[i][j];
 
                     // bagi baris oleh elemen yang bukan nol (biar dapet 1 utama)
-                    for (int p = 0; p < row+1; p++) {
+                    for (int p = 0; p < col; p++) { // ato p < row+1?
                         m[i][p] /= bukannol; 
                     }
-                    // System.out.println(" ");
+                    // System=.out.println(" ");
                     // displayMatrix(m);
 
                     // menolkan elemen dibawah 1 utama
