@@ -23,10 +23,10 @@ public class matrixIO {
         }
 
         // bikin matrix uk. row A x 1 col (B)
-        double[][] b = new double[matrix.getRow(a)][1];
-        // isi matrix
+        double[][] b = new double[matrixOP.getRow(a)][1];
+        // isi opmatrixOP
         System.out.println("Elemen matriks B: ");
-        for(int p = 0; p < matrix.getRow(a); p++) {
+        for(int p = 0; p < matrixOP.getRow(a); p++) {
             for(int q = 0; q < 1; q++) {
                 b[p][q] = scan.nextDouble();
             }
@@ -34,9 +34,9 @@ public class matrixIO {
 
         // menggabungkan matriks A dan B
         
-        int numRows1 = matrix.getRow(a);
-        int numCols1 = matrix.getCol(a);
-        int numCols2 = matrix.getCol(b);
+        int numRows1 = matrixOP.getRow(a);
+        int numCols1 = matrixOP.getCol(a);
+        int numCols2 = matrixOP.getCol(b);
 
         double[][] mergedMatrix = new double[numRows1][numCols1 + numCols2];
 
