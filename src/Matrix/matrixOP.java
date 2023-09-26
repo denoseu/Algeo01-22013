@@ -1,8 +1,8 @@
-// ADT MATRIX
+package src.Matrix;
 
 import java.util.Scanner;
 
-public class matrix {
+public class matrixOP {
     public double[][] matrix;
     public int nRows;
     public int nCols;
@@ -34,8 +34,8 @@ public class matrix {
     // readMatrix
     public static double[][] readMatrixKeyboard() {
         scan = new Scanner(System.in);
-        System.out.print("row: "); int row = scan.nextInt();
-        System.out.print("col: "); int col = scan.nextInt();
+        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
         // bikin matrix uk. row x col
         double[][] m = new double[row][col];
         // isi matrix
