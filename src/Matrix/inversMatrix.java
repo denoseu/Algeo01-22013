@@ -67,10 +67,6 @@ public class inversMatrix {
         return inv;
     }
     
-    public static void main(String[] args){
-        double[][] m;
-        m = matrixIO.readMatrixKeyboard();
-        matrixIO.displayMatrix(inverse(m));
-    }
+    
 
 }

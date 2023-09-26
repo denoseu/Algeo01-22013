@@ -206,9 +206,5 @@ public class matrixOP {
         return trans;
     }
 
-    public static void main(String[] args){
-        double[][] m;
-        m = matrixIO.readMatrixKeyboard();
-        matrixIO.displayMatrix(transpose(m));
-    }
+    
 }
