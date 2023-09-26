@@ -119,7 +119,6 @@ public class gauss {
                 for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
                     solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
                 } 
-    
             }
 
             System.out.println("Solusi:");

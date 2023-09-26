@@ -40,9 +40,6 @@ public class inverse {
     public static double[][] SPLBalikan () {
         // membaca matriks koefisien (A)
         double[][] A = getMatrixA();
-        if (matrixOP.getRow(A) != matrixOP.getCol(A)) {
-            System.out.println("Matriks tidak mempunyai invers.");
-        }
 
         // membaca matriks hasil (B)
         double[][] B = getMatrixB();
