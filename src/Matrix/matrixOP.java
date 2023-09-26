@@ -31,7 +31,19 @@ public class matrixOP {
 
     /* FUNCTION */
 
-    
+    // copyMatrix
+    public static void copyMatrix(double[][] mIn, double[][] mOut, int rowMin, int rowMax, int colMin, int colMax)
+    /* Mengcopy nilai mIn ke mOut dari range rowmin-rowmax dan colmin-colmax */
+    {
+        int i, j;
+        for (i = rowMin; i < rowMax; i ++)
+       {
+          for (j = colMin; j < colMax; j++)
+          {
+            mOut[i][j] = mIn[i][j];
+          }
+       }
+    }
     // addMatrix
     public static double[][] addMatrix (double[][] m1, double[][] m2) {
         int row = getRow(m1);

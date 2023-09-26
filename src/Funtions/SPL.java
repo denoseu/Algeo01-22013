@@ -1,4 +1,6 @@
 package src.Funtions;
+import java.util.Scanner;
+
 import src.Matrix.*;
 
 public class SPL {
@@ -206,7 +208,7 @@ public class SPL {
     }
 
     /*-------------- MATRIKS BALIKAN DENGAN KOFAKTOR ------------------ */
-/*Mencari invers matrix dengan menggunakan adjoin dan determinan  */
+    /*Mencari invers matrix dengan menggunakan adjoin dan determinan  */
     public static double[][] adjoin(double[][] m){
         double[][] cofactor = new double[m.length][m[0].length];
         if (m.length == m[0].length){
@@ -254,5 +256,129 @@ public class SPL {
         } 
         return sub;
     }
+
+
+    /*-------------- KAIDAH CRAMMER ------------------ */
+    /*Khusus untuk SPL dengan n variabel dan n persamaan */
+    public static double[][] kaidahCramer(double[][] m){
+        //Menerima matrix m dari keyboard atau txt dengan ukuran nRow x nCol
+        int nRow = m.length;
+        int nCol = m[0].length;
+
+        //Membuat matrix X berukuran nRow x 1, berisi nilai X
+        double[][] X = new double[nRow][1];
+        for (int i = 0; i < nRow; i++){
+            X[i][0] = 0;
+        }
+
+        //Membuat matrix A yang simetri, lalu mencari determinannya, detA != 0
+        double[][] A = new double[nRow][nCol-1];
+        matrixOP.copyMatrix(m, A, 0, nRow, 0, nCol-1);
+        
+        double detA = determinan(A);
+
+        int i,j,k;
+        for (j = 0; j < nCol-1; j++) {
+            for (i = 0; i < nRow; i++) {
+                //Mengganti nilai di tiap kolom A dengan nilai submatrix B
+                A[i][j] = m[i][nCol-1];
+            }
+            X[j][0] = (double) determinan(A)/detA;
+            for (k = 0; k < nRow; k++) {
+                //Mereset nilai matrix A
+                A[k][j] = m[k][j];
+            }
+        }
+        return X;
+    } 
+
+    
+    /*-------------- SPL DENGAN MATRIX BALIKAN ------------------ */
+    public static Scanner scan;
+
+    public static double[][] getMatrixA() {
+        scan = new Scanner(System.in);
+        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
+        // bikin matrix uk. row x col (A)
+        double[][] A = new double[row][col];
+        // isi matrix
+        System.out.println("Elemen matriks A: ");
+        for(int i = 0;i < row;i++) {
+            for(int j = 0;j < col;j++) {
+                A[i][j] = scan.nextDouble();
+            }
+        }
+        return A;
+    }
+
+    public static double[][] getMatrixB() {
+        scan = new Scanner(System.in);
+        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        // bikin matrix uk. row A x 1 col (B)
+        double[][] B = new double[row][1];
+        // isi matrix
+        System.out.println("Elemen matriks B: ");
+        for(int p = 0; p < row; p++) {
+            for(int q = 0; q < 1; q++) {
+                B[p][q] = scan.nextDouble();
+            }
+        }
+        return B;
+    }
+    
+    public static double[][] SPLBalikan () {
+        // membaca matriks koefisien (A)
+        double[][] A = getMatrixA();
+
+        // membaca matriks hasil (B)
+        double[][] B = getMatrixB();
+
+        // membuat matriks identitas (I)
+        double[][] I = new double[matrixOP.getRow(A)][matrixOP.getRow(A)];
+        for (int i = 0; i < matrixOP.getRow(A); i++) {
+            for (int j = 0; j < matrixOP.getRow(A); j++) {
+                if (i == j) {
+                    I[i][j] = 1.0;
+                } else {
+                    I[i][j] = 0.0;
+                }
+            }
+        }
+
+        // menghitung matriks augmented [A | I]
+        double[][] augmentedMatrix = new double[matrixOP.getRow(A)][2 * matrixOP.getRow(A)];
+        for (int i = 0; i < matrixOP.getRow(A); i++) {
+            for (int j = 0; j < matrixOP.getRow(A); j++) {
+                augmentedMatrix[i][j] = A[i][j];
+                augmentedMatrix[i][j + matrixOP.getRow(A)] = I[i][j];
+            }
+        }
+
+        // lakukan eliminasi Gauss-Jordan 
+        eliminasiGauss(augmentedMatrix);
+
+        // matrix.displayMatrix(augmentedMatrix);
+
+        // mendapatkan matriks balikan dari matriks augmented yang sudah dilakukan operasi gauss-jordan
+        double[][] AInverse = new double[matrixOP.getRow(A)][matrixOP.getRow(A)];
+        for (int i = 0; i < matrixOP.getRow(A); i++) {
+            for (int j = 0; j < matrixOP.getRow(A); j++) {
+                AInverse[i][j] = augmentedMatrix[i][j + matrixOP.getRow(A)];
+            }
+        }
+
+        // hasil matriks balikan = AInverse
+        System.out.println("Matriks Balikan (A^(-1)): ");
+        matrixIO.displayMatrix(AInverse);
+
+        // mencari solusi SPL
+        double[][] hasil = matrixOP.multiplyMatrixMatrix(AInverse, B);
+        // matrix.displayMatrix(hasil);
+
+        return hasil;
+        // // simpan hasil
+    }
+
 
 }
