@@ -35,7 +35,7 @@ public class inverse {
                 }
             }
         }
-        matrix.displayMatrix(I);
+        // matrix.displayMatrix(I);
 
         // menghitung matriks augmented [A | I]
         double[][] augmentedMatrix = new double[n][2 * n];
@@ -45,12 +45,12 @@ public class inverse {
                 augmentedMatrix[i][j + n] = I[i][j];
             }
         }
-        matrix.displayMatrix(augmentedMatrix);
+        // matrix.displayMatrix(augmentedMatrix);
 
         // lakukan eliminasi Gauss-Jordan
         gaussjordan.eliminasiGauss(augmentedMatrix);
 
-        matrix.displayMatrix(augmentedMatrix);
+        // matrix.displayMatrix(augmentedMatrix);
 
         // mendapatkan matriks balikan dari matriks augmented yang sudah dilakukan operasi gauss-jordan
         double[][] AInverse = new double[n][n];
