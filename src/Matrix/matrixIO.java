@@ -1,9 +1,11 @@
+package src.Matrix;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class matrixIO {
-
+    /*------ INPUT ------- */
     // Membaca Matrix dari Keyboard
     public static double[][] readMatrixKeyboard() {
         Scanner scan = new Scanner(System.in);
@@ -25,11 +27,11 @@ public class matrixIO {
     // Membaca Matrix dari File
     public static double[][] fileToMatrix(){
         Scanner nameSc = new Scanner(System.in);
-        System.out.println("Masukkan nama file: ");
+        System.out.println("Masukkan nama file input lengkap dengan .txt: ");
         String name = nameSc.nextLine();
         nameSc.close();
 
-        String path = "./test/" +name + ".txt";
+        String path = "./test/input/" +name;
         try{
             
             // Membuat matrix
@@ -65,20 +67,6 @@ public class matrixIO {
 
     }
     
-    // Menampilkan matrix pada layar
-    // matrix buat access row, matrix[] buat access col
-    public static void displayMatrix (double[][] m) {
-        for (int i = 0; i < m.length; i++) {
-            for (int j = 0; j < m[i].length; j++) {
-                if (j < m[i].length-1) {
-                    System.out.print(m[i][j] + " ");
-                }
-                else {
-                    System.out.println(m[i][j]);
-                }
-            }
-        }
-    }
     // Mendapatkan banyak nRow dan nCol dari file
     public static int[] countRowCol(String path){
         int[] count = new int[2];
@@ -110,6 +98,76 @@ public class matrixIO {
             return count;
         }
 
+    }
+
+    /*------OUTPUT------- */
+    // Menampilkan matrix pada layar
+    // matrix buat access row, matrix[] buat access col
+    public static void displayMatrix (double[][] m) {
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[i].length; j++) {
+                if (j < m[i].length-1) {
+                    System.out.print(m[i][j] + " ");
+                }
+                else {
+                    System.out.println(m[i][j]);
+                }
+            }
+        }
+    }
+
+    // Membuat file baru
+    public static void createFile(){
+        // User input nama file
+        Scanner nameSc = new Scanner(System.in);
+        System.out.println("Masukkan nama file output lengkap dengan .txt: ");
+        String name = nameSc.nextLine();
+        nameSc.close();
+
+        //Mendapatkan directory untuk file
+        String newPath;
+        String currentPath = System.getProperty("user.dir");
+        System.out.println(currentPath);
+        if (currentPath.contains("src\\")){
+            String sub[] = currentPath.split("src");
+            currentPath = sub[0];
+
+            newPath = currentPath + "test\\output\\" + name;
+            System.out.println(currentPath);
+        } else {
+            newPath = currentPath + "\\test\\output\\" + name;
+        }
+        System.out.println(newPath);
+        //File handling
+        File file = new File(newPath);
+
+        if (file.exists()){
+            file.delete();
+        } 
+
+        try {
+            file.createNewFile();
+        } catch (IOException e){
+            System.out.println("An error occured. Cannot create new file.");
+            e.printStackTrace();
+        }
+
+    }
+
+    //Mengubah matrix ke string
+    public static String matrixString(double[][] m){
+        String text ="";
+        for (int i=0; i<m.length;i++){
+            for (int j=0;j<m[i].length;j++){
+                if (j!= m[i].length -1){
+                    text += m[i][j] + " ";
+                } else {
+                    text += m[i][j] + "\n";
+                }
+            }
+        }
+
+        return text;
     }
     
 

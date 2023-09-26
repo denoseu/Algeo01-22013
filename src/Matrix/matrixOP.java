@@ -1,15 +1,8 @@
-// displayMatrix done
-// addMatrix done
-// subtractMatrix done
-// multiplyMatrix done
-// multiplybyCons done
-// isMatrixEqual done
-// isMatrixNotEqual done
-// isMatrixSizeEqual done
+package src.Matrix;
 
 import java.util.Scanner;
 
-public class matrix {
+public class matrixOP {
     public double[][] matrix;
     public int nRows;
     public int nCols;
