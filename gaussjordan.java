@@ -37,11 +37,12 @@ public class gaussjordan extends matrix {
     }
 
     // eliminasi gauss-jordan
-    public static double[] eliminasiGauss (double[][] m) {
+    public static double[][] eliminasiGauss (double[][] m) {
         boolean noSolution = false;
         boolean manySolution = false;
         int row = getRow(m);
-        double[] hasil = new double[row]; // array buat nyimpen hasil
+        int col = getCol(m);
+        // double[] hasil = new double[row]; // array buat nyimpen hasil
 
         for (int i = 0; i < row; i++) {
             // cari baris dengan elemen terbesar di kolom i
@@ -72,7 +73,7 @@ public class gaussjordan extends matrix {
 
             // jadikan elemen diagonal menjadi 1 (mo bikin 1 utama)
             double pembagi = m[i][i];
-            for (int p = i; p < row+1; p++) {
+            for (int p = i; p < col; p++) {
                 m[i][p] /= pembagi;
             }
 
@@ -83,7 +84,7 @@ public class gaussjordan extends matrix {
             for (int q = 0; q < row; q++) {
                 if (q != i) {
                     double faktor = m[q][i];
-                    for (int r = i; r < row+1; r++) {
+                    for (int r = i; r < col; r++) {
                         m[q][r] -= faktor * m[i][r]; // kurangin baris sm yg diatas
                     }
                 }
@@ -97,37 +98,60 @@ public class gaussjordan extends matrix {
         // displayMatrix(m);
         
         if (noSolution == true) {
-            hasil[0] = -999;
+            m[0][0] = -999; // anggap idx undef ajalah :)
         }
         else if (manySolution == true) {
-            hasil[0] = -2000;
+            m[0][0] = -2000; 
         }
-        else {
-            for (int i = 0; i < row; i++) {
-            hasil[i] = Math.round(m[i][row]); // isi hasil
-            }
+        // else {
+        //     for (int i = 0; i < row; i++) {
+        //     hasil[i] = Math.round(m[i][row]); // isi hasil
+        //     }
         
-        }
-        return hasil;
+        // }
+        return m;
     }
 
     public static void main (String[] args) {
         double[][] matriks = matrixIO.readMatrixKeyboard();
-        double[] solusi = eliminasiGauss(matriks);
+        double[][] solusi = eliminasiGauss(matriks);
+        double[] hasil = new double[getRow(matriks)];
 
-        if (solusi[0] == -999) {
+        if (gauss.noSolusi(solusi)) {
             System.out.println("Matriks tidak memiliki solusi.");
         }
-        else if (solusi[0] == -2000) {
-            System.out.println("Matriks memiliki banyak solusi."); // persamaan parametrik menyusul
-        }
+        else if (gauss.Nol(solusi)) {
+            System.out.println("Matriks memiliki banyak solusi.");
+        } // persamaan parametriknya menyusul ya :)
         else {
-            System.out.println("Solusi:");
-            for (int i = 0; i < solusi.length; i++) {
-                System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
+            for (int m = getRow(solusi) - 1; m >= 0; m -= 1) {
+                hasil[m] = Math.round(solusi[m][getCol(solusi)-1]);
+                for (int n = 1; n <= getRow(solusi) - m - 1; n += 1) {
+                    hasil[m] = Math.round(hasil[m] - solusi[m][m + n] * hasil[m + n]);
+                } 
+    
             }
 
+            System.out.println("Solusi:");
+            for (int i = 0; i < hasil.length; i++) {
+                System.out.printf("x%d = %.3f\n", i+1, hasil[i]);
+            }
+            
         }
+
+        // if (solusi[0] == -999) {
+        //     System.out.println("Matriks tidak memiliki solusi.");
+        // }
+        // else if (solusi[0] == -2000) {
+        //     System.out.println("Matriks memiliki banyak solusi."); // persamaan parametrik menyusul
+        // }
+        // else {
+        //     System.out.println("Solusi:");
+        //     for (int i = 0; i < solusi.length; i++) {
+        //         System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
+        //     }
+
+        // }
     }
 }
 
