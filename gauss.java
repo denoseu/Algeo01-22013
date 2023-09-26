@@ -1,3 +1,4 @@
+import src.Matrix.matrixOP.*;
 public class gauss extends matrix {
 
     // cek apakah dia baris terakhirnya semuanya 0 kecuali solusi

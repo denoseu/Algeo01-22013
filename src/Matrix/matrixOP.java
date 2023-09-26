@@ -31,24 +31,7 @@ public class matrixOP {
 
     /* FUNCTION */
 
-    // readMatrix
-    public static double[][] readMatrixKeyboard() {
-        scan = new Scanner(System.in);
-        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
-        System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
-        // bikin matrix uk. row x col
-        double[][] m = new double[row][col];
-        // isi matrix
-        System.out.println("Elemen matriks: ");
-        for(int i = 0;i < row;i++) {
-            for(int j = 0;j < col;j++) {
-                m[i][j] = scan.nextDouble();
-            }
-        }
-
-        return m;
-    }
-
+    
     // addMatrix
     public static double[][] addMatrix (double[][] m1, double[][] m2) {
         int row = getRow(m1);
