@@ -193,14 +193,14 @@ public class matrixOP {
         }
    }
     // transpose
-    public static void transpose(double[][] m){
+    public static double[][] transpose(double[][] m){
+        double[][] trans = new double[m.length][m[0].length];
         for (int i=0;i<getRow(m);i++){
             for (int j=0;j<getCol(m);j++){
-                double temp = m[i][j];
-                m[i][j] = m[j][i];
-                m[j][i] = temp;
+                trans[i][j] = m[j][i];
             }
         }
+        return trans;
     }
 
 }
