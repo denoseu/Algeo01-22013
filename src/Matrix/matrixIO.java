@@ -8,7 +8,7 @@ public class matrixIO {
     /*------ INPUT ------- */
     // Membaca Matrix dari Keyboard untuk SPL
     public static Scanner scan;
-    public static double[][] readMatrixKeyboard() {
+    public static double[][] readMatrixSPL() {
         scan = new Scanner(System.in);
         System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
         System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
@@ -47,7 +47,23 @@ public class matrixIO {
 
         return mergedMatrix;
     }
-
+    // Membaca matrix dari keyboard
+    public static double[][] readMatrixKeyboard(){
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
+        // bikin matrix uk. row x col (A)
+        double[][] a = new double[row][col];
+        // isi matrix
+        System.out.println("Elemen matriks: ");
+        for(int i = 0;i < row;i++) {
+            for(int j = 0;j < col;j++) {
+                a[i][j] = scan.nextDouble();
+            }
+        }
+        scan.close();
+        return a;
+    }
     // Membaca Matrix dari File
     public static double[][] fileToMatrix(){
         Scanner nameSc = new Scanner(System.in);

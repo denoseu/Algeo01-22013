@@ -195,12 +195,20 @@ public class matrixOP {
     // transpose
     public static double[][] transpose(double[][] m){
         double[][] trans = new double[m.length][m[0].length];
-        for (int i=0;i<getRow(m);i++){
-            for (int j=0;j<getCol(m);j++){
-                trans[i][j] = m[j][i];
+        if (isSquare(m)){
+
+            for (int i=0;i<getRow(m);i++){
+                for (int j=0;j<getCol(m);j++){
+                    trans[i][j] = m[j][i];
+                }
             }
         }
         return trans;
     }
 
+    public static void main(String[] args){
+        double[][] m;
+        m = matrixIO.readMatrixKeyboard();
+        matrixIO.displayMatrix(transpose(m));
+    }
 }

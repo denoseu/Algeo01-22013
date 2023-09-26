@@ -30,16 +30,20 @@ public class detKofaktor {
     public static double determinan(double[][]m){
         double det;
         det = 0;
-        if (m.length == 1 && m[0].length == 1){
-            det = m[0][0];
-        } else {
-            for (int i=0;i<m.length;i++){
-                if (i%2 == 0){
-                    det += m[i][0] * determinan(kofaktor(m, m.length, m.length, i));
-                } else {
-                    det -= m[i][0] * determinan(kofaktor(m, m.length, m.length, i));
+        if (m.length == m[0].length){
+            if (m.length == 1 && m[0].length == 1){
+                det = m[0][0];
+            } else {
+                for (int i=0;i<m.length;i++){
+                    if (i%2 == 0){
+                        det += m[i][0] * determinan(kofaktor(m, m.length, m.length, i));
+                    } else {
+                        det -= m[i][0] * determinan(kofaktor(m, m.length, m.length, i));
+                    }
                 }
             }
+        } else {
+            det = 0;
         }
         return det;
     }
