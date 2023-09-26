@@ -6,7 +6,7 @@ public class inverse {
     public static void main(String[] args) {
         scan = new Scanner(System.in);
         System.out.print("Masukkan n (matriks persegi): "); int n = scan.nextInt();
-        // Membaca matriks koefisien (A)
+        // membaca matriks koefisien (A)
         double[][] A = new double[n][n];
         System.out.println("Masukkan elemen matriks (A):");
         for (int i = 0; i < n; i++) {
@@ -15,7 +15,7 @@ public class inverse {
             }
         }
 
-        // Membaca matriks hasil (B)
+        // membaca matriks hasil (B)
         double[][] B = new double[matrix.getRow(A)][1];
         System.out.println("Elemen matriks B: ");
         for(int p = 0; p < matrix.getRow(A); p++) {
