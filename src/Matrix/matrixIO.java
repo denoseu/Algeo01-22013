@@ -47,23 +47,46 @@ public class matrixIO {
 
         return mergedMatrix;
     }
+    
     // Membaca matrix dari keyboard
-    public static double[][] readMatrixKeyboard(){
+    public static double[][] readMatrixKeyboard(int n, int m){
         Scanner scan = new Scanner(System.in);
-        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
-        System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
-        // bikin matrix uk. row x col (A)
-        double[][] a = new double[row][col];
-        // isi matrix
-        System.out.println("Elemen matriks: ");
-        for(int i = 0;i < row;i++) {
-            for(int j = 0;j < col;j++) {
+        double[][] a = new double[n][m];
+        for(int i = 0;i < n;i++) {
+            for(int j = 0;j < m;j++) {
                 a[i][j] = scan.nextDouble();
             }
         }
         scan.close();
         return a;
     }
+    // Membaca Matrix dari Keyboard untuk determinan dan inverse
+    public static double[][] readMatrixDet(){
+        double[][] m;
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Masukkan n: "); int row = scan.nextInt();
+        scan.close();
+        System.out.println("Silakan masukan isi matrix");
+        System.out.println("Elemen matriks: ");
+        m = readMatrixKeyboard(row, row);
+        return m;
+    }
+
+    // Membaca Matrix dari Keyboard untuk interpolasi
+    public static double[][] readMatrixInterpolasi(){
+        double[][] m;
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Masukkan n: "); int row = scan.nextInt();
+        scan.close();
+        System.out.println("Silakan masukan isi matrix");
+        System.out.println("Elemen matriks: ");
+        m = readMatrixKeyboard(row, 2);
+        return m;
+    }
+
+    // Membaca Matrix dari Keyboard untuk regresi linear
+    
+
     // Membaca Matrix dari File
     public static double[][] fileToMatrix(){
         Scanner nameSc = new Scanner(System.in);
