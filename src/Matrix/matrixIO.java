@@ -74,14 +74,18 @@ public class matrixIO {
 
     // Membaca Matrix dari Keyboard untuk interpolasi
     public static double[][] readMatrixInterpolasi(){
-        double[][] m;
         Scanner scan = new Scanner(System.in);
-        System.out.println("Masukkan n: "); int row = scan.nextInt();
-        scan.close();
+        System.out.println("Masukkan n: "); int n = scan.nextInt();
         System.out.println("Silakan masukan isi matrix");
         System.out.println("Elemen matriks: ");
-        m = readMatrixKeyboard(row, 2);
-        return m;
+        double[][] a = new double[n][2];
+        for(int i = 0;i < n;i++) {
+            for(int j = 0;j < 2;j++) {
+                a[i][j] = scan.nextDouble();
+            }
+        }
+        scan.close();
+        return a;   
     }
 
     // Membaca Matrix dari Keyboard untuk regresi linear
