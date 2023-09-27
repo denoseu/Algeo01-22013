@@ -1,18 +1,21 @@
-public class gauss extends matrix {
+import src.Matrix.*;
+// import src.Matrix.matrixOP.getRow;
+
+public class gauss {
 
     // cek apakah dia baris terakhirnya semuanya 0 kecuali solusi
     // intinya dia ga ad solusi
     public static boolean noSolusi (double[][] m) {
         // cari sampe N-1 elemen, ada yang bukan 0 ga
-        for (int j = 0; j < getCol(m) - 1; j++) {
-            if (m[getRow(m)-1][j] != 0) {
+        for (int j = 0; j < matrixOP.getCol(m) - 1; j++) {
+            if (m[matrixOP.getRow(m)-1][j] != 0) {
                 return false;  // karena kalo ga 0 dia baik" saja
             }
         }
         // lalu kalo udah cek atas dia ngecek elemen terakhirnya
         // klo bukan 0 terus yang lainnya 0 berarti emang ga ada solusi
 
-        if ((m[getRow(m)-1][getCol(m)-1] != 0)) {
+        if ((m[matrixOP.getRow(m)-1][matrixOP.getCol(m)-1] != 0)) {
             return true;
         }
         else {
@@ -23,8 +26,8 @@ public class gauss extends matrix {
     // cek last barisnya 0 ato ga
     public static boolean Nol (double[][] m) {
         // cari sampe N elemen, ada yang bukan 0 ga
-        for (int j = 0; j < getCol(m); j++) {
-            if (m[getRow(m)-1][j] != 0) {
+        for (int j = 0; j < matrixOP.getCol(m); j++) {
+            if (m[matrixOP.getRow(m)-1][j] != 0) {
                 return false;  // ada yang bukan 0, berarti dia ga full 0
             }
         }
@@ -32,8 +35,9 @@ public class gauss extends matrix {
     }
 
     public static void eselonbaris(double[][] m) {
-        int row = getRow(m);
-        int col = getCol(m);
+        int row = matrixOP.getRow(m);
+        int col = matrixOP.getCol(m);
+        // boolean found = false;
 
         for (int i = 0; i < row; i++) {
             // cari elemen pertama yang tidak nol di baris
@@ -45,8 +49,8 @@ public class gauss extends matrix {
                     for (int p = 0; p < col; p++) { // ato p < row+1?
                         m[i][p] /= bukannol; 
                     }
-                    // System=.out.println(" ");
-                    // displayMatrix(m);
+                    System.out.println(" ");
+                    matrixIO.displayMatrix(m);
 
                     // menolkan elemen dibawah 1 utama
                     for (int k = i + 1; k < row; k++) {
@@ -55,8 +59,8 @@ public class gauss extends matrix {
                             m[k][l] -= faktor * m[i][l];
                         }
                     }
-                    // System.out.println(" ");
-                    // displayMatrix(m);
+                    System.out.println(" ");
+                    matrixIO.displayMatrix(m);
                     break;
                 }
             }
@@ -64,20 +68,44 @@ public class gauss extends matrix {
     }
     public static void main (String[] args) {
         double[][] matriks = matrixIO.readMatrixKeyboard();
-        eselonbaris(matriks);
+        boolean found = false;
 
+        for (int i = 0; i < matrixOP.getRow(matriks); i++) {
+            // cari elemen pertama yang tidak nol di baris
+            for (int j = 0; j < matrixOP.getCol(matriks); j++) {
+                if (matriks[i][j] != 0) {
+                    eselonbaris(matriks);
+                }
+                else {
+                    int max = i;
+                    for (int n = i+1; n < matrixOP.getRow(matriks); n++) { 
+                        if (matriks[n][i] != 0) {
+                            found = true;
+                            max = n;
+                            break;
+                        }
+                    }
+                    if (found == true) {
+                        gaussjordan.tukar_baris(matriks, i, max);
+                        matrixIO.displayMatrix(matriks);
+                        eselonbaris(matriks);
+                    } 
+                }
+            }
+        }
+        
         // untuk fix kasus -0
-        for(int i = 0; i < getRow(matriks); i++) {
-            for(int j = 0; j < getCol(matriks); j++) {
+        for(int i = 0; i < matrixOP.getRow(matriks); i++) {
+            for(int j = 0; j < matrixOP.getCol(matriks); j++) {
                 if (matriks[i][j] == -0) {
                     matriks[i][j] = 0;
                 }
             }
         }
         System.out.println("Matriks eselon baris:");
-        displayMatrix(matriks);
+        matrixIO.displayMatrix(matriks);
 
-        double[] solusi = new double[getRow(matriks)];
+        double[] solusi = new double[matrixOP.getRow(matriks)];
 
         if (noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
@@ -86,12 +114,11 @@ public class gauss extends matrix {
             System.out.println("Matriks memiliki banyak solusi.");
         } // persamaan parametriknya menyusul ya :)
         else {
-            for (int m = getRow(matriks) - 1; m >= 0; m -= 1) {
-                solusi[m] = matriks[m][getCol(matriks)-1];
-                for (int n = 1; n <= getRow(matriks) - m - 1; n += 1) {
+            for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
+                solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
+                for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
                     solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
                 } 
-    
             }
 
             System.out.println("Solusi:");
