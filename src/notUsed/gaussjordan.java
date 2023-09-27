@@ -1,12 +1,13 @@
-package src.Matrix;
+package src.notUsed;
+import src.Matrix.*;
 
-public class gaussjordan {
+public class gaussjordan extends matrixOP {
     // udah bisa tapi kalo misalnya solusi banyak blm
 
     // manatau butuh
     // mengalikan baris dengan konstanta
     public static double[][] kali_baris (double[][] m, int row, int k) {
-        for (int j = 0; j < matrixOP.getCol(m); j++) {
+        for (int j = 0; j < getCol(m); j++) {
             m[row][j] = m[row][j] * k;
         }
         return m;
@@ -14,7 +15,7 @@ public class gaussjordan {
 
     // swap/tukar baris
     public static double[][] tukar_baris (double[][] m, int row1, int row2) {
-        for (int j = 0; j < matrixOP.getCol(m); j++) {
+        for (int j = 0; j < getCol(m); j++) {
             double temp = m[row1][j];
             m[row1][j] = m[row2][j];
             m[row2][j] = temp;
@@ -24,7 +25,7 @@ public class gaussjordan {
 
     // tambahin baris ke baris lain
     public static double[][] tambah_baris(double[][] m, int row_asal, int row_yangdiubah) {
-        for (int j = 0; j < matrixOP.getCol(m); j++) {
+        for (int j = 0; j < getCol(m); j++) {
             m[row_yangdiubah][j] += m[row_asal][j];
         }
         return m;
@@ -32,7 +33,7 @@ public class gaussjordan {
 
     // kurangin baris
     public static double[][] kurang_baris(double[][] m, int row_asal, int row_yangdiubah) {
-        for (int j = 0; j < matrixOP.getCol(m); j++) {
+        for (int j = 0; j < getCol(m); j++) {
             m[row_yangdiubah][j] -= m[row_asal][j];
         }
         return m;
@@ -42,9 +43,9 @@ public class gaussjordan {
     public static double[][] eliminasiGauss (double[][] m) {
         boolean noSolution = false;
         boolean manySolution = false;
-        int row = matrixOP.getRow(m);
-        int col = matrixOP.getCol(m);
-        // double[] hasil = new double[row]; // array buat nyimpen hasil
+        int row = getRow(m);
+        int col = getCol(m);
+        double[] hasil = new double[row]; // array buat nyimpen hasil
 
         for (int i = 0; i < row; i++) {
             // cari baris dengan elemen terbesar di kolom i
@@ -59,10 +60,19 @@ public class gaussjordan {
             matrixIO.displayMatrix(m);
 
             // tukar baris i dengan baris max tadi
-            tukar_baris(m, i, max);
+            matrixOP.tukar_baris(m, i, max);
 
-            System.out.println("tukar baris i dengan baris dengan elemen terbesar");
-            matrixIO.displayMatrix(m);
+            // System.out.println("tukar baris i dengan baris dengan elemen terbesar");
+            // displayMatrix(m);
+
+            if (matrixOP.noSolusi(m)) {
+                noSolution = true;
+                break;
+            }
+            else if (matrixOP.Nol(m)) {
+                manySolution = true;
+                break; // persamaan parametriknya menyusul ya :)
+            }
 
             // jadikan elemen diagonal menjadi 1 (mo bikin 1 utama)
             double pembagi = m[i][i];
@@ -77,7 +87,7 @@ public class gaussjordan {
             for (int q = 0; q < row; q++) {
                 if (q != i) {
                     double faktor = m[q][i];
-                    for (int r = i; r < col; r++) {
+                    for (int r = i; r < col; r++) { //row+1
                         m[q][r] -= faktor * m[i][r]; // kurangin baris sm yg diatas
                     }
                 }
@@ -117,9 +127,8 @@ public class gaussjordan {
     }
 
     public static void main (String[] args) {
-        double[][] matriks = matrixIO.readMatrixKeyboard();
-        double[][] solusi = eliminasiGauss(matriks);
-        double[] hasil = new double[matrixOP.getRow(matriks)];
+        double[][] matriks = matrixIO.readMatrixSPL();
+        double[] solusi = eliminasiGauss(matriks);
 
         if (gauss.noSolusi(solusi)) {
             System.out.println("Matriks tidak memiliki solusi.");

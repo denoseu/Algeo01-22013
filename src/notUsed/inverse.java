@@ -1,5 +1,5 @@
-package src.Matrix;
-
+package src.notUsed;
+import src.Matrix.*;
 import java.util.Scanner;
 
 public class inverse {
@@ -55,7 +55,7 @@ public class inverse {
                 }
             }
         }
-        // matrix.displayMatrix(I);
+        // matrixIO.displayMatrix(I);
 
         // menghitung matriks augmented [A | I]
         double[][] augmentedMatrix = new double[matrixOP.getRow(A)][2 * matrixOP.getRow(A)];
@@ -65,12 +65,12 @@ public class inverse {
                 augmentedMatrix[i][j + matrixOP.getRow(A)] = I[i][j];
             }
         }
-        // matrix.displayMatrix(augmentedMatrix);
+        matrixIO.displayMatrix(augmentedMatrix);
 
         // lakukan eliminasi Gauss-Jordan
         gaussjordan.eliminasiGauss(augmentedMatrix);
 
-        // matrix.displayMatrix(augmentedMatrix);
+        // matrixIO.displayMatrix(augmentedMatrix);
 
         // mendapatkan matriks balikan dari matriks augmented yang sudah dilakukan operasi gauss-jordan
         double[][] AInverse = new double[matrixOP.getRow(A)][matrixOP.getRow(A)];
@@ -86,20 +86,9 @@ public class inverse {
 
         // mencari solusi SPL
         double[][] hasil = matrixOP.multiplyMatrixMatrix(AInverse, B);
-        // matrix.displayMatrix(hasil);
+        // matrixIO.displayMatrix(hasil);
 
         return hasil;
-        // // simpan hasil dalam array biar bisa ditampilin
-        // double[] solusi = new double[matrixOP.getRow(hasil)];
-
-        // for (int x = matrixOP.getRow(hasil) - 1; x >= 0; x -= 1) {
-        //     solusi[x] = hasil[x][0];
-        // }
-
-        // System.out.println("Solusi:");
-        // for (int i = 0; i < solusi.length; i++) {
-        //     System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
-        // }
     }
 
     public static void main (String[] args) {

@@ -1,4 +1,6 @@
-package src.Matrix;
+package src.notUsed;
+import src.Matrix.*;
+import src.Funtions.*;
 
 public class cramer {
     /*Khusus untuk SPL dengan n variabel dan n persamaan */
@@ -17,7 +19,7 @@ public class cramer {
         double[][] A = new double[nRow][nCol-1];
         matrixOP.copyMatrix(m, A, 0, nRow, 0, nCol-1);
         
-        double detA = detKofaktor.determinan(A);
+        double detA = SPL.determinan(A);
 
         int i,j,k;
         for (j = 0; j < nCol-1; j++) {
@@ -25,7 +27,7 @@ public class cramer {
                 //Mengganti nilai di tiap kolom A dengan nilai submatrix B
                 A[i][j] = m[i][nCol-1];
             }
-            X[j][0] = (double) detKofaktor.determinan(A)/detA;
+            X[j][0] = (double) SPL.determinan(A)/detA;
             for (k = 0; k < nRow; k++) {
                 //Mereset nilai matrix A
                 A[k][j] = m[k][j];
