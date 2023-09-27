@@ -201,5 +201,16 @@ public class matrixOP {
         return trans;
     }
 
+    // tukar baris
+    public static double[][] tukar_baris (double[][] m, int row1, int row2) {
+        for (int j = 0; j < getCol(m); j++) {
+            double temp = m[row1][j];
+            m[row1][j] = m[row2][j];
+            m[row2][j] = temp;
+        }
+        return m;
+    }
+
+
     
 }

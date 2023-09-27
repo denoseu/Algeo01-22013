@@ -1,8 +1,9 @@
 import src.Matrix.*;
+import java.util.Scanner;
 // import src.Matrix.matrixOP.getRow;
 
 public class gauss {
-
+    public static Scanner scan;
     // cek apakah dia baris terakhirnya semuanya 0 kecuali solusi
     // intinya dia ga ad solusi
     public static boolean noSolusi (double[][] m) {
@@ -67,7 +68,9 @@ public class gauss {
         }
     }
     public static void main (String[] args) {
-        double[][] matriks = matrixIO.readMatrixKeyboard();
+        int row = scan.nextInt();
+        int col = scan.nextInt();
+        double[][] matriks = matrixIO.readMatrixKeyboard(row, col);
         boolean found = false;
 
         for (int i = 0; i < matrixOP.getRow(matriks); i++) {
@@ -86,7 +89,7 @@ public class gauss {
                         }
                     }
                     if (found == true) {
-                        gaussjordan.tukar_baris(matriks, i, max);
+                        matrixOP.tukar_baris(matriks, i, max);
                         matrixIO.displayMatrix(matriks);
                         eselonbaris(matriks);
                     } 
