@@ -2,24 +2,6 @@ package src.notUsed;
 import src.Matrix.*;
 
 public class gaussjordan {
-    // mencari nilai 1 utama
-    public static int satuUtama(double[][] m, int row, int j) {
-        // j adalah banyak kolom
-        int i; 
-        for (i = row - 1; i >= 0; i--) {
-            if (m[i][j] == 1) {
-                break; // dah ketemu satu utamanya
-            }
-        }
-        if (i != row) {
-            return i; // return index si 1 utama
-        } 
-        else {
-            
-            return -999; // mark
-        }
-
-    }
 
     public static void eliminasiGauss(double[][] m) {
 
@@ -31,7 +13,7 @@ public class gaussjordan {
 
         for (int p = 0; p < col; p++) {
             // cari indeks baris leading one pada kolom yang lagi di cek (j)
-            int satu = satuUtama(m, row, p);
+            int satu = matrixOP.satuUtama(m, row, p);
             for (int q = 0; q < satu; q++) {
                 if (m[q][p] != 0) {
                     double faktor = m[q][p];
