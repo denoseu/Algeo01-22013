@@ -1,4 +1,6 @@
+package src.notUsed;
 import src.Matrix.*;
+import java.util.Scanner;
 
 public class gaussjordan extends matrixOP {
     // udah bisa tapi kalo misalnya solusi banyak blm
