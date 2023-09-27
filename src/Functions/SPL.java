@@ -1,4 +1,4 @@
-package src.Funtions;
+package src.Functions;
 import java.util.Scanner;
 
 import src.Matrix.*;
@@ -267,7 +267,7 @@ public class SPL {
 
     public static double[][] getMatrixB() {
         scan = new Scanner(System.in);
-        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        System.out.print("Masukkan jumlah baris (sama dengan sebelumnya): "); int row = scan.nextInt();
         // bikin matrix uk. row A x 1 col (B)
         double[][] B = new double[row][1];
         // isi matrix
@@ -283,10 +283,10 @@ public class SPL {
     public static double[][] SPLBalikan () {
         // membaca matriks koefisien (A)
         double[][] A = getMatrixA();
-        
+
         // membaca matriks hasil (B)
         double[][] B = getMatrixB();
-        
+
         // membuat matriks identitas (I)
         double[][] I = new double[matrixOP.getRow(A)][matrixOP.getRow(A)];
         for (int i = 0; i < matrixOP.getRow(A); i++) {
@@ -298,6 +298,7 @@ public class SPL {
                 }
             }
         }
+        // matrixIO.displayMatrix(I);
 
         // menghitung matriks augmented [A | I]
         double[][] augmentedMatrix = new double[matrixOP.getRow(A)][2 * matrixOP.getRow(A)];
@@ -307,11 +308,12 @@ public class SPL {
                 augmentedMatrix[i][j + matrixOP.getRow(A)] = I[i][j];
             }
         }
-        
-        // lakukan eliminasi Gauss-Jordan 
+        matrixIO.displayMatrix(augmentedMatrix);
+
+        // lakukan eliminasi Gauss-Jordan
         GaussJ(augmentedMatrix);
-        
-        // matrix.displayMatrix(augmentedMatrix);
+
+        // matrixIO.displayMatrix(augmentedMatrix);
 
         // mendapatkan matriks balikan dari matriks augmented yang sudah dilakukan operasi gauss-jordan
         double[][] AInverse = new double[matrixOP.getRow(A)][matrixOP.getRow(A)];
@@ -320,17 +322,16 @@ public class SPL {
                 AInverse[i][j] = augmentedMatrix[i][j + matrixOP.getRow(A)];
             }
         }
-        
+
         // hasil matriks balikan = AInverse
         System.out.println("Matriks Balikan (A^(-1)): ");
         matrixIO.displayMatrix(AInverse);
-        
+
         // mencari solusi SPL
         double[][] hasil = matrixOP.multiplyMatrixMatrix(AInverse, B);
-        // matrix.displayMatrix(hasil);
-        
+        // matrixIO.displayMatrix(hasil);
+
         return hasil;
-        // // simpan hasil
     }
     
     public static boolean isSegitigaBawah(double[][] m)

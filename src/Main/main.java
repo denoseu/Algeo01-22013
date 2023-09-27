@@ -1,8 +1,9 @@
 package src.Main;
 import java.util.Scanner;
 
-import src.Funtions.eliminasiGauss;
-import src.Funtions.eliminasiGaussJordan;
+import src.Functions.eliminasiGauss;
+import src.Functions.eliminasiGaussJordan;
+import src.Functions.matriksBalikan;
 
 public class main {
     public static Scanner scan;
@@ -16,8 +17,8 @@ public class main {
                 """;
 
         String determinan = """
-            1. Metode reduksi baris
-            2. Metode ekspansi kofaktor
+            1. Metode Reduksi Baris
+            2. Metode Ekspansi Kofaktor
                 """;
         
         scan = new Scanner(System.in);
@@ -95,6 +96,7 @@ public class main {
                         case 3:
                             scan.close(); // nanti
                         case 4:
+                            matriksBalikan.main();
                             scan.close(); // nanti
                     }
 

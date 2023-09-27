@@ -53,6 +53,7 @@ public class matrixIO {
         Scanner scan = new Scanner(System.in);
         System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
         System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
+        System.out.println("Masukkan elemen matriks: ");
         double[][] a = new double[row][col];
         for(int i = 0;i < row;i++) {
             for(int j = 0;j < col;j++) {

@@ -1,4 +1,4 @@
-package src.Funtions;
+package src.Functions;
 import src.Matrix.*;
 
 public class eliminasiGaussJordan {
