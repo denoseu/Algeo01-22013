@@ -5,41 +5,10 @@ import src.Matrix.*;
 
 public class SPL {
     /*-------------- GAUSS ------------------ */
-    public static boolean noSolusi (double[][] m) {
-        // cari sampe N-1 elemen, ada yang bukan 0 ga
-        for (int j = 0; j < matrixOP.getCol(m) - 1; j++) {
-            if (m[matrixOP.getRow(m)-1][j] != 0) {
-                return false;  // karena kalo ga 0 dia baik" saja
-            }
-        }
-        // lalu kalo udah cek atas dia ngecek elemen terakhirnya
-        // klo bukan 0 terus yang lainnya 0 berarti emang ga ada solusi
-
-        if ((m[matrixOP.getRow(m)-1][matrixOP.getCol(m)-1] != 0)) {
-            //Kasus baris akhir yang semuanya bernilai 0 kecuali pada kolom terakhir
-            return true;
-        }
-        else {
-            //Kasus baris yang semuanya bernilai 0, SPL punya banyak solusi
-            return false;
-        }
-    }
-
-    // Memeriksa apakah elemen baris terakhir semuanya bernilai 0
-    public static boolean Nol (double[][] m) {
-        // cari sampe N elemen, ada yang bukan 0 ga
-        for (int j = 0; j < matrixOP.getCol(m); j++) {
-            if (m[matrixOP.getRow(m)-1][j] != 0) {
-                return false;  // ada yang bukan 0, berarti dia ga full 0
-            }
-        }
-        return true;
-    }
-
     public static void eselonbaris(double[][] m) {
         int row = matrixOP.getRow(m);
         int col = matrixOP.getCol(m);
-
+        // boolean found = false;
         for (int i = 0; i < row; i++) {
             // cari elemen pertama yang tidak nol di baris
             for (int j = 0; j < col; j++) {
@@ -47,21 +16,30 @@ public class SPL {
                     double bukannol = m[i][j];
 
                     // bagi baris oleh elemen yang bukan nol (biar dapet 1 utama)
-                    for (int p = 0; p < row+1; p++) { //p < col? 
+                    for (int p = 0; p < col; p++) { // ato p < row+1?
                         m[i][p] /= bukannol; 
                     }
                     // System.out.println(" ");
-                    // displayMatrix(m);
+                    // matrixIO.displayMatrix(m);
 
                     // menolkan elemen dibawah 1 utama
                     for (int k = i + 1; k < row; k++) {
-                        double faktor = m[k][j]; 
+                        double faktor = m[k][j];
                         for (int l = 0; l < col; l++) {
                             m[k][l] -= faktor * m[i][l];
                         }
                     }
                     // System.out.println(" ");
-                    // displayMatrix(m);
+                    // matrixIO.displayMatrix(m);
+
+                    // untuk fix kasus -0
+                    for(int a = 0; a < matrixOP.getRow(m); a++) {
+                        for(int b = 0; b < matrixOP.getCol(m); b++) {
+                            if (m[a][b] == -0) {
+                                m[a][b] = 0;
+                            }
+                        }
+                    }
                     break;
                 }
             }
