@@ -1,3 +1,4 @@
+package src.notUsed;
 import src.Matrix.*;
 import java.util.Scanner;
 // import src.Matrix.matrixOP.getRow;
@@ -68,9 +69,7 @@ public class gauss {
         }
     }
     public static void main (String[] args) {
-        int row = scan.nextInt();
-        int col = scan.nextInt();
-        double[][] matriks = matrixIO.readMatrixKeyboard(row, col);
+        double[][] matriks = matrixIO.readMatrixSPL();
         boolean found = false;
 
         for (int i = 0; i < matrixOP.getRow(matriks); i++) {

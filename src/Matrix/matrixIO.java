@@ -49,11 +49,13 @@ public class matrixIO {
     }
     
     // Membaca matrix dari keyboard
-    public static double[][] readMatrixKeyboard(int n, int m){
+    public static double[][] readMatrixKeyboard() {
         Scanner scan = new Scanner(System.in);
-        double[][] a = new double[n][m];
-        for(int i = 0;i < n;i++) {
-            for(int j = 0;j < m;j++) {
+        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
+        double[][] a = new double[row][col];
+        for(int i = 0;i < row;i++) {
+            for(int j = 0;j < col;j++) {
                 a[i][j] = scan.nextDouble();
             }
         }
@@ -68,7 +70,7 @@ public class matrixIO {
         scan.close();
         System.out.println("Silakan masukan isi matrix");
         System.out.println("Elemen matriks: ");
-        m = readMatrixKeyboard(row, row);
+        m = readMatrixKeyboard();
         return m;
     }
 
@@ -80,7 +82,7 @@ public class matrixIO {
         scan.close();
         System.out.println("Silakan masukan isi matrix");
         System.out.println("Elemen matriks: ");
-        m = readMatrixKeyboard(row, 2);
+        m = readMatrixKeyboard();
         return m;
     }
 
