@@ -177,6 +177,20 @@ public class SPL {
         return sub;
     }
 
+    public static double[][] inverse (double[][] m) {
+        double[][] inv = new double[m.length][m[0].length];
+        double[][] adj = adjoin(m);
+        if (determinan(m)!=0){
+
+            for (int i=0;i<m.length;i++){
+                for (int j=0;j<m[0].length;j++){
+                    inv[i][j] = adj[i][j]/(determinan(m));
+                }
+            }
+        } 
+        return inv;
+    }
+
 
     /*-------------- KAIDAH CRAMMER ------------------ */
     /*Khusus untuk SPL dengan n variabel dan n persamaan */
