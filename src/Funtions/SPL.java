@@ -69,96 +69,45 @@ public class SPL {
     }
 
     /*-------------- GAUSS JORDAN ------------------ */
-    // Mengalikan baris dengan konstanta
-    public static double[][] kali_baris (double[][] m, int row, int k) {
-        for (int j = 0; j < matrixOP.getCol(m); j++) {
-            m[row][j] = m[row][j] * k;
-        }
-        return m;
-    }
+    public static void GaussJ(double[][] m) {
 
-    // Swap/tukar baris
-    public static double[][] tukar_baris (double[][] m, int row1, int row2) {
-        for (int j = 0; j < matrixOP.getCol(m); j++) {
-            double temp = m[row1][j];
-            m[row1][j] = m[row2][j];
-            m[row2][j] = temp;
-        }
-        return m;
-    }
-
-    // tambahin baris ke baris lain
-    public static double[][] tambah_baris(double[][] m, int row_asal, int row_yangdiubah) {
-        for (int j = 0; j < matrixOP.getCol(m); j++) {
-            m[row_yangdiubah][j] += m[row_asal][j];
-        }
-        return m;
-    }
-
-    // kurangin baris
-    public static double[][] kurang_baris(double[][] m, int row_asal, int row_yangdiubah) {
-        for (int j = 0; j < matrixOP.getCol(m); j++) {
-            m[row_yangdiubah][j] -= m[row_asal][j];
-        }
-        return m;
-    }
-
-    // eliminasi gauss-jordan
-    public static double[] eliminasiGauss (double[][] m) {
-        boolean noSolution = false;
-        boolean manySolution = false;
+        // gauss-in dulu biar dapet matriks eselon baris
+        // nanti dilanjutin supaya dapet eselon baris tereduksi
+        eselonbaris(m);
         int row = matrixOP.getRow(m);
-        double[] hasil = new double[row]; // array buat nyimpen hasil
+        int col = matrixOP.getCol(m);
 
-        for (int i = 0; i < row; i++) {
-            // Cari baris dengan elemen terbesar di kolom i
-            int max = i;
-            for (int j = i+1; j < row; j++) {
-                if ((m[j][i]) > (m[max][i])) {
-                    max = j;
-                }
-            }
-
-            // Tukar baris i dengan baris max tadi
-            tukar_baris(m, i, max);
-
-            if (noSolusi(m)) {
-                noSolution = true;
-                break;
-            }
-            else if (Nol(m)) {
-                manySolution = true;
-                break; // persamaan parametriknya menyusul ya :)
-            }
-
-            // Jadikan elemen diagonal menjadi 1 (mo bikin 1 utama)
-            double pembagi = m[i][i];
-            for (int p = i; p < row+1; p++) {
-                m[i][p] /= pembagi;
-            }
-
-            // eliminasi baris lainnya
-            for (int q = 0; q < row; q++) {
-                if (q != i) {
-                    double faktor = m[q][i];
-                    for (int r = i; r < row+1; r++) {
-                        m[q][r] -= faktor * m[i][r]; // kurangin baris sm yg diatas
+        for (int p = 0; p < col; p++) {
+            // cari indeks baris leading one pada kolom yang lagi di cek (j)
+            int satu = matrixOP.satuUtama(m, row, p);
+            for (int q = 0; q < satu; q++) {
+                if (m[q][p] != 0) {
+                    double faktor = m[q][p];
+                    for (int r = q; r < col; r++) {
+                        m[q][r] -= faktor * m[satu][r];
+                        // System.out.println(" faktor ");
+                        // matrixIO.displayMatrix(m);
+                        // handle nilai -0
+                        if (m[q][r] == -0) {
+                            m[q][r] = 0;
+                        }
                     }
+                } 
+                // handle nilai -0
+                else if (m[q][p] == -0) {
+                    m[q][p] = 0;
                 }
             }
         }
-        if (noSolution == true) {
-            hasil[0] = -999;
-        }
-        else if (manySolution == true) {
-            hasil[0] = -2000;
-        }
-        else {
-            for (int i = 0; i < row; i++) {
-                hasil[i] = Math.round(m[i][row]); // isi hasil
+
+        // untuk fix kasus -0
+        for(int a = 0; a < matrixOP.getRow(m); a++) {
+            for(int b = 0; b < matrixOP.getCol(m); b++) {
+                if (m[a][b] == -0) {
+                    m[a][b] = 0;
+                }
             }
         }
-        return hasil;
     }
 
     /*-------------- DETERMINAN DENGAN KOFAKTOR ------------------ */
@@ -360,7 +309,7 @@ public class SPL {
         }
         
         // lakukan eliminasi Gauss-Jordan 
-        eliminasiGauss(augmentedMatrix);
+        GaussJ(augmentedMatrix);
         
         // matrix.displayMatrix(augmentedMatrix);
 
@@ -425,7 +374,7 @@ public class SPL {
             int n = matrixOP.getRow(m);
 
             if (idxFirstRowNot0(m, 0) != 0){
-                tukar_baris(m, 0, idxFirstRowNot0(m, 0));
+                matrixOP.tukar_baris(m, 0, idxFirstRowNot0(m, 0));
                 p++;
             }
             for (i = 1; i < n; i++)

@@ -3,7 +3,7 @@ import src.Matrix.*;
 
 public class gaussjordan {
 
-    public static void eliminasiGauss(double[][] m) {
+    public static void GaussJ(double[][] m) {
 
         // gauss-in dulu biar dapet matriks eselon baris
         // nanti dilanjutin supaya dapet eselon baris tereduksi
@@ -46,12 +46,12 @@ public class gaussjordan {
 
     public static void main (String[] args) {
         double[][] matriks = matrixIO.readMatrixSPL();
-        eliminasiGauss(matriks);
+        GaussJ(matriks);
 
         System.out.println("Matriks eselon baris tereduksi: ");
         matrixIO.displayMatrix(matriks);
 
         solusi.hasilSPLGauss(matriks);
-}
+    }
 
 }

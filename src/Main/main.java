@@ -2,6 +2,7 @@ package src.Main;
 import java.util.Scanner;
 
 import src.Funtions.eliminasiGauss;
+import src.Funtions.eliminasiGaussJordan;
 
 public class main {
     public static Scanner scan;
@@ -87,9 +88,10 @@ public class main {
                     switch (pilihanspl) {
                         case 1:
                             eliminasiGauss.main();
-                            scan.close(); // nanti
+                            scan.close();
                         case 2:
-                            scan.close(); // nanti
+                            eliminasiGaussJordan.main();
+                            scan.close();
                         case 3:
                             scan.close(); // nanti
                         case 4:
