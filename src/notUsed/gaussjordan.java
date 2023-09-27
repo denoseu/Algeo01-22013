@@ -51,28 +51,7 @@ public class gaussjordan {
         System.out.println("Matriks eselon baris tereduksi: ");
         matrixIO.displayMatrix(matriks);
 
-        double[] solusi = new double[matrixOP.getRow(matriks)];
-
-        if (matrixOP.noSolusi(matriks)) {
-            System.out.println("Matriks tidak memiliki solusi.");
-        }
-        else if (matrixOP.Nol(matriks)) {
-            System.out.println("Matriks memiliki banyak solusi.");
-        } // persamaan parametriknya menyusul ya :)
-        else {
-            for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
-                solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
-                for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
-                    solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
-                } 
-            }
-
-            System.out.println("Solusi:");
-            for (int i = 0; i < solusi.length; i++) {
-                System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
-            }
-            
-        }
+        solusi.hasilSPLGauss(matriks);
 }
 
 }

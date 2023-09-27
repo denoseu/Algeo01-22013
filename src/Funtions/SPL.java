@@ -38,9 +38,6 @@ public class SPL {
     }
 
     /*-------------- GAUSS JORDAN ------------------ */
-    
-
-    // eliminasi gauss-jordan
     public static void eliminasiGauss(double[][] m) {
 
         // gauss-in dulu biar dapet matriks eselon baris
@@ -237,7 +234,7 @@ public class SPL {
 
     public static double[][] getMatrixB() {
         scan = new Scanner(System.in);
-        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        System.out.print("Masukkan jumlah baris (sama dengan sebelumnya): "); int row = scan.nextInt();
         // bikin matrix uk. row A x 1 col (B)
         double[][] B = new double[row][1];
         // isi matrix
@@ -268,6 +265,7 @@ public class SPL {
                 }
             }
         }
+        // matrixIO.displayMatrix(I);
 
         // menghitung matriks augmented [A | I]
         double[][] augmentedMatrix = new double[matrixOP.getRow(A)][2 * matrixOP.getRow(A)];
@@ -277,11 +275,12 @@ public class SPL {
                 augmentedMatrix[i][j + matrixOP.getRow(A)] = I[i][j];
             }
         }
+        matrixIO.displayMatrix(augmentedMatrix);
 
-        // lakukan eliminasi Gauss-Jordan 
+        // lakukan eliminasi Gauss-Jordan
         eliminasiGauss(augmentedMatrix);
 
-        // matrix.displayMatrix(augmentedMatrix);
+        // matrixIO.displayMatrix(augmentedMatrix);
 
         // mendapatkan matriks balikan dari matriks augmented yang sudah dilakukan operasi gauss-jordan
         double[][] AInverse = new double[matrixOP.getRow(A)][matrixOP.getRow(A)];
@@ -297,9 +296,9 @@ public class SPL {
 
         // mencari solusi SPL
         double[][] hasil = matrixOP.multiplyMatrixMatrix(AInverse, B);
-        // matrix.displayMatrix(hasil);
+        // matrixIO.displayMatrix(hasil);
 
+        // mengembalikan hasil
         return hasil;
-        // // simpan hasil
     }
 }
