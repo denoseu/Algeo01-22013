@@ -36,11 +36,14 @@ public class cramer {
         return X;
     } 
 
-    /*
-    public static void main(String[] args){
-        double[][] m;
-        m = matrixIO.readMatrixKeyboard();
-        matrixIO.displayMatrix(kaidahCramer(m));
-    }
-    */
+    
+    // public static void main(String[] args){
+    //     double[][] m;
+    //     double[][] n;
+    //     m = matrixIO.readMatrixKeyboard();
+    //     n = matrixIO.readMatrixKeyboard();
+    //     matrixIO.displayMatrix(m);
+    //     matrixIO.displayMatrix(n);
+    // }
+    
 }

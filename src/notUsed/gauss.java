@@ -10,7 +10,6 @@ public class gauss {
         int row = matrixOP.getRow(m);
         int col = matrixOP.getCol(m);
         // boolean found = false;
-
         for (int i = 0; i < row; i++) {
             // cari elemen pertama yang tidak nol di baris
             for (int j = 0; j < col; j++) {
@@ -21,8 +20,8 @@ public class gauss {
                     for (int p = 0; p < col; p++) { // ato p < row+1?
                         m[i][p] /= bukannol; 
                     }
-                    System.out.println(" ");
-                    matrixIO.displayMatrix(m);
+                    // System.out.println(" ");
+                    // matrixIO.displayMatrix(m);
 
                     // menolkan elemen dibawah 1 utama
                     for (int k = i + 1; k < row; k++) {
@@ -31,8 +30,17 @@ public class gauss {
                             m[k][l] -= faktor * m[i][l];
                         }
                     }
-                    System.out.println(" ");
-                    matrixIO.displayMatrix(m);
+                    // System.out.println(" ");
+                    // matrixIO.displayMatrix(m);
+
+                    // untuk fix kasus -0
+                    for(int a = 0; a < matrixOP.getRow(m); a++) {
+                        for(int b = 0; b < matrixOP.getCol(m); b++) {
+                            if (m[a][b] == -0) {
+                                m[a][b] = 0;
+                            }
+                        }
+                    }
                     break;
                 }
             }
@@ -66,14 +74,6 @@ public class gauss {
             }
         }
         
-        // untuk fix kasus -0
-        for(int i = 0; i < matrixOP.getRow(matriks); i++) {
-            for(int j = 0; j < matrixOP.getCol(matriks); j++) {
-                if (matriks[i][j] == -0) {
-                    matriks[i][j] = 0;
-                }
-            }
-        }
         System.out.println("Matriks eselon baris:");
         matrixIO.displayMatrix(matriks);
 

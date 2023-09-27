@@ -1,102 +1,96 @@
 package src.notUsed;
 import src.Matrix.*;
 
-public class gaussjordan extends matrixOP {
-    // udah bisa tapi kalo misalnya solusi banyak blm
-
-    // eliminasi gauss-jordan
-    public static double[] eliminasiGauss (double[][] m) {
-        boolean noSolution = false;
-        boolean manySolution = false;
-        int row = getRow(m);
-        int col = getCol(m);
-        double[] hasil = new double[row]; // array buat nyimpen hasil
-
-        for (int i = 0; i < row; i++) {
-            // cari baris dengan elemen terbesar di kolom i
-            int max = i;
-            for (int j = i+1; j < row; j++) {
-                if ((m[j][i]) > (m[max][i])) {
-                    max = j;
-                }
+public class gaussjordan {
+    // mencari nilai 1 utama
+    public static int satuUtama(double[][] m, int row, int j) {
+        // j adalah banyak kolom
+        int i; 
+        for (i = row - 1; i >= 0; i--) {
+            if (m[i][j] == 1) {
+                break; // dah ketemu satu utamanya
             }
-
-            // System.out.println("cari baris dengan elemen terbesar di kolom i");
-            // displayMatrix(m);
-
-            // tukar baris i dengan baris max tadi
-            matrixOP.tukar_baris(m, i, max);
-
-            // System.out.println("tukar baris i dengan baris dengan elemen terbesar");
-            // displayMatrix(m);
-
-            if (matrixOP.noSolusi(m)) {
-                noSolution = true;
-                break;
-            }
-            else if (matrixOP.Nol(m)) {
-                manySolution = true;
-                break; // persamaan parametriknya menyusul ya :)
-            }
-
-            // jadikan elemen diagonal menjadi 1 (mo bikin 1 utama)
-            double pembagi = m[i][i];
-            for (int p = i; p < col; p++) {
-                m[i][p] /= pembagi;
-            }
-
-            // System.out.println("jadikan elemen diagonal menjadi 1 (mo bikin 1 utama)");
-            // displayMatrix(m);
-
-            // eliminasi baris lainnya
-            for (int q = 0; q < row; q++) {
-                if (q != i) {
-                    double faktor = m[q][i];
-                    for (int r = i; r < col; r++) { //row+1
-                        m[q][r] -= faktor * m[i][r]; // kurangin baris sm yg diatas
-                    }
-                }
-            }
-            
-            // System.out.println("eliminasi baris lain");
-            // displayMatrix(m);
         }
-
-        // System.out.println("matriks final");
-        // displayMatrix(m);
-        
-        if (noSolution == true) {
-            hasil[0] = -999;
-        }
-        else if (manySolution == true) {
-            hasil[0] = -2000;
-        }
+        if (i != row) {
+            return i; // return index si 1 utama
+        } 
         else {
-            for (int i = 0; i < row; i++) {
-            hasil[i] = Math.round(m[i][row]); // isi hasil
-            }
-        
+            
+            return -999; // mark
         }
-        return hasil;
+
+    }
+
+    public static void eliminasiGauss(double[][] m) {
+
+        // gauss-in dulu biar dapet matriks eselon baris
+        // nanti dilanjutin supaya dapet eselon baris tereduksi
+        gauss.eselonbaris(m);
+        int row = matrixOP.getRow(m);
+        int col = matrixOP.getCol(m);
+
+        for (int p = 0; p < col; p++) {
+            // cari indeks baris leading one pada kolom yang lagi di cek (j)
+            int satu = satuUtama(m, row, p);
+            for (int q = 0; q < satu; q++) {
+                if (m[q][p] != 0) {
+                    double faktor = m[q][p];
+                    for (int r = q; r < col; r++) {
+                        m[q][r] -= faktor * m[satu][r];
+                        // System.out.println(" faktor ");
+                        // matrixIO.displayMatrix(m);
+                        // handle nilai -0
+                        if (m[q][r] == -0) {
+                            m[q][r] = 0;
+                        }
+                    }
+                } 
+                // handle nilai -0
+                else if (m[q][p] == -0) {
+                    m[q][p] = 0;
+                }
+            }
+        }
+
+        // untuk fix kasus -0
+        for(int a = 0; a < matrixOP.getRow(m); a++) {
+            for(int b = 0; b < matrixOP.getCol(m); b++) {
+                if (m[a][b] == -0) {
+                    m[a][b] = 0;
+                }
+            }
+        }
     }
 
     public static void main (String[] args) {
         double[][] matriks = matrixIO.readMatrixSPL();
-        double[] solusi = eliminasiGauss(matriks);
+        eliminasiGauss(matriks);
 
-        if (solusi[0] == -999) {
+        System.out.println("Matriks eselon baris tereduksi: ");
+        matrixIO.displayMatrix(matriks);
+
+        double[] solusi = new double[matrixOP.getRow(matriks)];
+
+        if (matrixOP.noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
         }
-        else if (solusi[0] == -2000) {
-            System.out.println("Matriks memiliki banyak solusi."); // persamaan parametrik menyusul
-        }
+        else if (matrixOP.Nol(matriks)) {
+            System.out.println("Matriks memiliki banyak solusi.");
+        } // persamaan parametriknya menyusul ya :)
         else {
+            for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
+                solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
+                for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
+                    solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
+                } 
+            }
+
             System.out.println("Solusi:");
             for (int i = 0; i < solusi.length; i++) {
                 System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
             }
-
+            
         }
-    }
 }
 
+}

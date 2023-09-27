@@ -255,6 +255,24 @@ public class matrixOP {
         }
     }
 
+    public static boolean noSolusiJordan (double[][] m, int col, int i) {
+        // cari sampe N-1 elemen, ada yang bukan 0 ga
+        for (int j = 0; j < col - 1; j++) {
+            if (m[i][j] != 0) {
+                return false;  // karena kalo ga 0 dia baik" saja
+            }
+        }
+        // lalu kalo udah cek atas dia ngecek elemen terakhirnya
+        // klo bukan 0 terus yang lainnya 0 berarti emang ga ada solusi
+
+        if ((m[i][col-1] != 0)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     // cek last barisnya 0 ato ga
     public static boolean Nol (double[][] m) {
         // cari sampe N elemen, ada yang bukan 0 ga
@@ -266,6 +284,32 @@ public class matrixOP {
         return true;
     }
 
+    // cek apakah dalam 1 baris ada yang nol ato ga
+    public static boolean barisNol(double[][] m, int col, int i) {
+        for (int j = 0; j < col; j++) {
+            if (m[i][j] != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-    
+    // pindahin baris nol ke bawah
+    public static void pindahBarisNol (double[][] m, int row, int col) {
+        for(int i = 0; i < row; i += 1) {
+            if (barisNol(m, col, i)) { // kalo dia 0 semua
+                tukar_baris(m, i, (row - 1)); // pindah ke paling bawah
+            }
+        }
+    }
+
+    // bikin matriks default yang no solusi
+    public static void matriksNoSolusi (double[][] m) {
+        // cari sampe N-1 elemen, ada yang bukan 0 ga
+        for (int j = 0; j < matrixOP.getCol(m) - 1; j++) {
+            m[matrixOP.getRow(m)-1][j] = 0; // bikin dia jadi 0
+        }
+        m[matrixOP.getRow(m)-1][matrixOP.getCol(m)-1] = 1;
+
+    }
 }
