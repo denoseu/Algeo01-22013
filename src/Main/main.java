@@ -1,6 +1,8 @@
 package src.Main;
 import java.util.Scanner;
 
+import src.Funtions.eliminasiGauss;
+
 public class main {
     public static Scanner scan;
     public static void main (String[] args) {
@@ -84,6 +86,7 @@ public class main {
 
                     switch (pilihanspl) {
                         case 1:
+                            eliminasiGauss.main();
                             scan.close(); // nanti
                         case 2:
                             scan.close(); // nanti
