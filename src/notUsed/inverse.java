@@ -68,7 +68,7 @@ public class inverse {
         matrixIO.displayMatrix(augmentedMatrix);
 
         // lakukan eliminasi Gauss-Jordan
-        gaussjordan.eliminasiGauss(augmentedMatrix);
+        gaussjordan.GaussJ(augmentedMatrix);
 
         // matrixIO.displayMatrix(augmentedMatrix);
 
