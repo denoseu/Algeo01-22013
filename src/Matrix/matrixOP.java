@@ -201,14 +201,69 @@ public class matrixOP {
         return trans;
     }
 
-    // tukar baris
+    // Mengalikan baris dengan konstanta
+    public static double[][] kali_baris (double[][] m, int row, int k) {
+        for (int j = 0; j < matrixOP.getCol(m); j++) {
+            m[row][j] = m[row][j] * k;
+        }
+        return m;
+    }
+
+    // Swap/tukar baris
     public static double[][] tukar_baris (double[][] m, int row1, int row2) {
-        for (int j = 0; j < getCol(m); j++) {
+        for (int j = 0; j < matrixOP.getCol(m); j++) {
             double temp = m[row1][j];
             m[row1][j] = m[row2][j];
             m[row2][j] = temp;
         }
         return m;
+    }
+
+    // tambahin baris ke baris lain
+    public static double[][] tambah_baris(double[][] m, int row_asal, int row_yangdiubah) {
+        for (int j = 0; j < matrixOP.getCol(m); j++) {
+            m[row_yangdiubah][j] += m[row_asal][j];
+        }
+        return m;
+    }
+
+    // kurangin baris
+    public static double[][] kurang_baris(double[][] m, int row_asal, int row_yangdiubah) {
+        for (int j = 0; j < matrixOP.getCol(m); j++) {
+            m[row_yangdiubah][j] -= m[row_asal][j];
+        }
+        return m;
+    }
+
+    // cek apakah dia baris terakhirnya semuanya 0 kecuali solusi
+    // intinya dia ga ad solusi
+    public static boolean noSolusi (double[][] m) {
+        // cari sampe N-1 elemen, ada yang bukan 0 ga
+        for (int j = 0; j < matrixOP.getCol(m) - 1; j++) {
+            if (m[matrixOP.getRow(m)-1][j] != 0) {
+                return false;  // karena kalo ga 0 dia baik" saja
+            }
+        }
+        // lalu kalo udah cek atas dia ngecek elemen terakhirnya
+        // klo bukan 0 terus yang lainnya 0 berarti emang ga ada solusi
+
+        if ((m[matrixOP.getRow(m)-1][matrixOP.getCol(m)-1] != 0)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // cek last barisnya 0 ato ga
+    public static boolean Nol (double[][] m) {
+        // cari sampe N elemen, ada yang bukan 0 ga
+        for (int j = 0; j < matrixOP.getCol(m); j++) {
+            if (m[matrixOP.getRow(m)-1][j] != 0) {
+                return false;  // ada yang bukan 0, berarti dia ga full 0
+            }
+        }
+        return true;
     }
 
 

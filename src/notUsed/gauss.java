@@ -5,36 +5,6 @@ import java.util.Scanner;
 
 public class gauss {
     public static Scanner scan;
-    // cek apakah dia baris terakhirnya semuanya 0 kecuali solusi
-    // intinya dia ga ad solusi
-    public static boolean noSolusi (double[][] m) {
-        // cari sampe N-1 elemen, ada yang bukan 0 ga
-        for (int j = 0; j < matrixOP.getCol(m) - 1; j++) {
-            if (m[matrixOP.getRow(m)-1][j] != 0) {
-                return false;  // karena kalo ga 0 dia baik" saja
-            }
-        }
-        // lalu kalo udah cek atas dia ngecek elemen terakhirnya
-        // klo bukan 0 terus yang lainnya 0 berarti emang ga ada solusi
-
-        if ((m[matrixOP.getRow(m)-1][matrixOP.getCol(m)-1] != 0)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    // cek last barisnya 0 ato ga
-    public static boolean Nol (double[][] m) {
-        // cari sampe N elemen, ada yang bukan 0 ga
-        for (int j = 0; j < matrixOP.getCol(m); j++) {
-            if (m[matrixOP.getRow(m)-1][j] != 0) {
-                return false;  // ada yang bukan 0, berarti dia ga full 0
-            }
-        }
-        return true;
-    }
 
     public static void eselonbaris(double[][] m) {
         int row = matrixOP.getRow(m);
@@ -109,10 +79,10 @@ public class gauss {
 
         double[] solusi = new double[matrixOP.getRow(matriks)];
 
-        if (noSolusi(matriks)) {
+        if (matrixOP.noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
         }
-        else if (Nol(matriks)) {
+        else if (matrixOP.Nol(matriks)) {
             System.out.println("Matriks memiliki banyak solusi.");
         } // persamaan parametriknya menyusul ya :)
         else {
