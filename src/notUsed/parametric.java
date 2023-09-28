@@ -26,7 +26,8 @@ public class parametric {
                         hasil = hasil + (" + (" + (-xN) + ")" + par[i+1]);
                     }
                 }
-            } else {
+            } 
+            else {
                 hasil = "x" + (j + 1) + " = " + par[j+1];
             }
             solusi[j] = hasil;

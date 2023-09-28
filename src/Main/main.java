@@ -7,7 +7,7 @@ import src.Functions.matriksBalikan;
 
 public class main {
     public static Scanner scan;
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         String SPL = """
             1. Metode Eliminasi Gauss
@@ -90,13 +90,17 @@ public class main {
                         case 1:
                             eliminasiGauss.main();
                             scan.close();
+                            play = false;
+                            break;
                         case 2:
                             eliminasiGaussJordan.main();
+                            play = false;
                             scan.close();
                         case 3:
                             scan.close(); // nanti
                         case 4:
                             matriksBalikan.main();
+                            play = false;
                             scan.close(); // nanti
                     }
 

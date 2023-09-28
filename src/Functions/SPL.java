@@ -400,24 +400,25 @@ public class SPL {
             GaussJ(m);
         }
 
-        for (int j = 0; j < (m[0].length) - 1; j++) { // i = kolom
-            int lOne = matrixOP.satuUtama(m, m.length, j);
-            if (lOne != (-1)) {
-                hasil = hasil + ("x" + (j + 1) + " = " + m[lOne][(m[0].length) - 1]);
-                for (int i = (j + 1); i < (m[0].length) - 1; i++) {
+        for (int j = 0; j < (matrixOP.getCol(m)) - 1; j++) { // i = kolom
+            int lOne = matrixOP.satuUtama(m, matrixOP.getRow(m), j);
+            if (lOne != (-999)) {
+                hasil = hasil + ("x" + (j + 1) + " = " + m[lOne][(matrixOP.getCol(m)) - 1]);
+                for (int i = (j + 1); i < (matrixOP.getCol(m)) - 1; i++) {
                     double xN = m[lOne][i];
                     if (xN != 0) {
                         hasil = hasil + (" + (" + (-xN) + ")" + par[i+1]);
                     }
                 }
-            } else {
+            } 
+            else {
                 hasil = "x" + (j + 1) + " = " + par[j+1];
             }
             solusi[j] = hasil;
             hasil = "";
         }
 
-        for (int i = 0; i < m[0].length - 1; i++) {
+        for (int i = 0; i < (matrixOP.getCol(m)) - 1; i++) {
             System.out.println(solusi[i]);
         }
 
