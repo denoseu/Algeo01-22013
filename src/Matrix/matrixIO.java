@@ -59,7 +59,6 @@ public class matrixIO {
                 a[i][j] = scan.nextDouble();
             }
         }
-        scan.close();
         return a;
     }
     // Membaca Matrix dari Keyboard untuk determinan dan inverse
