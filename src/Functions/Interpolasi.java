@@ -7,8 +7,7 @@ public class Interpolasi {
     public static double[] solutionInterpolasi(){
         double [][] m = inputInterpolasi();
         double [][] tempM = new double[m.length][m.length+1];
-        // double result = 0;
-        // masukan n, (x0,y0)....
+        
         // Mengubah masukan menjadi matrix
         for (int i = 0;i< m.length;i++){
             for(int j = 0; j < m.length + 1 ; j++){

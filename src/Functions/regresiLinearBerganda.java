@@ -1,10 +1,35 @@
 package src.Functions;
 import java.util.Scanner;
+
+
 import src.Matrix.*;
 
 
 public class regresiLinearBerganda {
     public static Scanner scan;
+
+    // Mencari nilai beta
+    public static double[] solutionReg(){
+        double[][] inputM =inputReg();
+        double[][] matrix = matrixReg(inputM);
+
+        double[] solusi = matrixOP.getGaussMatrix(matrix);
+        return solusi;
+    }
+
+
+    public static double estimateReg(double[] s, int x){
+        double result = 0;
+        for (int i=0 ; i<s.length;i++){
+            if (i == 0){
+                result += s[i];
+            } else {
+                result += s[i] * x;
+            }
+        }
+        return result;
+    }
+
     public static double[][] inputReg(){
         scan = new Scanner(System.in);
         System.out.print("Masukkan jumlah pengubah x: "); int n = scan.nextInt();
@@ -25,7 +50,7 @@ public class regresiLinearBerganda {
         return matrix;
     }
 
-
+    // Mencari matrix normal estimation equation
     public static double[][] matrixReg(double[][] a){
         double[][] m = new double[a[0].length][a[0].length+1];
         for (int i =0; i<(a[0].length);i++){
@@ -49,14 +74,7 @@ public class regresiLinearBerganda {
         return m;
 
     }
-    // Menjumlahan semua Y
-    public static double addY(double[][]m){
-        double result = 0;
-        for (int i = 0;i<m.length;i++){
-            result += m[i][0];
-        }
-        return result;
-    }
+
     // Menjumkahkan semua satu baris
     public static double addOneCol(double[][] m, int col){
         double result = 0;
@@ -81,34 +99,24 @@ public class regresiLinearBerganda {
         return result;
     }
 
-    // Menghasilkan perkalian dengan y 
-    public static double yOperation (double[][] x, double[][]y, int rowSelector){
-        double result;
-        result = 0;
-        for(int i = 0;i<x.length;i++){
-            for (int j =0;j<x[0].length;j++){
-                if ( i == rowSelector){
-                    
-                    result += x[rowSelector][j] * y[j][0];
-                }
-            }
-        }
-        return result;
-    }
 
     public static void main(String[] args){
-        double [][] m = inputReg();
-        // double [][] a = inputY(m);
+        double [][] a = inputReg();
         // for (int i =0;i<m.length;i++){
         //     for (int j=0;j<m[0].length;j++){
         //         m[i][j] = 5-i;
         //     }
         // }
-        // matrixIO.displayMatrix(m);
+        matrixIO.displayMatrix(matrixReg(a));
         // System.out.println(multiplyEl(m, 1, 0) );
         // matrixIO.displayMatrix(a);
         // System.out.println(yOperation(m, a, 1));
-        matrixIO.displayMatrix(matrixReg(m));
+        double[] s = solutionReg();
+        for (int i= 0; i<s.length;i++){
+            System.out.print("b" + i + " ");
+            System.out.println(s[i]);
+        }
     }
+
     
 }
