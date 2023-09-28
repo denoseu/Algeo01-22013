@@ -78,7 +78,7 @@ public class matrixIO {
     
 
     // Membaca Matrix dari File
-    public static double[][] fileToMatrix(int type){
+    public static double[][] fileToMatrix(int type) {
         Scanner nameSc = new Scanner(System.in);
         System.out.println("Masukkan nama file input lengkap dengan .txt: ");
         String name = nameSc.nextLine();
@@ -101,7 +101,7 @@ public class matrixIO {
             //Mengisi matrix
             File file = new File(path);
             Scanner fReader = new Scanner(file);
-            int i=0;
+            int i = 0;
             int j = 0;
 
             while(fReader.hasNextLine() && i<count[0] & j<count[1]){
