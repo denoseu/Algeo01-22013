@@ -10,7 +10,7 @@ public class eliminasiGaussJordan {
         System.out.println("Matriks eselon baris tereduksi: ");
         matrixIO.displayMatrix(matriks);
 
-        matrixOP.hasilSPLGauss(matriks);
+        matrixOP.hasilSPLGaussJordan(matriks);
     }
 
 }
