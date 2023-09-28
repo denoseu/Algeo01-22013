@@ -53,11 +53,72 @@ public class Interpolasi {
         scan.close();
         return m;
     }
+
+    public static void output (double[] m){
+
+        int n, i;
+        n = m.length;
+
+        System.out.print("P(x) = ");
+        for (i = n-1; i >= 0 ; i--){
+            if (i == 0) {
+                if (m[i] == 0) {
+                    continue;
+                }
+                else {
+                    System.out.print(String.format("%.3f", m[i]));
+                }
+            }
+            else if (i == 1) {
+                if (m[i] == 0) {
+                    continue;
+                }
+                else {
+                    if ((m[i+1] == 0) && (m[i-1] != 0)) {
+                        System.out.print(String.format("%.3f", m[i]) + "x" + " + ");
+                    }
+                    else if ((m[i+1] == 0) && (m[i-1] == 0)) {
+                        System.out.print(String.format("%.3f", m[i]) + "x");
+                    }
+                    else {
+                        System.out.print(" + " + String.format("%.3f", m[i]) + "x" + " + ");
+                    }
+                }
+            }
+            else if (i == n - 1) {
+                if (m[i] == 0) {
+                    continue;
+                }
+                else {
+                    System.out.print(String.format("%.3f", m[i]) + "x^" + i);
+                }
+            }
+            else {
+                if (m[i] == 0) {
+                    continue;
+                }
+                else {
+                    if (m[i+1] == 0) {
+                        System.out.print(String.format("%.3f", m[i]) + "x^" + i);
+                    }
+                    else {
+                        System.out.print(" + " + String.format("%.3f", m[i]) + "x^" + i);
+                    }
+                }
+            }
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args){
         double[] m = solutionInterpolasi();
+        
         for (int i =0;i<m.length;i++){
-            System.out.println("x" + i + ": " + m[i]);
+            System.out.format("x" + i + ": " + "%.03f", m[i]);
+            System.out.println();
         }
+        output(m);
+
         System.out.println(estimate(m, 9));
 
     }
