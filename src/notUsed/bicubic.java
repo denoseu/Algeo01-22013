@@ -163,7 +163,7 @@ public class bicubic {
         // matrixIO.displayMatrix(newM);
         // System.out.println("");
         // double[][] bicubic = matriksX();
-        // // matrixIO.displayMatrix(bicubic);
+        // matrixIO.displayMatrix(bicubic);
         // // System.out.println("");
         // double[][] kali = inverseX(bicubic);
 
