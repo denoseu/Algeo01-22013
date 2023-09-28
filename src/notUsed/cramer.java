@@ -42,7 +42,7 @@ public class cramer {
 
         System.out.println("Solusi:");
         for (int i = 0; i < kaidahCramer(m).length; i++) {
-            System.out.printf("x%d = %.3f\n", i+1, kaidahCramer(m)[i]);
+            System.out.printf("x%d = %.3f\n", i+1, kaidahCramer(m)[i][0]);
         }
     }
     

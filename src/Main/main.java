@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import src.Functions.eliminasiGauss;
 import src.Functions.eliminasiGaussJordan;
+import src.Functions.kaidahCramer;
 import src.Functions.matriksBalikan;
 
 public class main {
@@ -94,14 +95,19 @@ public class main {
                             break;
                         case 2:
                             eliminasiGaussJordan.main();
-                            play = false;
                             scan.close();
+                            play = false;
+                            break;
                         case 3:
-                            scan.close(); // nanti
+                            kaidahCramer.main();
+                            scan.close();
+                            play = false;
+                            break;
                         case 4:
                             matriksBalikan.main();
+                            scan.close();
                             play = false;
-                            scan.close(); // nanti
+                            break;
                     }
 
                     play = false;
