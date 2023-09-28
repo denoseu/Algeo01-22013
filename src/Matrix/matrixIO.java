@@ -2,7 +2,9 @@ package src.Matrix;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.BufferedReader;
 
 public class matrixIO {
     /*------ INPUT ------- */
@@ -50,7 +52,7 @@ public class matrixIO {
     
     // Membaca matrix dari keyboard
     public static double[][] readMatrixKeyboard() {
-        Scanner scan = new Scanner(System.in);
+        scan = new Scanner(System.in);
         System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
         System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
         System.out.println("Masukkan elemen matriks: ");
@@ -73,24 +75,10 @@ public class matrixIO {
         m = readMatrixKeyboard();
         return m;
     }
-
-    // Membaca Matrix dari Keyboard untuk interpolasi
-    public static double[][] readMatrixInterpolasi(){
-        double[][] m;
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Masukkan n: "); int row = scan.nextInt();
-        scan.close();
-        System.out.println("Silakan masukan isi matrix");
-        System.out.println("Elemen matriks: ");
-        m = readMatrixKeyboard();
-        return m;
-    }
-
-    // Membaca Matrix dari Keyboard untuk regresi linear
     
 
     // Membaca Matrix dari File
-    public static double[][] fileToMatrix(){
+    public static double[][] fileToMatrix(int type){
         Scanner nameSc = new Scanner(System.in);
         System.out.println("Masukkan nama file input lengkap dengan .txt: ");
         String name = nameSc.nextLine();
@@ -99,8 +87,15 @@ public class matrixIO {
         String path = "./test/input/" +name;
         try{
             
+            int[] count = new int [2];
             // Membuat matrix
-            int[] count = countRowCol(path);
+            if (type == 1){
+                count = countRowCol(path);
+
+            } else if (type == 2){
+                count = countRowColSC(path);
+            }
+            
             double[][] matrix = new double[count[0]][count[1]];
 
             //Mengisi matrix
@@ -137,16 +132,17 @@ public class matrixIO {
         int[] count = new int[2];
 
         try{
-            File file = new File(path);
-            Scanner fileReader = new Scanner(file);
+            BufferedReader fileReader = new BufferedReader(new FileReader(path));
 
             // Mencari nCol dan nRow
-            int row = 0;
+            int row = (countLine(path));
             int col = 0;
-            
-            while (fileReader.hasNextLine()){
-                col = (fileReader.nextLine()).split("\\s+").length;
-                row +=1;
+            int currentLine = 0;
+            while ((fileReader.readLine()) != null){
+                currentLine++;
+                if (currentLine == (row-2)){
+                    col = (fileReader.readLine()).split("\\s+").length;
+                }
             }
             fileReader.close();
             
@@ -155,12 +151,97 @@ public class matrixIO {
 
             return count;
 
-        } catch (FileNotFoundException e){
+        } catch (IOException e){
             System.out.println("File tidak ditemukan. Terjadi kesalahan.");
             count[0] = 0;
             count[1] = 0;
 
             return count;
+        }
+    }
+
+    // Mendapatkan banyak nRow dan nCol dari file yang memiliki taksiran
+    public static int[] countRowColSC(String path){
+        int[] count = new int[2];
+
+        try{
+            BufferedReader fileReader = new BufferedReader(new FileReader(path));
+
+            // Mencari nCol dan nRow
+            int row = (countLine(path) - 1);
+            int col = 0;
+            int currentLine = 0;
+            while ((fileReader.readLine()) != null){
+                currentLine++;
+
+                if (currentLine == (row-1)){
+                    col = (fileReader.readLine()).split("\\s+").length;
+                }
+                
+            }
+            fileReader.close();
+            
+            count[0] = row;
+            count[1] = col;
+
+            return count;
+
+        } catch (IOException e){
+            System.out.println("File tidak ditemukan. Terjadi kesalahan.");
+            count[0] = 0;
+            count[1] = 0;
+
+            return count;
+        }
+
+    }
+
+    // Menghitung jumalah baris dalam file
+    public static int countLine(String path){
+        // Mencari jumlah baris
+        int lineCount = 0;
+        try{
+            BufferedReader fileReader = new BufferedReader(new FileReader(path));
+            
+            while (fileReader.readLine() != null){
+                lineCount ++;
+            }
+            fileReader.close();
+
+            return lineCount;
+
+        } catch (IOException e){
+            System.out.println("File tidak ditemukan. Terjadi kesalahan.");
+
+            return lineCount;
+        }
+    }
+
+    // Menghasilkan nilai taksiran X untuk fungsi interpolasi
+    public static double getTaksiran(String path){
+        double value = 0;
+        try{
+            BufferedReader fileReader = new BufferedReader(new FileReader(path));
+
+            // Mencari nCol dan nRow
+            int lineCount = countLine(path);
+            int currentLine = 0;
+            while ((fileReader.readLine()) != null){
+                currentLine++;
+
+                if (currentLine == (lineCount-1)){
+                    String temp = fileReader.readLine();
+                    value = Double.parseDouble(temp);
+                }
+                
+            }
+            fileReader.close();
+
+            return value;
+
+        } catch (IOException e){
+            System.out.println("File tidak ditemukan. Terjadi kesalahan.");
+            return value;
         }
 
     }
@@ -236,5 +317,14 @@ public class matrixIO {
         return text;
     }
     
-
+    public static void main(String[] args){
+        // System.out.println(countLine("./test/input/text.txt"));
+        // int [] rc = countRowCol("./test/input/text.txt");
+        // for (int i=0;i<rc.length;i++){
+        //     System.out.println(rc[i]);
+        // }
+        // double[][] m = fileToMatrix(2);
+        // displayMatrix(m);
+        System.out.println(getTaksiran("./test/input/text.txt"));
+    }
 }

@@ -9,15 +9,14 @@ public class regresiLinearBerganda {
     public static Scanner scan;
 
     // Mencari nilai beta
-    public static double[] solutionReg(){
-        double[][] inputM =inputReg();
-        double[][] matrix = matrixReg(inputM);
+    public static double[] solutionReg(double[][] m){
+        double[][] matrix = matrixReg(m);
 
         double[] solusi = matrixOP.getGaussMatrix(matrix);
         return solusi;
     }
 
-
+    // Mencari taksiran nilai x
     public static double estimateReg(double[] s, int x){
         double result = 0;
         for (int i=0 ; i<s.length;i++){
@@ -101,17 +100,10 @@ public class regresiLinearBerganda {
 
 
     public static void main(String[] args){
-        double [][] a = inputReg();
-        // for (int i =0;i<m.length;i++){
-        //     for (int j=0;j<m[0].length;j++){
-        //         m[i][j] = 5-i;
-        //     }
-        // }
+        // double [][] a = inputReg();
+        double[][] a = matrixIO.fileToMatrix(2);
         matrixIO.displayMatrix(matrixReg(a));
-        // System.out.println(multiplyEl(m, 1, 0) );
-        // matrixIO.displayMatrix(a);
-        // System.out.println(yOperation(m, a, 1));
-        double[] s = solutionReg();
+        double[] s = solutionReg(a);
         for (int i= 0; i<s.length;i++){
             System.out.print("b" + i + " ");
             System.out.println(s[i]);
