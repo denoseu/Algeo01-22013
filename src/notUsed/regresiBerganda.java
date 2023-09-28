@@ -1,4 +1,4 @@
-package src.Funtions;
+package src.notUsed;
 import java.util.Scanner;
 import src.Matrix.*;
 
