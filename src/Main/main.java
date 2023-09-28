@@ -134,7 +134,7 @@ public class Main {
                             
                             if (inputGJ == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                eliminasiGaussJordan.main();
+                                eliminasiGaussJordan.keyboard();
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
@@ -156,7 +156,7 @@ public class Main {
                             
                             if (inputbalikan == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                matriksBalikan.main();
+                                matriksBalikan.keyboard();
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
@@ -178,7 +178,7 @@ public class Main {
                             
                             if (inputcramer == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                kaidahCramer.main();
+                                kaidahCramer.keyboard();
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
@@ -235,7 +235,9 @@ public class Main {
                     break; 
             }
 
-        } while (pilihan < 7);
+        } 
+        while (pilihan < 7);
+        
         scan.close();
     }
 }

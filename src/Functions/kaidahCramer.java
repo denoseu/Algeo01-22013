@@ -2,7 +2,7 @@ package src.Functions;
 import src.Matrix.*;
 
 public class kaidahCramer {
-    public static void main(){
+    public static void keyboard (){
         double[][] m;
         m = matrixIO.readMatrixSPL();
 
