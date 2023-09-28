@@ -412,4 +412,16 @@ public class matrixOP {
             System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
         }
     }
+    // Hasil Gauss berbentuk matrix
+    public static double[] getGaussMatrix (double[][] m){
+        SPL.eselonbaris(m);
+        double[] solusi = new double[matrixOP.getRow(m)];
+        for (int a = matrixOP.getRow(m) - 1; a >= 0; a -= 1) {
+            solusi[a] = m[a][matrixOP.getCol(m)-1];
+            for (int n = 1; n <= matrixOP.getRow(m) - a - 1; n += 1) {
+                solusi[a] = solusi[a] - m[a][a + n] * solusi[a + n];
+            } 
+        }
+        return solusi;
+    }
 }

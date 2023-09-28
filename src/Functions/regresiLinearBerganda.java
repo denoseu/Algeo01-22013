@@ -15,9 +15,9 @@ public class regresiLinearBerganda {
             System.out.println("Masukkan titik untuk sampel " + (i+1) + " : ");
             for (int j=0;j<n+1;j++){
                 if (j == n){
-                    System.out.print("y"+ (i+1) + "= ");
+                    System.out.print("y"+ (i+1) + ": ");
                 } else {
-                    System.out.print("x" + (j+1) + "= ");
+                    System.out.print("x" + (j+1) + ": ");
                 }
                 matrix[i][j] = scan.nextDouble();
             }
