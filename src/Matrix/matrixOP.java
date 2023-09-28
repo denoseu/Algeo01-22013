@@ -285,12 +285,27 @@ public class matrixOP {
         return true;
     }
 
+    
     // cek apakah dalam 1 baris ada yang nol ato ga
     public static boolean barisNol(double[][] m, int col, int i) {
         for (int j = 0; j < col; j++) {
             if (m[i][j] != 0) {
                 return false;
             }
+        }
+        return true;
+    }
+
+    // cek apakah dalam 1 kolom ada yang nol semua atau ngga
+    public static boolean KolomNol(double[][] m) {
+        int j = 0;
+        while (j < getCol(m)-1) {
+            for (int i = 0; i < getRow(m)-1; i++) {
+                if (m[i][j] != 0) {
+                    j++;
+                }
+            }
+            j++;
         }
         return true;
     }
@@ -338,7 +353,7 @@ public class matrixOP {
         if (matrixOP.noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
         }
-        else if (matrixOP.Nol(matriks)) {
+        else if ((matrixOP.Nol(matriks)) || (matrixOP.KolomNol(matriks))) {
             System.out.println("Matriks memiliki banyak solusi.");
             SPL.parameter(matriks, false);
         }
@@ -364,7 +379,7 @@ public class matrixOP {
         if (matrixOP.noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
         }
-        else if (matrixOP.Nol(matriks)) {
+        else if ((matrixOP.Nol(matriks)) || (matrixOP.KolomNol(matriks))) {
             System.out.println("Matriks memiliki banyak solusi.");
             SPL.parameter(matriks, true);
         }

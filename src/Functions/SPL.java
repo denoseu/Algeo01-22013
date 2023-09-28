@@ -423,13 +423,4 @@ public class SPL {
 
         return solusi;
     }
-
-    // public static void main(String[] args){
-    //     double[][] m;
-    //     m = matrixIO.readMatrixKeyboard();
-
-    //     System.out.println("Determinan:");
-    //     System.out.printf("%d\n", detReduksiBaris(m));
-        
-    // }
 }
