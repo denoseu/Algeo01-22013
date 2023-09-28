@@ -1,4 +1,4 @@
-package src.Funtions;
+package src.Functions;
 import java.util.Scanner;
 
 import src.Matrix.*;

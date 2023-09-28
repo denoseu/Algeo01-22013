@@ -24,7 +24,7 @@ public class inverse {
 
     public static double[][] getMatrixB() {
         scan = new Scanner(System.in);
-        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        System.out.print("Masukkan jumlah baris (sama dengan sebelumnya): "); int row = scan.nextInt();
         // bikin matrix uk. row A x 1 col (B)
         double[][] B = new double[row][1];
         // isi matrix
@@ -68,7 +68,7 @@ public class inverse {
         matrixIO.displayMatrix(augmentedMatrix);
 
         // lakukan eliminasi Gauss-Jordan
-        gaussjordan.eliminasiGauss(augmentedMatrix);
+        gaussjordan.GaussJ(augmentedMatrix);
 
         // matrixIO.displayMatrix(augmentedMatrix);
 
@@ -94,16 +94,6 @@ public class inverse {
     public static void main (String[] args) {
         double[][] matriks = SPLBalikan();
 
-        // simpan hasil dalam array biar bisa ditampilin
-        double[] solusi = new double[matrixOP.getRow(matriks)];
-
-        for (int x = matrixOP.getRow(matriks) - 1; x >= 0; x -= 1) {
-            solusi[x] = matriks[x][0];
-        }
-
-        System.out.println("Solusi:");
-        for (int i = 0; i < solusi.length; i++) {
-            System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
-        }
+        solusi.hasilSPLInverse(matriks);
     }
 }
