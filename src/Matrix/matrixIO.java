@@ -226,7 +226,8 @@ public class matrixIO {
             for (int j=0;j<m[i].length;j++){
                 if (j!= m[i].length -1){
                     text += m[i][j] + " ";
-                } else {
+                } 
+                else {
                     text += m[i][j] + "\n";
                 }
             }
