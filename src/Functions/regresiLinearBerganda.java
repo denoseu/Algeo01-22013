@@ -119,42 +119,39 @@ public class regresiLinearBerganda {
             } else {
                 if (s[i] < 0){
                     System.out.print(" - " + df.format(Math.abs(s[i])));
+                    System.out.print("x" + i);
                 } else{
                     System.out.print(" + " + df.format(s[i]));
+                    System.out.print("x" + i);
                 }
             }
         }
+        System.out.println();
     }
 
     public static void hasilEstimateRLB(double result){
         DecimalFormat df = new DecimalFormat("0.000");
         System.out.print("Hasil taksiran: ");
         System.out.print(df.format(result));
+        System.out.println();
     }
     public static void main(String[] args){
-        // double [][] a = inputReg();
-        // double[][] a = matrixIO.fileToMatrix(2);
-        // matrixIO.displayMatrix(matrixReg(a));
-        // double[] s = solutionReg(a);
-        // for (int i= 0; i<s.length;i++){
-        //     System.out.print("b" + i + " ");
-        //     System.out.println(s[i]);
-        // }
-        double[][] m = matrixIO.fileToMatrix(1);
-        double[] x = matrixIO.getAB("./test/input/text.txt",2);
+        String path = matrixIO.inputFile();
+        double[][] m = matrixIO.fileToMatrix(path,2);
+        double[] x = matrixIO.getTaksiran(path);
         double[] s = solutionReg(m);
-        hasilRLB(s);
         double result = estimateReg(s, x);
+        hasilRLB(s);
         hasilEstimateRLB(result);
-        // for (int i=0;i<s.length;i++){
-        //     System.out.println("b" + i);
+        // hasilRLB(s);
+        // System.out.println(s.length);
+        // for (int i =0 ;i<s.length;i++){
+        //     System.out.print("x" + i + ": ");
         //     System.out.println(s[i]);
-        // 
-        // System.out.println(result);
-        // matrixIO.displayMatrix(s);
-        // solutionReg(m);
-        // solutionReg(m);
+
+        // }
     }
+
 
     
 }
