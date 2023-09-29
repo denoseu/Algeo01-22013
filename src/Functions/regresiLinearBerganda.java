@@ -111,6 +111,7 @@ public class regresiLinearBerganda {
     }
 
     public static void hasilRLB(double[] s){
+        System.out.print("f(x) = ");
         System.out.print("f(x)= ");
         DecimalFormat df = new DecimalFormat("0.000");
         for (int i = 0 ; i<s.length;i++){
@@ -120,7 +121,10 @@ public class regresiLinearBerganda {
                 if (s[i] < 0){
                     System.out.print(" - " + df.format(Math.abs(s[i])));
                     System.out.print("x" + i);
-                } else{
+                } else if (s[i] == 0){
+                    System.out.print("");
+                } else {
+
                     System.out.print(" + " + df.format(s[i]));
                     System.out.print("x" + i);
                 }
@@ -142,6 +146,7 @@ public class regresiLinearBerganda {
         double[] s = solutionReg(m);
         double result = estimateReg(s, x);
         hasilRLB(s);
+        hasilRLB(s);
         hasilEstimateRLB(result);
         // hasilRLB(s);
         // System.out.println(s.length);
@@ -151,6 +156,8 @@ public class regresiLinearBerganda {
 
         // }
     }
+
+
 
 
     
