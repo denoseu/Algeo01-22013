@@ -5,90 +5,85 @@ import src.Matrix.*;
 
 public class bicubic {
     public static Scanner scan;
-    // resize matrix 4x4 menjadi 16x1 untuk membuat y
-    // dari input matrix 4x4
-    public static double[][] resizeMatrix4x4(double[][] m) {
+
+    public static double[][] createY(double[][] m) {
+        //Membuat matrix y berukuran 16x1 yang merupakan resize dari matrix input 4x4
         double[][] newM = new double[16][1];
 
-        int x = 0;
+        int idx = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                newM[x][x%1] = m[i][j];
-                x++;
+                newM[idx][0] = m[i][j];
+                idx++;
             }
         }
         return newM;
     }
 
-    public static double[][] matriksX() {
-        double[][] m = new double[16][16];
-        int i, j;
-        int row = 0;
-        int col = 0;
-        double x, y;
+    public static double koefFungsi(int x, int y, int i, int j){
+        return Math.pow(x, i) * Math.pow(y, j);
+    }
+    public static double koefTurunanX(int x, int y, int i, int j){
+        if (i == 0 && x == 0){
+            return 0;
+        }
+        else{
+            return i * Math.pow(x, i-1) * Math.pow(y, j);
+        }
+    }
+    public static double koefTurunanY(int x, int y, int i, int j){
+        if (j == 0 && y == 0){
+            return 0;
+        }
+        else{
+            return j * Math.pow(x, i) * Math.pow(y, j-1);
+        }
+    }
+    public static double koefTurunanXY(int x, int y, int i, int j){
+        if ((i == 0 && x == 0) || j == 0 && y == 0){
+            return 0;
+        }
+        else{
+            return i * j * Math.pow(x, i-1) * Math.pow(y, j-1);
+        }
+    }
+    public static double[][] createX(){
+        //Membuat matrix X berukuran 16x16 berisi koefisien aij dari ekspansi sigma tiap fungsi
+        double[][] X = new double[16][16];
 
-        while (row < 16) {
-            if (row % 4 == 0) {
-                for (x = -1; x < 3; x++) {
-                    for (y = -1; y < 3; y++) {
-                        col = 0;
-                        for (i = 0; i < 4; i++) {
-                            for (j = 0; j < 4; j++) {
-                                m[row][col] = Math.pow(x, i) * Math.pow(y, j);
-                                col++;
+        int i,j,k,x,y;
+        int rowX = 0;
+        for (k = 1; k <= 4; k++){
+            for (y = 0; y <=1 ; y++){
+                for (x = 0; x <=1 ; x++){
+                    
+                    int colX = 0;
+                    for (j = 0; j < 4; j++){
+                        for (i = 0; i < 4; i++){
+                            
+                            switch (k){
+                                case 1:
+                                    X[rowX][colX] = koefFungsi(x, y, i, j);
+                                    break;
+                                case 2:
+                                    X[rowX][colX] = koefTurunanX(x, y, i, j);
+                                    break;
+                                case 3:
+                                    X[rowX][colX] = koefTurunanY(x, y, i, j);
+                                    break;
+                                case 4:
+                                    X[rowX][colX] = koefTurunanXY(x, y, i, j);
+                                    break;
                             }
+                            colX++;
                         }
-                        row++;
                     }
-                }
-            }
-
-            else if (row % 4 == 1) {
-                for (x = -1; x < 3; x++) {
-                    for (y = -1; y < 3; y++) {
-                        col = 0;
-                        for (j = 0; j < 4; j++) {
-                            for (i = 1; i < 4; i++) {
-                                m[row][col] = Math.pow(x, i-1) * Math.pow(y, j);
-                                col++;
-                            }
-                        }
-                        row++;
-                    }
-                }
-            }
-
-            else if (row % 4 == 2) {
-                for (x = -1; x < 3; x++) {
-                    for (y = -1; y < 3; y++) {
-                        col = 0;
-                        for (j = 1; j < 4; j++) {
-                            for (i = 0; i < 4; j=i++) {
-                                m[row][col] = Math.pow(x, i) * Math.pow(y, j-1);
-                                col++;
-                            }
-                        }
-                        row++;
-                    }
-                }
-            }
-
-            else {
-                for (x = -1; x < 3; x++) {
-                    for (y = -1; y < 3; y++) {
-                        col = 0;
-                        for (j = 0; j < 4; j++) {
-                            for (i = 0; i < 4; i++) {
-                                m[row][col] = Math.pow(x, i-1) * Math.pow(y, j-1);
-                                col++;
-                            }
-                        }
-                        row++;
-                    }
+                    rowX ++;
                 }
             }
         }
-        return m;
+
+        return X;
     }
 
     public static double[][] inverseX (double[][] A ) {
@@ -135,40 +130,33 @@ public class bicubic {
         return AInverse;
     }
 
-    public static double spline (double[][] m, double x, double y) {
-        double[][] xMatrix = matriksX();
-        double[][] yMatrix = matrixOP.multiplyMatrixMatrix(inverseX(xMatrix), resizeMatrix4x4(m));
+    public static double bicubicSpline(double[][] m, double x, double y) {
+        double[][] matrixX = createX();
+        double[][] matrixY = createY(m);
+        double[][] matrixa = matrixOP.multiplyMatrixMatrix(inverseX(matrixX), matrixY);
+
         double hasil = 0;
         int i, j;
         int row = 0;
         
+        //Membaca input matrix 4x4
         for (i = 0; i < 4; i++) {
             for (j = 0; j < 4; j++) {
-                hasil += Math.pow(x, i) * Math.pow(y, j) * yMatrix[row][0];
+                hasil += Math.pow(x, i) * Math.pow(y, j) * matrixa[row][0];
                 row++;
             }
         }
+
         return hasil;
     }
 
-    public static void main (String[] args) {
-        double[][] m = matrixIO.readMatrixKeyboard();
+    public static void main(String[] args){
+        double[][] matrixInput = matrixIO.readMatrixKeyboard();
         scan = new Scanner(System.in);
         System.out.print("Masukkan x: "); double x = scan.nextDouble();
         System.out.print("Masukkan y: "); double y = scan.nextDouble();
-        double solusi = spline(m, x, y);
+        
+        double solusi = bicubicSpline(matrixInput, x, y);
         System.out.println(solusi);
-
-        // double[][] newM = resizeMatrix4x4(m);
-        // matrixIO.displayMatrix(newM);
-        // System.out.println("");
-        // double[][] bicubic = matriksX();
-        // matrixIO.displayMatrix(bicubic);
-        // // System.out.println("");
-        // double[][] kali = inverseX(bicubic);
-
-        // double[][] baru = matrixOP.multiplyMatrixMatrix(kali, newM);
-        // matrixIO.displayMatrix(baru);
     }
 }
-
