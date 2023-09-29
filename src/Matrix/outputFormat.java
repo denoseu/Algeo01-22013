@@ -1,10 +1,38 @@
 package src.Matrix;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import src.Matrix.*;
 
 public class outputFormat {
-    /* Output interpolasi 
-     * f(x) = ax^2 + bx + c, f(yang dicari)=..
-     * Bicubic interpolation
-     * nilai f(yang dicari,nilai yang dicari)
-     * 
+    /*
+    Interpolasi
      */ 
+
+    public static void fileInterpolasi(){
+        String m = matrixIO.inputFile();
+        matrixIO.createFile(m);
+
+        FileWriter write;
+        try {
+
+            write = new FileWriter(m);
+    
+            BufferedWriter writeFile = new BufferedWriter(write);
+            writeFile.write("-----HASIL INTERPOLASI-----");
+            writeFile.newLine();
+            writeFile.flush();
+            writeFile.close();
+
+        } catch (IOException e){
+            System.out.println("Terjadi Kesalahan. Tidak bisa menyimpan file.");
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void main(String[] args){
+        fileInterpolasi();
+    }
 }
