@@ -1,4 +1,5 @@
 package src.Matrix;
+import src.Functions.*;
 
 import java.util.Scanner;
 
@@ -201,6 +202,133 @@ public class matrixOP {
         return trans;
     }
 
+    // Mengalikan baris dengan konstanta
+    public static double[][] kali_baris (double[][] m, int row, int k) {
+        for (int j = 0; j < matrixOP.getCol(m); j++) {
+            m[row][j] = m[row][j] * k;
+        }
+        return m;
+    }
+
+    // Swap/tukar baris
+    public static double[][] tukar_baris (double[][] m, int row1, int row2) {
+        for (int j = 0; j < matrixOP.getCol(m); j++) {
+            double temp = m[row1][j];
+            m[row1][j] = m[row2][j];
+            m[row2][j] = temp;
+        }
+        return m;
+    }
+
+    // tambahin baris ke baris lain
+    public static double[][] tambah_baris(double[][] m, int row_asal, int row_yangdiubah) {
+        for (int j = 0; j < matrixOP.getCol(m); j++) {
+            m[row_yangdiubah][j] += m[row_asal][j];
+        }
+        return m;
+    }
+
+    // kurangin baris
+    public static double[][] kurang_baris(double[][] m, int row_asal, int row_yangdiubah) {
+        for (int j = 0; j < matrixOP.getCol(m); j++) {
+            m[row_yangdiubah][j] -= m[row_asal][j];
+        }
+        return m;
+    }
+
+    // cek apakah dia baris terakhirnya semuanya 0 kecuali solusi
+    // intinya dia ga ad solusi
+    public static boolean noSolusi (double[][] m) {
+        // cari sampe N-1 elemen, ada yang bukan 0 ga
+        for (int j = 0; j < matrixOP.getCol(m) - 1; j++) {
+            if (m[matrixOP.getRow(m)-1][j] != 0) {
+                return false;  // karena kalo ga 0 dia baik" saja
+            }
+        }
+        // lalu kalo udah cek atas dia ngecek elemen terakhirnya
+        // klo bukan 0 terus yang lainnya 0 berarti emang ga ada solusi
+
+        if ((m[matrixOP.getRow(m)-1][matrixOP.getCol(m)-1] != 0)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static boolean noSolusiJordan (double[][] m, int col, int i) {
+        // cari sampe N-1 elemen, ada yang bukan 0 ga
+        for (int j = 0; j < col - 1; j++) {
+            if (m[i][j] != 0) {
+                return false;  // karena kalo ga 0 dia baik" saja
+            }
+        }
+        // lalu kalo udah cek atas dia ngecek elemen terakhirnya
+        // klo bukan 0 terus yang lainnya 0 berarti emang ga ada solusi
+
+        if ((m[i][col-1] != 0)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // cek last barisnya 0 ato ga
+    public static boolean Nol (double[][] m) {
+        // cari sampe N elemen, ada yang bukan 0 ga
+        for (int j = 0; j < matrixOP.getCol(m); j++) {
+            if (m[matrixOP.getRow(m)-1][j] != 0) {
+                return false;  // ada yang bukan 0, berarti dia ga full 0
+            }
+        }
+        return true;
+    }
+
+    
+    // cek apakah dalam 1 baris ada yang nol ato ga
+    public static boolean barisNol(double[][] m, int col, int i) {
+        for (int j = 0; j < col; j++) {
+            if (m[i][j] != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // cek apakah dalam 1 kolom ada yang nol semua atau ngga
+    public static boolean KolomNol(double[][] m) {
+        int j = 0;
+        while (j < getCol(m)-1) {
+            for (int i = 0; i < getRow(m)-1; i++) {
+                if (m[i][j] != 0) {
+                    j++;
+                }
+            }
+            j++;
+        }
+        return true;
+    }
+
+    // pindahin baris nol ke bawah
+    public static void pindahBarisNol (double[][] m, int row, int col) {
+        for(int i = 0; i < row; i += 1) {
+            if (barisNol(m, col, i)) { // kalo dia 0 semua
+                tukar_baris(m, i, (row - 1)); // pindah ke paling bawah
+            }
+        }
+    }
+
+    // bikin matriks default yang no solusi
+    public static void matriksNoSolusi (double[][] m) {
+        // cari sampe N-1 elemen, ada yang bukan 0 ga
+        for (int j = 0; j < matrixOP.getCol(m) - 1; j++) {
+            m[matrixOP.getRow(m)-1][j] = 0; // bikin dia jadi 0
+        }
+        m[matrixOP.getRow(m)-1][matrixOP.getCol(m)-1] = 1;
+
+    }
+
     public static int satuUtama(double[][] m, int row, int j) {
         // j adalah banyak kolom
         int i; 
@@ -217,5 +345,109 @@ public class matrixOP {
             return -999; // mark
         }
 
+    }
+
+    public static void hasilSPLGauss (double[][] matriks) {
+        double[] solusi = new double[matrixOP.getRow(matriks)];
+
+        if (matrixOP.noSolusi(matriks)) {
+            System.out.println("Matriks tidak memiliki solusi.");
+        }
+        else if ((matrixOP.Nol(matriks)) || (matrixOP.KolomNol(matriks))) {
+            System.out.println("Matriks memiliki banyak solusi.");
+            SPL.parameter(matriks, false);
+        }
+        else {
+            for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
+                solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
+                for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
+                    solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
+                } 
+            }
+
+            System.out.println("Solusi:");
+            for (int i = 0; i < solusi.length; i++) {
+                System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
+            }
+            
+        }
+    }
+
+    public static void hasilSPLGaussJordan (double[][] matriks) {
+        double[] solusi = new double[matrixOP.getRow(matriks)];
+
+        if (matrixOP.noSolusi(matriks)) {
+            System.out.println("Matriks tidak memiliki solusi.");
+        }
+        else if ((matrixOP.Nol(matriks)) || (matrixOP.KolomNol(matriks))) {
+            System.out.println("Matriks memiliki banyak solusi.");
+            SPL.parameter(matriks, true);
+        }
+        else {
+            for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
+                solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
+                for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
+                    solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
+                } 
+            }
+
+            System.out.println("Solusi:");
+            for (int i = 0; i < solusi.length; i++) {
+                System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
+            }
+            
+        }
+    }
+    
+    public static void hasilSPLInverse (double[][] matriks) {
+        // simpan hasil dalam array biar bisa ditampilin
+        double[] solusi = new double[matrixOP.getRow(matriks)];
+
+        for (int x = matrixOP.getRow(matriks) - 1; x >= 0; x -= 1) {
+            solusi[x] = matriks[x][0];
+        }
+
+        System.out.println("Solusi:");
+        for (int i = 0; i < solusi.length; i++) {
+            System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
+        }
+    }
+    // Hasil Gauss berbentuk matrix
+    public static double[] getGaussMatrix(double[][] matriks){
+
+        boolean found = false;
+
+        for (int i = 0; i < matrixOP.getRow(matriks); i++) {
+            // cari elemen pertama yang tidak nol di baris
+            for (int j = 0; j < matrixOP.getCol(matriks); j++) {
+                if (matriks[i][j] != 0) {
+                    SPL.eselonbaris(matriks);
+                }
+                else {
+                    int max = i;
+                    for (int n = i+1; n < matrixOP.getRow(matriks); n++) { 
+                        if (matriks[n][i] != 0) {
+                            found = true;
+                            max = n;
+                            break;
+                        }
+                    }
+                    if (found == true) {
+                        matrixOP.tukar_baris(matriks, i, max);
+                        matrixIO.displayMatrix(matriks);
+                        SPL.eselonbaris(matriks);
+                    } 
+                }
+            }
+        }
+
+        double[] solusi = new double[matrixOP.getRow(matriks)];
+        for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
+                solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
+                for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
+                    solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
+                } 
+            }
+        return solusi;
     }
 }

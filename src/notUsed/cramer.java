@@ -1,6 +1,6 @@
 package src.notUsed;
+import src.Functions.*;
 import src.Matrix.*;
-import src.Funtions.*;
 
 public class cramer {
     /*Khusus untuk SPL dengan n variabel dan n persamaan */
@@ -36,14 +36,14 @@ public class cramer {
         return X;
     } 
 
-    
-    // public static void main(String[] args){
-    //     double[][] m;
-    //     double[][] n;
-    //     m = matrixIO.readMatrixKeyboard();
-    //     n = matrixIO.readMatrixKeyboard();
-    //     matrixIO.displayMatrix(m);
-    //     matrixIO.displayMatrix(n);
-    // }
+    public static void main(String[] args){
+        double[][] m;
+        m = matrixIO.readMatrixSPL();
+
+        System.out.println("Solusi:");
+        for (int i = 0; i < kaidahCramer(m).length; i++) {
+            System.out.printf("x%d = %.3f\n", i+1, kaidahCramer(m)[i][0]);
+        }
+    }
     
 }

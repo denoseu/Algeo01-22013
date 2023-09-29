@@ -1,4 +1,4 @@
-package src.Funtions;
+package src.Functions;
 import java.util.Scanner;
 
 import src.Matrix.*;
@@ -8,7 +8,7 @@ public class SPL {
     public static void eselonbaris(double[][] m) {
         int row = matrixOP.getRow(m);
         int col = matrixOP.getCol(m);
-
+        // boolean found = false;
         for (int i = 0; i < row; i++) {
             // cari elemen pertama yang tidak nol di baris
             for (int j = 0; j < col; j++) {
@@ -16,11 +16,11 @@ public class SPL {
                     double bukannol = m[i][j];
 
                     // bagi baris oleh elemen yang bukan nol (biar dapet 1 utama)
-                    for (int p = 0; p < row+1; p++) {
+                    for (int p = 0; p < col; p++) { // ato p < row+1?
                         m[i][p] /= bukannol; 
                     }
                     // System.out.println(" ");
-                    // displayMatrix(m);
+                    // matrixIO.displayMatrix(m);
 
                     // menolkan elemen dibawah 1 utama
                     for (int k = i + 1; k < row; k++) {
@@ -30,7 +30,16 @@ public class SPL {
                         }
                     }
                     // System.out.println(" ");
-                    // displayMatrix(m);
+                    // matrixIO.displayMatrix(m);
+
+                    // untuk fix kasus -0
+                    for(int a = 0; a < matrixOP.getRow(m); a++) {
+                        for(int b = 0; b < matrixOP.getCol(m); b++) {
+                            if (m[a][b] == -0) {
+                                m[a][b] = 0;
+                            }
+                        }
+                    }
                     break;
                 }
             }
@@ -38,7 +47,7 @@ public class SPL {
     }
 
     /*-------------- GAUSS JORDAN ------------------ */
-    public static void eliminasiGauss(double[][] m) {
+    public static void GaussJ(double[][] m) {
 
         // gauss-in dulu biar dapet matriks eselon baris
         // nanti dilanjutin supaya dapet eselon baris tereduksi
@@ -127,6 +136,8 @@ public class SPL {
         return det;
     }
 
+    
+    
     /*-------------- MATRIKS BALIKAN DENGAN KOFAKTOR ------------------ */
     /*Mencari invers matrix dengan menggunakan adjoin dan determinan  */
     public static double[][] adjoin(double[][] m){
@@ -152,11 +163,11 @@ public class SPL {
         } 
         return matrixOP.transpose(cofactor);
     }
-
+    
     public static double[][] subMatrix(double[][] m, int size, int startRow, int startCol){
         double[][] sub = new double[size-1][size-1];
         if (m.length == m[0].length){
-
+            
             int cRow =0;
             int cCol = 0;
             for (int i= 0; i< m.length;i++){
@@ -178,44 +189,52 @@ public class SPL {
     }
 
 
-    /*-------------- KAIDAH CRAMMER ------------------ */
+    /*-------------- KAIDAH CRAMER ------------------ */
     /*Khusus untuk SPL dengan n variabel dan n persamaan */
     public static double[][] kaidahCramer(double[][] m){
         //Menerima matrix m dari keyboard atau txt dengan ukuran nRow x nCol
         int nRow = m.length;
         int nCol = m[0].length;
-
+        
+        //Membuat matrix A, matrix A harus simetri
+        double[][] A = new double[nRow][nCol-1];
         //Membuat matrix X berukuran nRow x 1, berisi nilai X
         double[][] X = new double[nRow][1];
-        for (int i = 0; i < nRow; i++){
-            X[i][0] = 0;
+        if (nCol - 1 != nRow){
+            System.out.println("Tidak dapat menggunakan kaidah Cramer.");
         }
-
-        //Membuat matrix A yang simetri, lalu mencari determinannya, detA != 0
-        double[][] A = new double[nRow][nCol-1];
-        matrixOP.copyMatrix(m, A, 0, nRow, 0, nCol-1);
-        
-        double detA = determinan(A);
-
-        int i,j,k;
-        for (j = 0; j < nCol-1; j++) {
-            for (i = 0; i < nRow; i++) {
-                //Mengganti nilai di tiap kolom A dengan nilai submatrix B
-                A[i][j] = m[i][nCol-1];
+        else if (matrixOP.noSolusi(m)){
+            System.out.println("Matriks tidak memiliki solusi.");
+        }
+        else{
+            matrixOP.copyMatrix(m, A, 0, nRow, 0, nCol-1);
+            // mencari determinan matrix A, detA != 0
+            double detA = determinan(A);
+            if (detA == 0){
+                System.out.println("Determinan matriks bernilai 0 sehingga tidak dapat menggunakan kaidah Cramer.");
             }
-            X[j][0] = (double) determinan(A)/detA;
-            for (k = 0; k < nRow; k++) {
-                //Mereset nilai matrix A
-                A[k][j] = m[k][j];
+            else{
+                int i,j,k;
+                for (j = 0; j < nCol-1; j++) {
+                    for (i = 0; i < nRow; i++) {
+                        //Mengganti nilai di tiap kolom A dengan nilai submatrix B
+                        A[i][j] = m[i][nCol-1];
+                    }
+                    X[j][0] = (double) determinan(A)/detA;
+                    for (k = 0; k < nRow; k++) {
+                        //Mereset nilai matrix A
+                        A[k][j] = m[k][j];
+                    }
+                }
             }
         }
         return X;
     } 
-
+    
     
     /*-------------- SPL DENGAN MATRIX BALIKAN ------------------ */
     public static Scanner scan;
-
+    
     public static double[][] getMatrixA() {
         scan = new Scanner(System.in);
         System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
@@ -278,7 +297,7 @@ public class SPL {
         matrixIO.displayMatrix(augmentedMatrix);
 
         // lakukan eliminasi Gauss-Jordan
-        eliminasiGauss(augmentedMatrix);
+        GaussJ(augmentedMatrix);
 
         // matrixIO.displayMatrix(augmentedMatrix);
 
@@ -298,25 +317,23 @@ public class SPL {
         double[][] hasil = matrixOP.multiplyMatrixMatrix(AInverse, B);
         // matrixIO.displayMatrix(hasil);
 
-        // mengembalikan hasil
         return hasil;
-        // // simpan hasil
     }
 
-    public static int FirstElementNot0(double[][] m, int startrowIdx, int colIdx)
+    
+    /*-------------- DETERMINAN DENGAN REDUKSI BARIS ------------------ */
+    public static int idxFirstRowNot0(double[][] m, int idxcol)
     {
-        //Mengecek idx baris pertama yang tidak bernilai 0 pada colIdx 
-        int idx = startrowIdx;
-        for (int rowIdx = startrowIdx; rowIdx < m.length; rowIdx++){
-            if (m[rowIdx][colIdx] != 0){
-                idx = rowIdx;
-                break;
+        //Mencari idx baris pertama yang nilainya != 0 di kolom idxcol
+        int idx = 0;
+        for (int i = 0; i < matrixOP.getRow(m); i++){
+            if (m[i][idxcol] != 0){
+                idx = i;
             }
         }
         return idx;
     }
 
-    /*-------------- DETERMINAN DENGAN REDUKSI BARIS ------------------ */
     public static double detReduksiBaris(double[][] m)
     {
         if (matrixOP.isIdentity(m))
@@ -325,57 +342,81 @@ public class SPL {
         }
         if (matrixOP.isSquare(m)){
             int i,j;
+            //int k = 1;
             int p = 0; //jumlah pertukaran baris
             int n = matrixOP.getRow(m);
 
-            for (int rowidx = 0; rowidx < n-1; rowidx++){
-                if (FirstElementNot0(m, rowidx, 0) != rowidx){
-                    tukar_baris(m, FirstElementNot0(m, rowidx, 0), rowidx);
-                    p++;
-                }
+            if (idxFirstRowNot0(m, 0) != 0){
+                matrixOP.tukar_baris(m, 0, idxFirstRowNot0(m, 0));
+                p++;
             }
-
-            for (i = 1; i < n; i++){
-                for (j = 0; j < i; j++){
-                    if (m[i][j] != 0){
-                        matrixIO.displayMatrix(m);
-                        if (m[i-1][j]==0){
-                            double faktor = m[i][j]/m[FirstElementNot0(m, 0, j)][j];
-                            for (int l = 0; l < n; l++)
-                            {
-                                m[i][l] -= m[FirstElementNot0(m, 0, j)][l] * faktor;
-                            }
-                        }
-                        else{
-                            double faktor = m[i][j]/m[i-1][j];
-                            for (int l = 0; l < n; l++){
-                                m[i][l] -= m[i-1][l] * faktor;
-                            }
+            for (i = 1; i < n; i++)
+            {
+                for (j = 0; j < i; j++)
+                {
+                    if (m[i][j] != 0)
+                    {
+                        double faktor = m[i][j]/m[i-1][j];
+                        for (int l = 0; l < i; l++)
+                        {
+                            m[i][l] -= m[i-1][l] * faktor;
                         }
                     }
                 }
             }
 
-            //Menghitung determinan dengan mengali semua elemen diagonal
-            double det = 1;
+            // menghitung determinan dengan mengali semua elemen diagonal
+            double det = 0;
             for (int q = 0; q < n; q++){
-                det *= m[q][q];
+                det += m[q][q];
             }
-            det *= Math.pow((-1), p);
+            det *= (-1)*p;
+            
             return det;
         
         }
-        else{
-            //Matriks tidak simetri
+        else {
             return -9999;
         }
     }
-    public static void main(String[] args){
-        double[][] m;
-        m = matrixIO.readMatrixKeyboard();
 
-        //System.out.println("Determinan:");
-        System.out.printf("%f\n", detReduksiBaris(m));
-        
+    /*-------------- PERSAMAAN PARAMETER UNTUK GAUSS, GAUSS-JORDAN ------------------ */
+
+    public static String[] parameter (double[][] m, boolean gaussJordan) {
+        // boolean gaussJordan tu buat tau dia sblmnya baru di gaus aja ato udah smpe gauss jordan
+        // true = udah gauss jordan
+        // false = baru gauss aja
+
+        String[] solusi = new String[m[0].length - 1]; // array hasilnya nanti (output)
+        String hasil = "";
+        String[] par = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+
+        if (gaussJordan == false) { // kalo masih blm di gauss jordan, di gauss jordan in dulu 
+            GaussJ(m);
+        }
+
+        for (int j = 0; j < (matrixOP.getCol(m)) - 1; j++) { // i = kolom
+            int lOne = matrixOP.satuUtama(m, matrixOP.getRow(m), j);
+            if (lOne != (-999)) {
+                hasil = hasil + ("x" + (j + 1) + " = " + m[lOne][(matrixOP.getCol(m)) - 1]);
+                for (int i = (j + 1); i < (matrixOP.getCol(m)) - 1; i++) {
+                    double xN = m[lOne][i];
+                    if (xN != 0) {
+                        hasil = hasil + (" + (" + (-xN) + ")" + par[i+1]);
+                    }
+                }
+            } 
+            else {
+                hasil = "x" + (j + 1) + " = " + par[j+1];
+            }
+            solusi[j] = hasil;
+            hasil = "";
+        }
+
+        for (int i = 0; i < (matrixOP.getCol(m)) - 1; i++) {
+            System.out.println(solusi[i]);
+        }
+
+        return solusi;
     }
 }
