@@ -13,4 +13,15 @@ public class eliminasiGaussJordan {
         matrixOP.hasilSPLGaussJordan(matriks);
     }
 
+    public static void file () {
+        double[][] matriks;
+        matriks = matrixIO.fileToMatrix(1);
+        SPL.GaussJ(matriks);
+
+        System.out.println("Matriks eselon baris tereduksi: ");
+        matrixIO.displayMatrix(matriks);
+
+        matrixOP.hasilSPLGaussJordan(matriks);
+    }
+
 }

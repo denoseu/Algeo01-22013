@@ -5,6 +5,7 @@ import src.Functions.eliminasiGauss;
 import src.Functions.eliminasiGaussJordan;
 import src.Functions.kaidahCramer;
 import src.Functions.matriksBalikan;
+import src.Functions.detMatrix;
 
 public class Main {
     public static Scanner scan;
@@ -138,6 +139,7 @@ public class Main {
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
+                                eliminasiGaussJordan.file();
                             }
                             break;
                         case 3:
@@ -160,6 +162,7 @@ public class Main {
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
+                                // BIKIN FUNCTION POTONG MATRIX UNTUK MATRIKS BALIKAN FILE
                             }
                             break;
                         case 4:
@@ -182,6 +185,7 @@ public class Main {
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
+                                kaidahCramer.file();
                             }
                             break;
                     }
@@ -207,7 +211,27 @@ public class Main {
                     switch (pilihandet) {
                         case 1:
                             System.out.println("******************** Metode Reduksi Baris ********************");
-                            break; // nanti
+                            System.out.println(input);
+                            System.out.print("Masukan pilihan input: ");
+                            int inputreduksi;
+                            inputreduksi = scan.nextInt();
+                            while (inputreduksi < 1 || inputreduksi > 2) {
+                                System.out.println("Pilihan input tidak tersedia, mohon hanya menginput bilangan 1 atau 2.");
+                                System.out.print("Masukan pilihan input: ");
+                                inputreduksi = scan.nextInt();  
+                            }
+                            System.out.println();
+                            
+                            if (inputreduksi == 1) {
+                                System.out.println("INPUT SOURCE: KEYBOARD");
+                                detMatrix.redBarisKeyboard();
+                                // reduksi
+                            }
+                            else {
+                                System.out.println("INPUT SOURCE: FILE");
+                                // reduksi
+                            }
+                            break;
                         case 2:
                             System.out.println("****************** Metode Ekspansi Kofaktor ******************");
                             break; // nanti

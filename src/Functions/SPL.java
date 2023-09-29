@@ -340,6 +340,18 @@ public class SPL {
     }
 
     /*-------------- DETERMINAN DENGAN REDUKSI BARIS ------------------ */
+    public static int FirstElementNot0(double[][] m, int startrowIdx, int colIdx) {
+        //Mengecek idx baris pertama yang tidak bernilai 0 pada colIdx 
+        int idx = startrowIdx;
+        for (int rowIdx = startrowIdx; rowIdx < m.length; rowIdx++){
+            if (m[rowIdx][colIdx] != 0){
+                idx = rowIdx;
+                break;
+            }
+        }
+        return idx;
+    }
+
     public static double detReduksiBaris(double[][] m)
     {
         if (matrixOP.isIdentity(m))
@@ -348,39 +360,52 @@ public class SPL {
         }
         if (matrixOP.isSquare(m)){
             int i,j;
-            //int k = 1;
             int p = 0; //jumlah pertukaran baris
             int n = matrixOP.getRow(m);
 
-            if (idxFirstRowNot0(m, 0) != 0){
-                matrixOP.tukar_baris(m, 0, idxFirstRowNot0(m, 0));
-                p++;
+            for (int rowidx = 0; rowidx < n-1; rowidx++){
+                if (FirstElementNot0(m, rowidx, 0) != rowidx){
+                    matrixOP.tukar_baris(m, FirstElementNot0(m, rowidx, 0), rowidx);
+                    p++;
+                }
             }
-            for (i = 1; i < n; i++)
-            {
-                for (j = 0; j < i; j++)
-                {
-                    if (m[i][j] != 0)
-                    {
-                        double faktor = m[i][j]/m[i-1][j];
-                        for (int l = 0; l < i; l++)
-                        {
-                            m[i][l] -= m[i-1][l] * faktor;
+
+            for (i = 1; i < n; i++){
+                for (j = 0; j < i; j++){
+                    if (m[i][j] != 0){
+                        // matrixIO.displayMatrix(m);
+                        if (m[i-1][j]==0){
+                            double faktor = m[i][j]/m[FirstElementNot0(m, 0, j)][j];
+                            for (int l = 0; l < n; l++)
+                            {
+                                m[i][l] -= m[FirstElementNot0(m, 0, j)][l] * faktor;
+                            }
+                        }
+                        else{
+                            double faktor = m[i][j]/m[i-1][j];
+                            for (int l = 0; l < n; l++){
+                                m[i][l] -= m[i-1][l] * faktor;
+                            }
                         }
                     }
                 }
             }
 
-            // menghitung determinan dengan mengali semua elemen diagonal
-            double det = 0;
+            //Menghitung determinan dengan mengali semua elemen diagonal
+            double det = 1;
             for (int q = 0; q < n; q++){
-                det += m[q][q];
+                det *= m[q][q];
             }
-            det *= (-1)*p;
+            det *= Math.pow((-1), p);
+
+            if (det == -0) {
+                det = 0;
+            }
             return det;
         
         }
-        else {
+        else{
+            //Matriks tidak simetri
             return -9999;
         }
     }
