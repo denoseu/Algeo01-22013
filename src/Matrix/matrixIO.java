@@ -84,22 +84,34 @@ public class matrixIO {
         String name = nameSc.nextLine();
         nameSc.close();
 
-        String path = "./test/input/" +name;
+        String newPath;
+        String currentPath = System.getProperty("user.dir");
+        System.out.println(currentPath);
+        if (currentPath.contains("src\\")){
+            String sub[] = currentPath.split("src");
+            currentPath = sub[0];
+
+            newPath = currentPath + "test/input/" + name;
+            System.out.println(currentPath);
+        } else {
+            newPath = currentPath + "/test/input/" + name;
+        }
+        System.out.println(newPath);
         try{
             
             int[] count = new int [2];
             // Membuat matrix
             if (type == 1){
-                count = countRowCol(path);
+                count = countRowCol(newPath);
 
             } else if (type == 2){
-                count = countRowColSC(path);
+                count = countRowColSC(newPath);
             }
             
             double[][] matrix = new double[count[0]][count[1]];
 
             //Mengisi matrix
-            File file = new File(path);
+            File file = new File(newPath);
             Scanner fReader = new Scanner(file);
             int i = 0;
             int j = 0;

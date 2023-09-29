@@ -38,7 +38,7 @@ public class eliminasiGauss {
 
     public static void file () {
         double[][] matriks;
-        matriks = matrixIO.fileToMatrix(2);
+        matriks = matrixIO.fileToMatrix(1);
         boolean found = false;
 
         for (int i = 0; i < matrixOP.getRow(matriks); i++) {
