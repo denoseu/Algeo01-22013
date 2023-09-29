@@ -3,7 +3,7 @@ import src.Matrix.*;
 
 public class eliminasiGaussJordan {
 
-    public static void main () {
+    public static void keyboard () {
         double[][] matriks = matrixIO.readMatrixSPL();
         SPL.GaussJ(matriks);
 

@@ -371,7 +371,7 @@ public class SPL {
                 }
             }
 
-            //Menghitung determinan dengan mengali semua elemen diagonal
+            // menghitung determinan dengan mengali semua elemen diagonal
             double det = 0;
             for (int q = 0; q < n; q++){
                 det += m[q][q];
@@ -380,7 +380,7 @@ public class SPL {
             return det;
         
         }
-        else{
+        else {
             return -9999;
         }
     }
