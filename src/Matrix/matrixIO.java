@@ -85,17 +85,17 @@ public class matrixIO {
 
         String newPath;
         String currentPath = System.getProperty("user.dir");
-        System.out.println(currentPath);
+        // System.out.println(currentPath);
         if (currentPath.contains("src\\")){
             String sub[] = currentPath.split("src");
             currentPath = sub[0];
 
             newPath = currentPath + "/test/input/" + name;
-            System.out.println(currentPath);
+            // System.out.println(currentPath);
         } else {
             newPath = currentPath + "/test/input/" + name;
         }
-        System.out.println(newPath);
+        // System.out.println(newPath);
         // /Users/denisefeliciatiowanni/Desktop/uni/S02E01/IF2123 ALGEO/Algeo01-22013/test/input/text.txt
         try{
             

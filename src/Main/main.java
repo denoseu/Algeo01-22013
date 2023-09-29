@@ -225,16 +225,34 @@ public class Main {
                             if (inputreduksi == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
                                 detMatrix.redBarisKeyboard();
-                                // reduksi
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                // reduksi
+                                detMatrix.redBarisfile();
                             }
                             break;
                         case 2:
                             System.out.println("****************** Metode Ekspansi Kofaktor ******************");
-                            break; // nanti
+                            System.out.println(input);
+                            System.out.print("Masukan pilihan input: ");
+                            int inputeks;
+                            inputeks = scan.nextInt();
+                            while (inputeks < 1 || inputeks > 2) {
+                                System.out.println("Pilihan input tidak tersedia, mohon hanya menginput bilangan 1 atau 2.");
+                                System.out.print("Masukan pilihan input: ");
+                                inputeks = scan.nextInt();  
+                            }
+                            System.out.println();
+                            
+                            if (inputeks == 1) {
+                                System.out.println("INPUT SOURCE: KEYBOARD");
+                                detMatrix.ekspansiKeyboard();
+                            }
+                            else {
+                                System.out.println("INPUT SOURCE: FILE");
+                                detMatrix.ekspansiFile();
+                            }
+                            break;
                     }
                     break;
                 case 3:
