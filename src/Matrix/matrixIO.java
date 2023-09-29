@@ -68,7 +68,7 @@ public class matrixIO {
     public static double[][] readMatrixDet(){
         double[][] m;
         Scanner scan = new Scanner(System.in);
-        System.out.println("Masukkan n: "); int row = scan.nextInt();
+        System.out.print("Masukkan n: "); int row = scan.nextInt();
         scan.close();
         System.out.println("Silakan masukan isi matrix");
         System.out.println("Elemen matriks: ");
@@ -82,7 +82,6 @@ public class matrixIO {
         Scanner nameSc = new Scanner(System.in);
         System.out.println("Masukkan nama file input lengkap dengan .txt: ");
         String name = nameSc.nextLine();
-        nameSc.close();
 
         String path = "./test/input/" +name;
         try{
@@ -104,7 +103,7 @@ public class matrixIO {
             int i=0;
             int j = 0;
 
-            while(fReader.hasNextLine() && i<count[0] & j<count[1]){
+            while(fReader.hasNextLine() && i<count[0] && j<count[1]){
                 String[] el = (fReader.nextLine()).split("\\s+");
                 for (int s=0; s<el.length;s++){
                     matrix[i][j] = Double.parseDouble(el[s]);
@@ -124,6 +123,47 @@ public class matrixIO {
             return matrix;
 
         }
+
+    }
+
+    // Mendapatkan nilai ab dari file untuk bicubic spline interpolation
+    public static double[] getAB(String path, int type){
+        int m;
+        m=0;
+        if (type == 1){
+            m =2;
+        } else if (type == 2){
+            m = 3;
+        }
+
+        double[] result = new double[m];
+        
+        try{
+            BufferedReader fileReader = new BufferedReader(new FileReader(path));
+
+            // Mencari nCol dan nRow
+            int lineCount = countLine(path);
+            int currentLine = 0;
+            while ((fileReader.readLine()) != null){
+                currentLine++;
+
+                if (currentLine == (lineCount-1)){
+                    String[] temp = (fileReader.readLine()).split("\\s+");
+                    for (int i =0;i<temp.length;i++){
+                        result[i] = Double.parseDouble(temp[i]);
+                    }
+                }
+                
+            }
+            fileReader.close();
+
+            return result;
+
+        } catch (IOException e){
+            System.out.println("File tidak ditemukan. Terjadi kesalahan.");
+            return result;
+        }
+
 
     }
     
@@ -323,8 +363,15 @@ public class matrixIO {
         // for (int i=0;i<rc.length;i++){
         //     System.out.println(rc[i]);
         // }
-        // double[][] m = fileToMatrix(2);
-        // displayMatrix(m);
-        System.out.println(getTaksiran("./test/input/text.txt"));
+        double[][] m = fileToMatrix(1);
+        displayMatrix(m);
+        // System.out.println(getAB("./test/input/text.txt"));
+        // double[] s = getAB("./test/input/text.txt");
+        // for (int i=0;i<s.length;i++){
+        //     System.out.println(s[i]);
+        // }
+
+        
+
     }
 }

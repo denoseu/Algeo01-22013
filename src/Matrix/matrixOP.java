@@ -413,15 +413,41 @@ public class matrixOP {
         }
     }
     // Hasil Gauss berbentuk matrix
-    public static double[] getGaussMatrix (double[][] m){
-        SPL.eselonbaris(m);
-        double[] solusi = new double[matrixOP.getRow(m)];
-        for (int a = matrixOP.getRow(m) - 1; a >= 0; a -= 1) {
-            solusi[a] = m[a][matrixOP.getCol(m)-1];
-            for (int n = 1; n <= matrixOP.getRow(m) - a - 1; n += 1) {
-                solusi[a] = solusi[a] - m[a][a + n] * solusi[a + n];
-            } 
+    public static double[] getGaussMatrix(double[][] matriks){
+
+        boolean found = false;
+
+        for (int i = 0; i < matrixOP.getRow(matriks); i++) {
+            // cari elemen pertama yang tidak nol di baris
+            for (int j = 0; j < matrixOP.getCol(matriks); j++) {
+                if (matriks[i][j] != 0) {
+                    SPL.eselonbaris(matriks);
+                }
+                else {
+                    int max = i;
+                    for (int n = i+1; n < matrixOP.getRow(matriks); n++) { 
+                        if (matriks[n][i] != 0) {
+                            found = true;
+                            max = n;
+                            break;
+                        }
+                    }
+                    if (found == true) {
+                        matrixOP.tukar_baris(matriks, i, max);
+                        matrixIO.displayMatrix(matriks);
+                        SPL.eselonbaris(matriks);
+                    } 
+                }
+            }
         }
+
+        double[] solusi = new double[matrixOP.getRow(matriks)];
+        for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
+                solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
+                for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
+                    solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
+                } 
+            }
         return solusi;
     }
 }
