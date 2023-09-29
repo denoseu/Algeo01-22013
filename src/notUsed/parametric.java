@@ -18,7 +18,7 @@ public class parametric {
 
         for (int j = 0; j < (m[0].length) - 1; j++) { // i = kolom
             int lOne = matrixOP.satuUtama(m, m.length, j);
-            if (lOne != (-999)) {
+            if (lOne != (-1)) {
                 hasil = hasil + ("x" + (j + 1) + " = " + m[lOne][(m[0].length) - 1]);
                 for (int i = (j + 1); i < (m[0].length) - 1; i++) {
                     double xN = m[lOne][i];

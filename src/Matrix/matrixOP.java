@@ -299,15 +299,17 @@ public class matrixOP {
     // cek apakah dalam 1 kolom ada yang nol semua atau ngga
     public static boolean KolomNol(double[][] m) {
         int j = 0;
-        while (j < getCol(m)-1) {
-            for (int i = 0; i < getRow(m)-1; i++) {
+        boolean allElNol = false;
+        while (j < getCol(m)-1 && !allElNol) {
+            for (int i = 0; i < getRow(m); i++) {
                 if (m[i][j] != 0) {
-                    j++;
+                    continue;
                 }
+                allElNol = true;
             }
             j++;
         }
-        return true;
+        return allElNol;
     }
 
     // pindahin baris nol ke bawah
@@ -353,7 +355,7 @@ public class matrixOP {
         if (matrixOP.noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
         }
-        else if ((matrixOP.Nol(matriks)) || (matrixOP.KolomNol(matriks))) {
+        else if ((matrixOP.Nol(matriks))) {
             System.out.println("Matriks memiliki banyak solusi.");
             SPL.parameter(matriks, false);
         }
@@ -379,7 +381,7 @@ public class matrixOP {
         if (matrixOP.noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
         }
-        else if ((matrixOP.Nol(matriks)) || (matrixOP.KolomNol(matriks))) {
+        else if ((matrixOP.Nol(matriks))) {
             System.out.println("Matriks memiliki banyak solusi.");
             SPL.parameter(matriks, true);
         }

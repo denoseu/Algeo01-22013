@@ -402,7 +402,7 @@ public class SPL {
 
         for (int j = 0; j < (matrixOP.getCol(m)) - 1; j++) { // i = kolom
             int lOne = matrixOP.satuUtama(m, matrixOP.getRow(m), j);
-            if (lOne != (-999)) {
+            if (lOne != (-1)) {
                 hasil = hasil + ("x" + (j + 1) + " = " + m[lOne][(matrixOP.getCol(m)) - 1]);
                 for (int i = (j + 1); i < (matrixOP.getCol(m)) - 1; i++) {
                     double xN = m[lOne][i];
