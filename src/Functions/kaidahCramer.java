@@ -14,7 +14,8 @@ public class kaidahCramer {
 
     public static void file (){
         double[][] m;
-        m = matrixIO.fileToMatrix(1);
+        String path = matrixIO.inputFile();
+        m = matrixIO.fileToMatrix(path, 1);
 
         System.out.println("Solusi:");
         for (int i = 0; i < SPL.kaidahCramer(m).length; i++) {

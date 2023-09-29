@@ -76,27 +76,28 @@ public class matrixIO {
         return m;
     }
     
-
-    // Membaca Matrix dari File
-    public static double[][] fileToMatrix(int type){
+    // Meminta name file txt
+    public static String inputFile(){
         Scanner nameSc = new Scanner(System.in);
-        System.out.println("Masukkan nama file input lengkap dengan .txt: ");
+        System.out.print("Masukkan nama file input lengkap dengan .txt: ");
         String name = nameSc.nextLine();
+        return name;
+    }
+    // Membaca Matrix dari File
+    public static double[][] fileToMatrix(String path, int type){
+        String name = path;
 
         String newPath;
         String currentPath = System.getProperty("user.dir");
-        // System.out.println(currentPath);
         if (currentPath.contains("src\\")){
             String sub[] = currentPath.split("src");
             currentPath = sub[0];
 
-            newPath = currentPath + "/test/input/" + name;
-            // System.out.println(currentPath);
+            newPath = currentPath + "test/input/" + name;
+            System.out.println(currentPath);
         } else {
             newPath = currentPath + "/test/input/" + name;
         }
-        // System.out.println(newPath);
-        // /Users/denisefeliciatiowanni/Desktop/uni/S02E01/IF2123 ALGEO/Algeo01-22013/test/input/text.txt
         try{
             
             int[] count = new int [2];
@@ -140,46 +141,78 @@ public class matrixIO {
     }
 
     // Mendapatkan nilai ab dari file untuk bicubic spline interpolation
-    public static double[] getAB(String path, int type){
-        int m;
-        m=0;
-        if (type == 1){
-            m =2;
-        } else if (type == 2){
-            m = 3;
+    public static double[] getTaksiran(String path){
+        String name = path;
+        String newPath;
+        String currentPath = System.getProperty("user.dir");
+        if (currentPath.contains("src\\")){
+            String sub[] = currentPath.split("src");
+            currentPath = sub[0];
+
+            newPath = currentPath + "test/input/" + name;
+            System.out.println(currentPath);
+        } else {
+            newPath = currentPath + "/test/input/" + name;
         }
-
-        double[] result = new double[m];
-        
+        int m = getCol(newPath);
+        double[] a = new double[m];
         try{
-            BufferedReader fileReader = new BufferedReader(new FileReader(path));
-
+            BufferedReader fileReader = new BufferedReader(new FileReader(newPath));
+            
             // Mencari nCol dan nRow
-            int lineCount = countLine(path);
+            int lineCount = countLine(newPath);
             int currentLine = 0;
             while ((fileReader.readLine()) != null){
                 currentLine++;
-
+                
                 if (currentLine == (lineCount-1)){
                     String[] temp = (fileReader.readLine()).split("\\s+");
-                    for (int i =0;i<temp.length;i++){
-                        result[i] = Double.parseDouble(temp[i]);
+                    for (int i =0;i<a.length;i++){
+                        a[i] = Double.parseDouble(temp[i]);
                     }
                 }
                 
             }
             fileReader.close();
 
-            return result;
+            return a;
 
         } catch (IOException e){
             System.out.println("File tidak ditemukan. Terjadi kesalahan.");
-            return result;
+            return a;
         }
 
 
     }
-    
+    // Mendapatkan banyak nCol dari file;
+    public static int getCol(String path){
+        int count = 0;
+        try{
+            BufferedReader fileReader = new BufferedReader(new FileReader(path));
+
+            // Mencari nCol dan nRow
+            int row = (countLine(path));
+            int col = 0;
+            int currentLine = 0;
+            while ((fileReader.readLine()) != null){
+                currentLine++;
+                if (currentLine == (row-1)){
+                    col = (fileReader.readLine()).split("\\s+").length;
+                }
+            }
+            count = col;
+            fileReader.close();
+            
+
+            return count;
+
+        } catch (IOException e){
+            System.out.println("File tidak ditemukan. Terjadi kesalahan.");
+
+            return count;
+        }
+
+    }
     // Mendapatkan banyak nRow dan nCol dari file
     public static int[] countRowCol(String path){
         int[] count = new int[2];
@@ -270,34 +303,7 @@ public class matrixIO {
         }
     }
 
-    // Menghasilkan nilai taksiran X untuk fungsi interpolasi
-    public static double getTaksiran(String path){
-        double value = 0;
-        try{
-            BufferedReader fileReader = new BufferedReader(new FileReader(path));
-
-            // Mencari nCol dan nRow
-            int lineCount = countLine(path);
-            int currentLine = 0;
-            while ((fileReader.readLine()) != null){
-                currentLine++;
-
-                if (currentLine == (lineCount-1)){
-                    String temp = fileReader.readLine();
-                    value = Double.parseDouble(temp);
-                }
-                
-            }
-            fileReader.close();
-
-            return value;
-
-        } catch (IOException e){
-            System.out.println("File tidak ditemukan. Terjadi kesalahan.");
-            return value;
-        }
-
-    }
+    
 
     /*------OUTPUT------- */
     // Menampilkan matrix pada layar
@@ -316,12 +322,9 @@ public class matrixIO {
     }
 
     // Membuat file baru
-    public static void createFile(){
+    public static void createFile(String path){
         // User input nama file
-        Scanner nameSc = new Scanner(System.in);
-        System.out.println("Masukkan nama file output lengkap dengan .txt: ");
-        String name = nameSc.nextLine();
-        nameSc.close();
+        String name = path;
 
         //Mendapatkan directory untuk file
         String newPath;
@@ -376,14 +379,16 @@ public class matrixIO {
         // for (int i=0;i<rc.length;i++){
         //     System.out.println(rc[i]);
         // }
-        double[][] m = fileToMatrix(1);
-        displayMatrix(m);
-        // System.out.println(getAB("./test/input/text.txt"));
-        // double[] s = getAB("./test/input/text.txt");
+        String path = inputFile();
+        // double[][] m = fileToMatrix(path,2);
+        // displayMatrix(m);
+        // // System.out.println(getAB(path));
+        // double[] s = getAB(path);
         // for (int i=0;i<s.length;i++){
         //     System.out.println(s[i]);
         // }
-
+        // System.out.println(getAB("./test/input/text.txt"));
+        createFile(path);
         
 
     }

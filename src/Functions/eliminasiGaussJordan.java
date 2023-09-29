@@ -15,7 +15,8 @@ public class eliminasiGaussJordan {
 
     public static void file () {
         double[][] matriks;
-        matriks = matrixIO.fileToMatrix(1);
+        String path = matrixIO.inputFile();
+        matriks = matrixIO.fileToMatrix(path, 1);
         SPL.GaussJ(matriks);
 
         System.out.println("Matriks eselon baris tereduksi: ");

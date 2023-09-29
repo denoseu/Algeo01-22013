@@ -9,7 +9,9 @@ public class detMatrix {
     }
 
     public static void redBarisfile() {
-        double[][] matriks = matrixIO.fileToMatrix(1);
+        double[][] matriks;
+        String path = matrixIO.inputFile();
+        matriks = matrixIO.fileToMatrix(path, 1);
 
         System.out.printf("Determinan: %.3f\n", SPL.detReduksiBaris(matriks));
     }
@@ -21,7 +23,9 @@ public class detMatrix {
     }
 
     public static void ekspansiFile() {
-        double[][] matriks = matrixIO.fileToMatrix(1);
+        double[][] matriks;
+        String path = matrixIO.inputFile();
+        matriks = matrixIO.fileToMatrix(path, 1);
 
         System.out.printf("Determinan: %.3f\n", SPL.determinan(matriks));
     }

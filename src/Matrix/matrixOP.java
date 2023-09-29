@@ -444,12 +444,14 @@ public class matrixOP {
         }
 
         double[] solusi = new double[matrixOP.getRow(matriks)];
+
         for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
-                solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
-                for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
-                    solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
-                } 
-            }
+            solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
+            for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
+                solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
+            } 
+        }
+
         return solusi;
     }
 }

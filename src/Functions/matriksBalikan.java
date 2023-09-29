@@ -18,7 +18,8 @@ public class matriksBalikan {
     }
     public static void inversFile () {
         double[][] m;
-        m = matrixIO.fileToMatrix(1);
+        String path = matrixIO.inputFile();
+        m = matrixIO.fileToMatrix(path, 1);
         matrixIO.displayMatrix(SPL.inverse(m));
     }
 

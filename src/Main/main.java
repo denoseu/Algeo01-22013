@@ -5,6 +5,7 @@ import src.Functions.eliminasiGauss;
 import src.Functions.eliminasiGaussJordan;
 import src.Functions.kaidahCramer;
 import src.Functions.matriksBalikan;
+import src.Functions.regresiLinearBerganda;
 import src.Functions.detMatrix;
 
 public class Main {
@@ -276,7 +277,6 @@ public class Main {
                     }
                     else {
                         System.out.println("INPUT SOURCE: FILE");
-                        detMatrix.redBarisfile();
                         matriksBalikan.inversFile();
                     }
                     break;
@@ -294,6 +294,25 @@ public class Main {
                     System.out.println("**************************************************************");
                     System.out.println("******************* REGRESI LINIER BERGANDA ******************");
                     System.out.println("**************************************************************");
+                    System.out.println(input);
+                    System.out.print("Masukan pilihan input: ");
+                    int inputrlb;
+                    inputrlb = scan.nextInt();
+                    while (inputrlb < 1 || inputrlb > 2) {
+                        System.out.println("Pilihan input tidak tersedia, mohon hanya menginput bilangan 1 atau 2.");
+                        System.out.print("Masukan pilihan input: ");
+                        inputrlb = scan.nextInt();  
+                    }
+                    System.out.println();
+                    
+                    if (inputrlb == 1) {
+                        System.out.println("INPUT SOURCE: KEYBOARD");
+                        regresiLinearBerganda.main();
+                    }
+                    else {
+                        System.out.println("INPUT SOURCE: FILE");
+                        regresiLinearBerganda.file();
+                    }
                     break; 
             }
 
