@@ -259,6 +259,26 @@ public class Main {
                     System.out.println("**************************************************************");
                     System.out.println("********************** MATRIKS BALIKAN ***********************");
                     System.out.println("**************************************************************");
+                    System.out.println(input);
+                    System.out.print("Masukan pilihan input: ");
+                    int inputinvers;
+                    inputinvers = scan.nextInt();
+                    while (inputinvers < 1 || inputinvers > 2) {
+                        System.out.println("Pilihan input tidak tersedia, mohon hanya menginput bilangan 1 atau 2.");
+                        System.out.print("Masukan pilihan input: ");
+                        inputinvers = scan.nextInt();  
+                    }
+                    System.out.println();
+                    
+                    if (inputinvers == 1) {
+                        System.out.println("INPUT SOURCE: KEYBOARD");
+                        matriksBalikan.inversKey();
+                    }
+                    else {
+                        System.out.println("INPUT SOURCE: FILE");
+                        detMatrix.redBarisfile();
+                        matriksBalikan.inversFile();
+                    }
                     break;
                 case 4:
                     System.out.println("**************************************************************");
