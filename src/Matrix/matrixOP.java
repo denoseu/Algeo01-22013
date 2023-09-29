@@ -201,5 +201,21 @@ public class matrixOP {
         return trans;
     }
 
-    
+    public static int satuUtama(double[][] m, int row, int j) {
+        // j adalah banyak kolom
+        int i; 
+        for (i = row - 1; i >= 0; i--) {
+            if (m[i][j] == 1) {
+                break; // dah ketemu satu utamanya
+            }
+        }
+        if (i != row) {
+            return i; // return index si 1 utama
+        } 
+        else {
+            
+            return -999; // mark
+        }
+
+    }
 }
