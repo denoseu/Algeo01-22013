@@ -111,7 +111,7 @@ public class regresiLinearBerganda {
     }
 
     public static void hasilRLB(double[] s){
-        System.out.print("f(x)= ");
+        System.out.print("f(x) = ");
         DecimalFormat df = new DecimalFormat("0.000");
         for (int i = 0 ; i<s.length;i++){
             if (i == 0){
