@@ -1,7 +1,8 @@
-package src.notUsed;
+package src.Funtions;
 import java.util.Scanner;
 
 import src.Matrix.*;
+import src.notUsed.gaussjordan;
 
 public class bicubic {
     public static Scanner scan;
