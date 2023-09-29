@@ -317,14 +317,14 @@ public class matrixIO {
         return text;
     }
     
-    public static void main(String[] args){
-        // System.out.println(countLine("./test/input/text.txt"));
-        // int [] rc = countRowCol("./test/input/text.txt");
-        // for (int i=0;i<rc.length;i++){
-        //     System.out.println(rc[i]);
-        // }
-        // double[][] m = fileToMatrix(2);
-        // displayMatrix(m);
-        System.out.println(getTaksiran("./test/input/text.txt"));
-    }
+    // public static void main(String[] args){
+    //     // System.out.println(countLine("./test/input/text.txt"));
+    //     // int [] rc = countRowCol("./test/input/text.txt");
+    //     // for (int i=0;i<rc.length;i++){
+    //     //     System.out.println(rc[i]);
+    //     // }
+    //     // double[][] m = fileToMatrix(2);
+    //     // displayMatrix(m);
+    //     System.out.println(getTaksiran("./test/input/text.txt"));
+    // }
 }
