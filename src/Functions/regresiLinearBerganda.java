@@ -111,8 +111,8 @@ public class regresiLinearBerganda {
     }
 
     public static void hasilRLB(double[] s){
+        System.out.println("Hasil regresi linear berganda: ");
         System.out.print("f(x) = ");
-        System.out.print("f(x)= ");
         DecimalFormat df = new DecimalFormat("0.000");
         for (int i = 0 ; i<s.length;i++){
             if (i == 0){
@@ -133,9 +133,20 @@ public class regresiLinearBerganda {
         System.out.println();
     }
 
-    public static void hasilEstimateRLB(double result){
+    public static void hasilEstimateRLB(double result, double[] taksiran){
         DecimalFormat df = new DecimalFormat("0.000");
-        System.out.print("Hasil taksiran: ");
+        String fx = "f(";
+        System.out.println("Hasil taksiran: ");
+        for (int i = 0;i<taksiran.length;i++){
+            if (i == (taksiran.length-1)){
+                fx += df.format(taksiran[i]);
+                fx += ")= ";
+            } else {
+                fx += df.format(taksiran[i]);
+                fx += ",";
+            }
+        }
+        System.out.print(fx);
         System.out.print(df.format(result));
         System.out.println();
     }
@@ -146,15 +157,8 @@ public class regresiLinearBerganda {
         double[] s = solutionReg(m);
         double result = estimateReg(s, x);
         hasilRLB(s);
-        hasilRLB(s);
-        hasilEstimateRLB(result);
-        // hasilRLB(s);
-        // System.out.println(s.length);
-        // for (int i =0 ;i<s.length;i++){
-        //     System.out.print("x" + i + ": ");
-        //     System.out.println(s[i]);
-
-        // }
+        hasilEstimateRLB(result,x);
+        
     }
 
 

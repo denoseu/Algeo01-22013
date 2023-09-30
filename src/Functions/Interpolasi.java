@@ -80,7 +80,19 @@ public class Interpolasi {
                 } else {
                     System.out.print(" + " + df.format(s[i]));
                 }
+            } else if (i == 1) {
+                if (s[i] < 0){
+                    System.out.print(" - " + df.format(Math.abs(s[i])));
+                    System.out.print("x");
+                } else if (s[i] == 0){
+                    System.out.print("");
+                } else {
+
+                    System.out.print(" + " + df.format(s[i]));
+                    System.out.print("x");
+                }
             } else {
+                
                 if (s[i] < 0){
                     System.out.print(" - " + df.format(Math.abs(s[i])));
                     System.out.print("x^" + i);
@@ -91,27 +103,25 @@ public class Interpolasi {
                     System.out.print(" + " + df.format(s[i]));
                     System.out.print("x^" + i);
                 }
-
             }
         }
         System.out.println();
 
     }
     
-    public static void hasilEstimateInter(double x){
+    public static void hasilEstimateInter(double x, double taksiran){
         DecimalFormat df = new DecimalFormat("0.000");
-        System.out.print("Hasil taksiran: ");
+        System.out.println("Hasil taksiran: ");
+        System.out.print("f(" + df.format(taksiran) + ")= ");
         System.out.print(df.format(x));
         System.out.println();
     }
     public static void main(String[] args){
         double[] m = solutionInterpolasi(inputInterpolasi());
         double x = inputTaksiran();
-        // for (int i =0;i<m.length;i++){
-        //     System.out.println("x" + i + ": " + m[i]);
-        // }
+        double result = estimate(m, x);
         hasilInterpolasi(m);
-        System.out.println(estimate(m, x));
+        hasilEstimateInter(result,x);
 
     }
 }
