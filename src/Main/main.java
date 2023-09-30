@@ -1,12 +1,7 @@
 package src.Main;
 import java.util.Scanner;
 
-import src.Functions.eliminasiGauss;
-import src.Functions.eliminasiGaussJordan;
-import src.Functions.kaidahCramer;
-import src.Functions.matriksBalikan;
-import src.Functions.regresiLinearBerganda;
-import src.Functions.detMatrix;
+import src.Functions.MainFunctions;
 
 public class Main {
     public static Scanner scan;
@@ -55,7 +50,7 @@ public class Main {
             System.out.println("2. Determinan");
             System.out.println("3. Matriks Balikan");
             System.out.println("4. Interpolasi Polinom");
-            System.out.println("5. Interpolasi Bicubic");
+            System.out.println("5. Interpolasi Bicubic Spline");
             System.out.println("6. Regresi Linear Berganda");
             System.out.println("7. Keluar");
             System.out.println();
@@ -113,11 +108,11 @@ public class Main {
                             
                             if (inputgauss == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                eliminasiGauss.keyboard();
+                                MainFunctions.GaussKeyboard();
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                eliminasiGauss.file();
+                                MainFunctions.GaussFile();
                             }
                             break;
                         case 2:
@@ -136,11 +131,11 @@ public class Main {
                             
                             if (inputGJ == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                eliminasiGaussJordan.keyboard();
+                                MainFunctions.GaussJordanKeyboard();
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                eliminasiGaussJordan.file();
+                                MainFunctions.GaussJordanFile();
                             }
                             break;
                         case 3:
@@ -159,7 +154,7 @@ public class Main {
                             
                             if (inputbalikan == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                matriksBalikan.keyboard();
+                                MainFunctions.BalikanKeyboard();
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
@@ -182,11 +177,11 @@ public class Main {
                             
                             if (inputcramer == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                kaidahCramer.keyboard();
+                                MainFunctions.CramerKeyboard();
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                kaidahCramer.file();
+                                MainFunctions.CramerFile();
                             }
                             break;
                     }
@@ -225,11 +220,11 @@ public class Main {
                             
                             if (inputreduksi == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                detMatrix.redBarisKeyboard();
+                                MainFunctions.redBarisKeyboard();
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                detMatrix.redBarisfile();
+                                MainFunctions.redBarisfile();
                             }
                             break;
                         case 2:
@@ -247,11 +242,11 @@ public class Main {
                             
                             if (inputeks == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                detMatrix.ekspansiKeyboard();
+                                MainFunctions.ekspansiKeyboard();
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                detMatrix.ekspansiFile();
+                                MainFunctions.ekspansiFile();
                             }
                             break;
                     }
@@ -273,22 +268,43 @@ public class Main {
                     
                     if (inputinvers == 1) {
                         System.out.println("INPUT SOURCE: KEYBOARD");
-                        matriksBalikan.inversKey();
+                        MainFunctions.inverseKeyboard();
                     }
                     else {
                         System.out.println("INPUT SOURCE: FILE");
-                        matriksBalikan.inversFile();
+                        MainFunctions.inverseFile();
                     }
                     break;
                 case 4:
                     System.out.println("**************************************************************");
                     System.out.println("******************** INTERPOLASI POLINOM *********************");
                     System.out.println("**************************************************************");
-                    break;
+                    System.out.println(input);
+                    System.out.print("Masukan pilihan input: ");
+                    int inputpolinom;
+                    inputpolinom = scan.nextInt();
+                    while (inputpolinom < 1 || inputpolinom > 2) {
+                        System.out.println("Pilihan input tidak tersedia, mohon hanya menginput bilangan 1 atau 2.");
+                        System.out.print("Masukan pilihan input: ");
+                        inputpolinom = scan.nextInt();  
+                    }
+                    System.out.println();
+                    
+                    if (inputpolinom == 1) {
+                        System.out.println("INPUT SOURCE: KEYBOARD");
+                        MainFunctions.InterpolasiKeyboard();
+                    }
+                    else {
+                        System.out.println("INPUT SOURCE: FILE");
+                        MainFunctions.InterpolasiFile();
+                    }
+                    break; 
                 case 5:
                     System.out.println("**************************************************************");
-                    System.out.println("******************** INTERPOLASI BICUBIC *********************");
+                    System.out.println("**************** INTERPOLASI BICUBIC SPLINE ******************");
                     System.out.println("**************************************************************");
+                    System.out.println("INPUT SOURCE: KEYBOARD");
+                    MainFunctions.InterpolasiSpline();
                     break;
                 case 6:
                     System.out.println("**************************************************************");
@@ -307,11 +323,11 @@ public class Main {
                     
                     if (inputrlb == 1) {
                         System.out.println("INPUT SOURCE: KEYBOARD");
-                        regresiLinearBerganda.main();
+                        MainFunctions.RegresiKeyboard();
                     }
                     else {
                         System.out.println("INPUT SOURCE: FILE");
-                        regresiLinearBerganda.file();
+                        MainFunctions.RegresiFile();
                     }
                     break; 
             }
