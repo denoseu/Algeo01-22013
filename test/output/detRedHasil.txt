@@ -1,0 +1,6 @@
+-----HASIL DETERMINAN DENGAN REDUKSI BARIS-----
+3.0 6.0 9.0 3.0
+-1.0 0.0 1.0 0.0
+1.0 3.0 2.0 -1.0
+-1.0 -2.0 -2.0 1.0
+Determinan untuk matrix di atas adalah: -21.0

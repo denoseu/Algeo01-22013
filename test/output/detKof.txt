@@ -1,0 +1,5 @@
+-----HASIL DETERMINAN DENGAN EXPANSI KOFAKTOR-----
+3.0 6.0 9.0 3.0
+-1.0 0.0 1.0 0.0
+1.0 3.0 2.0 -1.0
+Matrix di atas tidak memiliki determinan.

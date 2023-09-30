@@ -189,14 +189,91 @@ public class outputFile {
         }
 
     }
+
+    public static void fileDeterminan(double[][] matrix, int type){
+        String m = matrixIO.inputFile();
+        matrixIO.createFile(m);
+        String newPath = getPathOut(m);
+        FileWriter write;
+        try {
+
+            write = new FileWriter(newPath);
+
+            BufferedWriter writeFile = new BufferedWriter(write);
+
+            String mat = matrixIO.matrixString(matrix);
+            String det = "";
+            if (type == 1){
+                writeFile.write("-----HASIL DETERMINAN DENGAN REDUKSI BARIS-----");
+                if (SPL.detReduksiBaris(matrix) != -9999){
+                    det += SPL.detReduksiBaris(matrix);
+                }
+            } else if (type == 2) {
+                writeFile.write("-----HASIL DETERMINAN DENGAN EXPANSI KOFAKTOR-----");
+                if (SPL.determinan(matrix) != -9999){
+                    det += SPL.determinan(matrix);
+                }
+            }
+            writeFile.newLine();
+            writeFile.write(mat);
+            // writeFile.newLine();
+            if (det ==""){
+                writeFile.write("Matrix di atas tidak memiliki determinan.");
+            } else {
+
+                writeFile.write("Determinan untuk matrix di atas adalah: " + det);
+            }
+            writeFile.flush();
+            writeFile.close();
+
+        } catch (IOException e){
+            System.out.println("Terjadi Kesalahan. Tidak bisa menyimpan file.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void fileInverse(double[][] matrix){
+        String m = matrixIO.inputFile();
+        matrixIO.createFile(m);
+        String newPath = getPathOut(m);
+        FileWriter write;
+        try {
+
+            write = new FileWriter(newPath);
+
+            BufferedWriter writeFile = new BufferedWriter(write);
+
+            String mat = matrixIO.matrixString(matrix);
+            writeFile.write("-----HASIL INVERSE MATRIX-----");
+            writeFile.newLine();
+            writeFile.write(mat);
+
+            // writeFile.newLine();
+            if (SPL.noInv(SPL.inverse(matrix)) == true){
+                writeFile.write("Matrix di atas tidak memiliki inverse.");
+            } else {
+                String inverse = matrixIO.matrixString(SPL.inverse(matrix));
+                writeFile.write("Inverse untuk matrix di atas adalah: " );
+                writeFile.newLine();
+                writeFile.write(inverse);
+            }
+            
+            writeFile.flush();
+            writeFile.close();
+
+        } catch (IOException e){
+            System.out.println("Terjadi Kesalahan. Tidak bisa menyimpan file.");
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args){
         String path = matrixIO.inputFile();
         double[][] mat = matrixIO.fileToMatrix(path,2);
         // double[] s = regresiLinearBerganda.solutionReg(mat);
-        double[] s = Interpolasi.solutionInterpolasi(mat);
-        double[] x = matrixIO.getTaksiran(path);
-        double result = Interpolasi.estimate(s, x);
-        fileInterpolasi(s, x, result);
+        // double[] s = Interpolasi.solutionInterpolasi(mat);
+        // double[] x = matrixIO.getTaksiran(path);
+        // double result = Interpolasi.estimate(s, x);
+        fileInverse(mat);
 
     }
 }

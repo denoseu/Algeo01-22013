@@ -131,7 +131,7 @@ public class SPL {
                 }
             }
         } else {
-            det = 0;
+            det = -9999;
         }
         return det;
     }
@@ -200,6 +200,17 @@ public class SPL {
             }
         } 
         return inv;
+    }
+
+    public static boolean noInv(double[][] m){
+        for (int i=0;i<m.length;i++){
+            for(int j=0; j<m[0].length;j++){
+                if (m[i][j] != 0){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 

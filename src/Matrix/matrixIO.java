@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.io.BufferedReader;
 
 public class matrixIO {
@@ -359,13 +360,15 @@ public class matrixIO {
     //Mengubah matrix ke string
     public static String matrixString(double[][] m){
         String text ="";
+        DecimalFormat df = new DecimalFormat("0.000");
+            
         for (int i=0; i<m.length;i++){
             for (int j=0;j<m[i].length;j++){
                 if (j!= m[i].length -1){
-                    text += m[i][j] + " ";
+                    text += df.format(m[i][j]) + " ";
                 } 
                 else {
-                    text += m[i][j] + "\n";
+                    text += df.format(m[i][j]) + "\n";
                 }
             }
         }
