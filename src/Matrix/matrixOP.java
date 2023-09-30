@@ -349,15 +349,19 @@ public class matrixOP {
 
     }
 
-    public static void hasilSPLGauss (double[][] matriks) {
+    public static double[] hasilSPLGauss (double[][] matriks) {
         double[] solusi = new double[matrixOP.getRow(matriks)];
+        double[] solusibanyak = {-999};
+        double[] nosolusi = {0, 0, 0, 0};
 
         if (matrixOP.noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
+            return nosolusi;
         }
         else if ((matrixOP.Nol(matriks))) {
             System.out.println("Matriks memiliki banyak solusi.");
             SPL.parameter(matriks, false);
+            return solusibanyak;
         }
         else {
             for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
@@ -371,19 +375,24 @@ public class matrixOP {
             for (int i = 0; i < solusi.length; i++) {
                 System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
             }
+            return solusi;
             
         }
     }
 
-    public static void hasilSPLGaussJordan (double[][] matriks) {
+    public static double[] hasilSPLGaussJordan (double[][] matriks) {
         double[] solusi = new double[matrixOP.getRow(matriks)];
+        double[] solusibanyak = {-999};
+        double[] nosolusi = {0, 0, 0, 0};
 
         if (matrixOP.noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
+            return nosolusi;
         }
         else if ((matrixOP.Nol(matriks))) {
             System.out.println("Matriks memiliki banyak solusi.");
             SPL.parameter(matriks, true);
+            return solusibanyak;
         }
         else {
             for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
@@ -397,7 +406,7 @@ public class matrixOP {
             for (int i = 0; i < solusi.length; i++) {
                 System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
             }
-            
+            return solusi;
         }
     }
     
