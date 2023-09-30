@@ -6,7 +6,7 @@ public class matriksBalikan {
     // SPL
     public static void keyboard () {
         double[][] matriks = SPL.SPLBalikan();
-
+        matrixIO.displayMatrix(SPL.inverse(matriks));
         matrixOP.hasilSPLInverse(matriks);
     }
 
