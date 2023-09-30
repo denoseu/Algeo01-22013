@@ -5,7 +5,7 @@ import src.Matrix.*;
 
 public class SPL {
     /*-------------- GAUSS ------------------ */
-    public static void eselonbaris(double[][] m) {
+    public static void recursiveGauss (double[][] m) {
         int row = matrixOP.getRow(m);
         int col = matrixOP.getCol(m);
         // boolean found = false;
@@ -46,6 +46,63 @@ public class SPL {
         }
     }
 
+    public static void eselonbaris(double[][] m) {
+        boolean found = false;
+        int row = matrixOP.getRow(m);
+        int col = matrixOP.getCol(m);
+        // boolean found = false;
+        for (int i = 0; i < row; i++) {
+            // cari elemen pertama yang tidak nol di baris
+            for (int j = 0; j < col; j++) {
+                if (m[i][j] != 0) {
+                    double bukannol = m[i][j];
+
+                    // bagi baris oleh elemen yang bukan nol (biar dapet 1 utama)
+                    for (int p = 0; p < col; p++) { // ato p < row+1?
+                        m[i][p] /= bukannol; 
+                    }
+                    // System.out.println(" ");
+                    // matrixIO.displayMatrix(m);
+
+                    // menolkan elemen dibawah 1 utama
+                    for (int k = i + 1; k < row; k++) {
+                        double faktor = m[k][j];
+                        for (int l = 0; l < col; l++) {
+                            m[k][l] -= faktor * m[i][l];
+                        }
+                    }
+                    // System.out.println(" ");
+                    // matrixIO.displayMatrix(m);
+
+                    // untuk fix kasus -0
+                    for(int a = 0; a < matrixOP.getRow(m); a++) {
+                        for(int b = 0; b < matrixOP.getCol(m); b++) {
+                            if (m[a][b] == -0) {
+                                m[a][b] = 0;
+                            }
+                        }
+                    }
+                    break;
+                }
+                else if (m[i][j] == 0) {
+                    int max = i;
+                    for (int n = i+1; n < matrixOP.getRow(m); n++) { 
+                        if (m[n][i] != 0) {
+                            found = true;
+                            max = n;
+                            break;
+                        }
+                    }
+                    if (found == true) {
+                        matrixOP.tukar_baris(m, i, max);
+                        SPL.recursiveGauss(m);
+                        break;
+                    } 
+                }
+            }
+        }
+    }
+
     /*-------------- GAUSS JORDAN ------------------ */
     public static void GaussJ(double[][] m) {
 
@@ -54,35 +111,38 @@ public class SPL {
         eselonbaris(m);
         int row = matrixOP.getRow(m);
         int col = matrixOP.getCol(m);
+        int p, q, r, s;
+        // dari gauss harusnya dah dapet smua leading 1, tinggal buat elemen diatasnya 0
+        
+        // cari indeks baris leading one pada kolom yang lagi di cek
+        for (p = row - 1; p > 0; p--) {
+            // cari leading 1 pada baris terakhir
+            for (q = 0; q < col; q++) {
+                if (m[p][q] != 0) {
+                    break; // ketemu 1 utamanya
+                }
+            }
 
-        for (int p = 0; p < col; p++) {
-            // cari indeks baris leading one pada kolom yang lagi di cek (j)
-            int satu = matrixOP.satuUtama(m, row, p);
-            for (int q = 0; q < satu; q++) {
-                if (m[q][p] != 0) {
-                    double faktor = m[q][p];
-                    for (int r = q; r < col; r++) {
-                        m[q][r] -= faktor * m[satu][r];
-                        // System.out.println(" faktor ");
-                        // matrixIO.displayMatrix(m);
-                        // handle nilai -0
-                        if (m[q][r] == -0) {
-                            m[q][r] = 0;
-                        }
-                    }
-                } 
-                // handle nilai -0
-                else if (m[q][p] == -0) {
-                    m[q][p] = 0;
+            if (q >= col) { // untuk kasus baris 0
+                q = 0;
+            }
+
+            // bikin semua elemen diatas leading 1 menjadi 0
+            for (r = p - 1; r >= 0 ; r--){
+                double faktor = m[r][q];
+                for (s = 0; s < col; s++){
+                    m[r][s] -= (faktor * m[p][s]);
+                    System.out.println(" ");
+                    matrixIO.displayMatrix(m);
                 }
             }
         }
 
-        // untuk fix kasus -0
-        for(int a = 0; a < matrixOP.getRow(m); a++) {
-            for(int b = 0; b < matrixOP.getCol(m); b++) {
-                if (m[a][b] == -0) {
-                    m[a][b] = 0;
+        // untuk handle kasus -0
+        for(int x = 0; x < matrixOP.getRow(m); x++) {
+            for(int y = 0; y < matrixOP.getCol(m); y++) {
+                if (m[x][y] == -0) {
+                    m[x][y] = 0;
                 }
             }
         }
