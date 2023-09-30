@@ -116,7 +116,11 @@ public class regresiLinearBerganda {
         DecimalFormat df = new DecimalFormat("0.000");
         for (int i = 0 ; i<s.length;i++){
             if (i == 0){
-                System.out.print(df.format(s[i]));
+                if (s[i] == 0){
+                    System.out.print("");
+                } else {
+                    System.out.print(df.format(s[i]));
+                }
             } else {
                 if (s[i] < 0){
                     System.out.print(" - " + df.format(Math.abs(s[i])));

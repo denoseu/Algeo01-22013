@@ -1,18 +1,12 @@
 package src.Matrix;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.security.Principal;
 import java.text.DecimalFormat;
 
-import src.Functions.SPL;
-import src.Functions.regresiLinearBerganda;
-import src.Matrix.*;
+import src.Functions.*;
 
-public class outputFormat {
+public class outputFile {
     /*
     Interpolasi
      */ 
@@ -32,7 +26,7 @@ public class outputFormat {
         }
         return newPath;
     }
-    public static void fileInterpolasi(){
+    public static void fileInterpolasi(double[] s, double[] taksiran,double result){
         String m = matrixIO.inputFile();
         matrixIO.createFile(m);
         String newPath = getPathOut(m);
@@ -44,7 +38,59 @@ public class outputFormat {
             BufferedWriter writeFile = new BufferedWriter(write);
             writeFile.write("-----HASIL INTERPOLASI-----");
             writeFile.newLine();
+            DecimalFormat df = new DecimalFormat("0.000");
+            String fx = "f(x)= ";
+            for (int i = s.length-1 ; i>=0;i--){
+                if (i == s.length-1){
+                    if (s[i] == 0){
+                        fx += "";
+                    }else {
 
+                        fx +=(df.format(s[i]));
+                        fx +=("x^" + Integer.toString(i));
+                    }
+                } else if (i == 0) {
+                    if (s[i] < 0){
+                        fx += (" - " + df.format(Math.abs(s[i])));
+                    } else if (s[i] == 0){
+                        fx += ("");
+                    } else {
+                        fx += (" + " + df.format(s[i]));
+                    }
+                } else if (i == 1) {
+                    if (s[i] < 0){
+                        fx += (" - " + df.format(Math.abs(s[i])));
+                        fx += ("x");
+                    } else if (s[i] == 0){
+                        fx += ("");
+                    } else {
+
+                        fx += (" + " + df.format(s[i]));
+                        fx += ("x");
+                    }
+                } else {
+                    
+                    if (s[i] < 0){
+                        fx += (" - " + df.format(Math.abs(s[i])));
+                        fx += ("x^" + Integer.toString(i));
+                    } else if (s[i] == 0){
+                        fx += ("");
+                    } else {
+
+                        fx += (" + " + df.format(s[i]));
+                        fx += ("x^" + Integer.toString(i));
+                    }
+                }
+            }
+            writeFile.write(fx);
+            writeFile.newLine();
+            writeFile.write("Hasil taksiran: ");
+            writeFile.newLine();
+            String res = "f(";
+            res += df.format(taksiran[0]);
+            res += ")= ";
+            res += df.format(result);
+            writeFile.write(res);
             writeFile.flush();
             writeFile.close();
 
@@ -78,7 +124,7 @@ public class outputFormat {
 
     }
     
-    public static void fileRLB(double[]s,double x){
+    public static void fileRLB(double[]s,double x,double[] taksiran){
         String m = matrixIO.inputFile();
         matrixIO.createFile(m);
         String newPath = getPathOut(m);
@@ -95,7 +141,11 @@ public class outputFormat {
             DecimalFormat df = new DecimalFormat("0.000");
             for (int i = 0 ; i<s.length;i++){
                 if (i == 0){
-                    str += df.format(s[i]);
+                    if (s[i] == 0){
+                        str += "";
+                    } else {
+                        str += df.format(s[i]);
+                    }
                 } else {
                     if (s[i] < 0){
                         str += " - ";
@@ -116,6 +166,19 @@ public class outputFormat {
             writeFile.write(str);
             writeFile.newLine();
             writeFile.write("Hasil taksiran: ");
+            writeFile.newLine();
+
+            String fx = "f(";
+            for (int i = 0;i<taksiran.length;i++){
+                if (i == (taksiran.length-1)){
+                    fx += df.format(taksiran[i]);
+                    fx += ")= ";
+                } else {
+                    fx += df.format(taksiran[i]);
+                    fx += ",";
+                }
+            }
+            writeFile.write(fx);
             writeFile.write(df.format(x));
             writeFile.flush();
             writeFile.close();
@@ -129,10 +192,11 @@ public class outputFormat {
     public static void main(String[] args){
         String path = matrixIO.inputFile();
         double[][] mat = matrixIO.fileToMatrix(path,2);
-        double[] s = regresiLinearBerganda.solutionReg(mat);
+        // double[] s = regresiLinearBerganda.solutionReg(mat);
+        double[] s = Interpolasi.solutionInterpolasi(mat);
         double[] x = matrixIO.getTaksiran(path);
-        double result = regresiLinearBerganda.estimateReg(s, x);
-        fileRLB(s, result);
+        double result = Interpolasi.estimate(s, x);
+        fileInterpolasi(s, x, result);
 
     }
 }

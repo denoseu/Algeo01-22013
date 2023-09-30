@@ -79,7 +79,7 @@ public class matrixIO {
     // Meminta name file txt
     public static String inputFile(){
         Scanner nameSc = new Scanner(System.in);
-        System.out.print("Masukkan nama file input lengkap dengan .txt: ");
+        System.out.print("Masukkan nama file lengkap dengan .txt: ");
         String name = nameSc.nextLine();
         return name;
     }

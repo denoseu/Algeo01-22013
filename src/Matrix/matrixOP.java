@@ -436,7 +436,6 @@ public class matrixOP {
                     }
                     if (found == true) {
                         matrixOP.tukar_baris(matriks, i, max);
-                        matrixIO.displayMatrix(matriks);
                         SPL.eselonbaris(matriks);
                     } 
                 }

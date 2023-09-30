@@ -1,0 +1,4 @@
+-----HASIL INTERPOLASI-----
+f(x)= 1.000x^3 - 8.000x^2 + 21.000x - 13.000
+Hasil taksiran: 
+f(8.000)= 155.000

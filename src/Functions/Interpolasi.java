@@ -26,10 +26,10 @@ public class Interpolasi {
     }
 
     // Mencari perkiraan titik interpolasi
-    public static double estimate(double[] s, double x){
+    public static double estimate(double[] s, double[] x){
         double result = 0;
         for (int i =0; i<s.length;i++){
-            result += s[i] * Math.pow(x, i);
+            result += s[i] * Math.pow(x[0], i);
         }
         return result;
     }
@@ -52,9 +52,10 @@ public class Interpolasi {
         }
         return m;
     }
-    public static double inputTaksiran(){
+    public static double[] inputTaksiran(){
         scan = new Scanner(System.in);
-        System.out.print("Masukkan nilai yang ditaksir: "); double n = scan.nextDouble();
+        double[] n = new double[1];
+        System.out.print("Masukkan nilai yang ditaksir: "); n[0] = scan.nextDouble();
         return n;
 
     }
@@ -109,16 +110,16 @@ public class Interpolasi {
 
     }
     
-    public static void hasilEstimateInter(double x, double taksiran){
+    public static void hasilEstimateInter(double x, double[] taksiran){
         DecimalFormat df = new DecimalFormat("0.000");
         System.out.println("Hasil taksiran: ");
-        System.out.print("f(" + df.format(taksiran) + ")= ");
+        System.out.print("f(" + df.format(taksiran[0]) + ")= ");
         System.out.print(df.format(x));
         System.out.println();
     }
     public static void main(String[] args){
         double[] m = solutionInterpolasi(inputInterpolasi());
-        double x = inputTaksiran();
+        double[] x = inputTaksiran();
         double result = estimate(m, x);
         hasilInterpolasi(m);
         hasilEstimateInter(result,x);
