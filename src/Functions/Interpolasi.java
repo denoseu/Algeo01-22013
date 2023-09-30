@@ -118,11 +118,17 @@ public class Interpolasi {
         System.out.println();
     }
     public static void main(String[] args){
-        double[] m = solutionInterpolasi(inputInterpolasi());
-        double[] x = inputTaksiran();
-        double result = estimate(m, x);
-        hasilInterpolasi(m);
-        hasilEstimateInter(result,x);
+        // double[] m = solutionInterpolasi(inputInterpolasi());
+        // double[] x = inputTaksiran();
+        // double result = estimate(m, x);
+        // hasilInterpolasi(m);
+        // hasilEstimateInter(result,x);
+
+        // String path = matrixIO.inputFile();
+        // double[][] matrix = matrixIO.fileToMatrix(path,2);
+        // double[] x = matrixIO.getTaksiran(path);
+        // double[] solution = solutionInterpolasi(matrix);
+        // double result = estimate(solution, x)
 
     }
 }

@@ -7,9 +7,7 @@ import java.text.DecimalFormat;
 import src.Functions.*;
 
 public class outputFile {
-    /*
-    Interpolasi
-     */ 
+
     public static String getPathOut(String name){
         //Mendapatkan directory untuk file
         String newPath;
@@ -266,14 +264,57 @@ public class outputFile {
             e.printStackTrace();
         }
     }
+
+    public static void fileBicubic(double[][] matrix , double[] taksiran){
+        String m = matrixIO.inputFile();
+        matrixIO.createFile(m);
+        String newPath = getPathOut(m);
+        FileWriter write;
+        try {
+
+            write = new FileWriter(newPath);
+
+            BufferedWriter writeFile = new BufferedWriter(write);
+
+            String mat = matrixIO.matrixString(matrix);
+            writeFile.write("-----HASIL BICUBIC SPLINE INTERPOLATION-----");
+            writeFile.newLine();
+            writeFile.write(mat);
+
+            writeFile.write("Hasil taksiran matrix di atas adalah: " );
+            DecimalFormat df = new DecimalFormat("0.000");
+            String fx = "f(";
+            for (int i = 0;i<taksiran.length;i++){
+                if (i == (taksiran.length-1)){
+                    fx += df.format(taksiran[i]);
+                    fx += ")= ";
+                } else {
+                    fx += df.format(taksiran[i]);
+                    fx += ",";
+                }
+            }
+            writeFile.write(fx);
+            // writeFile.newLine();
+            writeFile.write(Double.toString(bicubicInterpolation.bicubicSpline(matrix, taksiran[0], taksiran[1])));
+            
+            writeFile.flush();
+            writeFile.close();
+
+        } catch (IOException e){
+            System.out.println("Terjadi Kesalahan. Tidak bisa menyimpan file.");
+            e.printStackTrace();
+        }
+    }
+    
+
     public static void main(String[] args){
         String path = matrixIO.inputFile();
         double[][] mat = matrixIO.fileToMatrix(path,2);
         // double[] s = regresiLinearBerganda.solutionReg(mat);
         // double[] s = Interpolasi.solutionInterpolasi(mat);
-        // double[] x = matrixIO.getTaksiran(path);
+        double[] x = matrixIO.getTaksiran(path);
         // double result = Interpolasi.estimate(s, x);
-        fileInverse(mat);
+        fileBicubic(mat, x);
 
     }
 }

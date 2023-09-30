@@ -155,10 +155,13 @@ public class bicubicInterpolation {
         // double[][] matrixInput = matrixIO.readMatrixKeyboard();
         double[][] matrixInput;
         String path = matrixIO.inputFile();
-        matrixInput = matrixIO.fileToMatrix(path, 1);
+        matrixInput = matrixIO.fileToMatrix(path, 2);
+        double[] taksiran = matrixIO.getTaksiran(path);
         scan = new Scanner(System.in);
-        System.out.print("Masukkan x: "); double x = scan.nextDouble();
-        System.out.print("Masukkan y: "); double y = scan.nextDouble();
+        // System.out.print("Masukkan x: "); double x = scan.nextDouble();
+        // System.out.print("Masukkan y: "); double y = scan.nextDouble();
+        double x = taksiran[0];
+        double y =taksiran[1];
         
         double solusi = bicubicSpline(matrixInput, x, y);
         System.out.println(solusi);
