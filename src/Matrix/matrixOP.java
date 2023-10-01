@@ -343,6 +343,54 @@ public class matrixOP {
 
     }
 
+    // untuk kasus dimana dia solusi unik tapi ada zero rows dibawah
+    public static double[][] deleteZeroRows(double[][] matriks) {
+        if (matriks == null || matriks.length == 0) {
+            // handle matriks kosong
+            return matriks; // lgsg return
+        }
+    
+        int numRows = getRow(matriks);
+        int numCols = getCol(matriks);
+        int newRowCount = 0; // hitung non-zero rows
+        
+        // Count non-zero rows
+        for (int i = 0; i < numRows; i++) {
+            boolean isZeroRow = true;
+            for (int j = 0; j < numCols; j++) {
+                if (matriks[i][j] != 0) {
+                    isZeroRow = false; // lgsg false
+                    break; // cek next
+                }
+            }
+            if (!isZeroRow) {
+                newRowCount++;
+            }
+        }
+    
+        // bikin matrix baru isinya yang ga pke 0 row
+        double[][] result = new double[newRowCount][numCols];
+        int rowIndex = 0;
+    
+        for (int i = 0; i < numRows; i++) {
+            boolean isZeroRow = true;
+            for (int j = 0; j < numCols; j++) {
+                if (matriks[i][j] != 0) {
+                    isZeroRow = false;
+                    break;
+                }
+            }
+            if (!isZeroRow) {
+                // copy matriksnya
+                System.arraycopy(matriks[i], 0, result[rowIndex], 0, numCols);
+                rowIndex++;
+            }
+        }
+    
+        return result;
+    }
+    
+
     public static double[] hasilSPLGauss (double[][] matriks) {
         double[] solusi = new double[matrixOP.getRow(matriks)];
         double[] solusibanyak = {-999};
@@ -352,7 +400,12 @@ public class matrixOP {
             System.out.println("Matriks tidak memiliki solusi.");
             return nosolusi;
         }
-        else if ((matrixOP.Nol(matriks)) || (getRow(matriks) != getCol(matriks)-1)) {
+        else if ((matrixOP.Nol(matriks)) && (getRow(matriks) > getCol(matriks)-1)) {
+            matriks = deleteZeroRows(matriks);
+            return hasilSPLGauss(matriks);
+            
+        }
+        else if ((matrixOP.Nol(matriks)) || (getRow(matriks) < getCol(matriks)-1)) {
             System.out.println("Matriks memiliki banyak solusi.");
             SPL.parameter(matriks, false);
             return solusibanyak;
@@ -383,7 +436,12 @@ public class matrixOP {
             System.out.println("Matriks tidak memiliki solusi.");
             return nosolusi;
         }
-        else if ((matrixOP.Nol(matriks)) ||  (getRow(matriks) != getCol(matriks)-1)) {
+        else if ((matrixOP.Nol(matriks)) && (getRow(matriks) > getCol(matriks)-1)) {
+            matriks = deleteZeroRows(matriks);
+            return hasilSPLGaussJordan(matriks);
+            
+        }
+        else if ((matrixOP.Nol(matriks)) ||  (getRow(matriks) < getCol(matriks)-1)) {
             System.out.println("Matriks memiliki banyak solusi.");
             SPL.parameter(matriks, true);
             return solusibanyak;
