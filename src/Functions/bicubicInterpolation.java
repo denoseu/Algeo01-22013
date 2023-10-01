@@ -82,8 +82,6 @@ public class bicubicInterpolation {
                 }
             }
         }
-
-        matrixIO.displayMatrix(X);
         return X;
     }
 
@@ -99,7 +97,6 @@ public class bicubicInterpolation {
                 }
             }
         }
-        // matrixIO.displayMatrix(I);
 
         // menghitung matriks augmented [A | I]
         double[][] augmentedMatrix = new double[matrixOP.getRow(A)][2 * matrixOP.getRow(A)];
@@ -109,12 +106,9 @@ public class bicubicInterpolation {
                 augmentedMatrix[i][j + matrixOP.getRow(A)] = I[i][j];
             }
         }
-        // matrixIO.displayMatrix(augmentedMatrix);
 
         // lakukan eliminasi Gauss-Jordan
         SPL.GaussJ(augmentedMatrix);
-
-        // matrixIO.displayMatrix(augmentedMatrix);
 
         // mendapatkan matriks balikan dari matriks augmented yang sudah dilakukan operasi gauss-jordan
         double[][] AInverse = new double[matrixOP.getRow(A)][matrixOP.getRow(A)];
@@ -123,11 +117,6 @@ public class bicubicInterpolation {
                 AInverse[i][j] = augmentedMatrix[i][j + matrixOP.getRow(A)];
             }
         }
-
-        // hasil matriks balikan = AInverse
-        System.out.println("Matriks Balikan (A^(-1)): ");
-        matrixIO.displayMatrix(AInverse);
-
         return AInverse;
     }
 
@@ -159,6 +148,17 @@ public class bicubicInterpolation {
     //     scan = new Scanner(System.in);
     //     System.out.print("Masukkan x: "); double x = scan.nextDouble();
     //     System.out.print("Masukkan y: "); double y = scan.nextDouble();
+    // public static void main(String[] args){
+    //     // double[][] matrixInput = matrixIO.readMatrixKeyboard();
+    //     double[][] matrixInput;
+    //     String path = matrixIO.inputFile();
+    //     matrixInput = matrixIO.fileToMatrix(path, 2);
+    //     double[] taksiran = matrixIO.getTaksiran(path);
+    //     scan = new Scanner(System.in);
+    //     // System.out.print("Masukkan x: "); double x = scan.nextDouble();
+    //     // System.out.print("Masukkan y: "); double y = scan.nextDouble();
+    //     double x = taksiran[0];
+    //     double y =taksiran[1];
         
     //     double solusi = bicubicSpline(matrixInput, x, y);
     //     System.out.println(solusi);

@@ -424,6 +424,7 @@ public class matrixOP {
         }
     }
     // Hasil Gauss berbentuk matrix
+   
     public static double[] getGaussMatrix(double[][] matriks){
 
         boolean found = false;
@@ -462,4 +463,8 @@ public class matrixOP {
 
         return solusi;
     }
+
+    
+
 }
+

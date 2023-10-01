@@ -147,7 +147,35 @@ public class SPL {
             }
         }
     }
+    public static double[][] getGauss(double[][] matriks){
+        double[][] m = matriks;
+        boolean found = false;
 
+        for (int i = 0; i < matrixOP.getRow(matriks); i++) {
+            // cari elemen pertama yang tidak nol di baris
+            for (int j = 0; j < matrixOP.getCol(matriks); j++) {
+                if (matriks[i][j] != 0) {
+                    SPL.eselonbaris(matriks);
+                }
+                else {
+                    int max = i;
+                    for (int n = i+1; n < matrixOP.getRow(matriks); n++) { 
+                        if (matriks[n][i] != 0) {
+                            found = true;
+                            max = n;
+                            break;
+                        }
+                    }
+                    if (found == true) {
+                        matrixOP.tukar_baris(matriks, i, max);
+                        matrixIO.displayMatrix(matriks);
+                        SPL.eselonbaris(matriks);
+                    } 
+                }
+            }
+        }
+        return m;
+    }
     /*-------------- DETERMINAN DENGAN KOFAKTOR ------------------ */
     /* Mencari determinan akan dilakukan menggunakan kofaktor dari kolumn pertama, hal ini dilakukan karena pencarian deterimana
      * akan dilakuakan secara rekursif
@@ -262,6 +290,17 @@ public class SPL {
         return inv;
     }
 
+    public static boolean noInv(double[][] m){
+        for (int i=0;i<m.length;i++){
+            for(int j=0; j<m[0].length;j++){
+                if (m[i][j] != 0 && m[i][j] != -0){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     /*-------------- KAIDAH CRAMER ------------------ */
     /*Khusus untuk SPL dengan n variabel dan n persamaan */
@@ -275,17 +314,18 @@ public class SPL {
         //Membuat matrix X berukuran nRow x 1, berisi nilai X
         double[][] X = new double[nRow][1];
         if (nCol - 1 != nRow){
-            System.out.println("Tidak dapat menggunakan kaidah Cramer.");
+            X[0][0] = -9999;
         }
         else if (matrixOP.noSolusi(m)){
-            System.out.println("Matriks tidak memiliki solusi.");
+            X[0][0] = -999;
         }
         else{
             matrixOP.copyMatrix(m, A, 0, nRow, 0, nCol-1);
             // mencari determinan matrix A, detA != 0
             double detA = determinan(A);
             if (detA == 0){
-                System.out.println("Determinan matriks bernilai 0 sehingga tidak dapat menggunakan kaidah Cramer.");
+                //Determinan matriks bernilai 0 sehingga tidak dapat menggunakan kaidah Cramer
+                X[0][0] = -99999;
             }
             else{
                 int i,j,k;

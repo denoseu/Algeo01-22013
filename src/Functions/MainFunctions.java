@@ -112,9 +112,20 @@ public class MainFunctions {
         double[][] m;
         m = matrixIO.readMatrixSPL();
 
-        System.out.println("Solusi:");
-        for (int i = 0; i < SPL.kaidahCramer(m).length; i++) {
-            System.out.printf("x%d = %.3f\n", i+1, SPL.kaidahCramer(m)[i][0]);
+        if (SPL.kaidahCramer(m)[0][0] == -9999){
+            System.out.println("Tidak dapat menggunakan kaidah Cramer.");
+        }
+        else if (SPL.kaidahCramer(m)[0][0] == -999){
+            System.out.println("Matriks tidak memiliki solusi.");
+        }
+        else if (SPL.kaidahCramer(m)[0][0] == -99999){
+            System.out.println("Determinan matriks bernilai 0 sehingga tidak dapat menggunakan kaidah Cramer.");
+        }
+        else{
+            System.out.println("Solusi:");
+            for (int i = 0; i < SPL.kaidahCramer(m).length; i++) {
+                System.out.printf("x%d = %.3f\n", i+1, SPL.kaidahCramer(m)[i][0]);
+            }
         }
     }
 
@@ -123,9 +134,20 @@ public class MainFunctions {
         String path = matrixIO.inputFile();
         m = matrixIO.fileToMatrix(path, 1);
 
-        System.out.println("Solusi:");
-        for (int i = 0; i < SPL.kaidahCramer(m).length; i++) {
-            System.out.printf("x%d = %.3f\n", i+1, SPL.kaidahCramer(m)[i][0]);
+        if (SPL.kaidahCramer(m)[0][0] == -9999){
+            System.out.println("Tidak dapat menggunakan kaidah Cramer.");
+        }
+        else if (SPL.kaidahCramer(m)[0][0] == -999){
+            System.out.println("Matriks tidak memiliki solusi.");
+        }
+        else if (SPL.kaidahCramer(m)[0][0] == -99999){
+            System.out.println("Determinan matriks bernilai 0 sehingga tidak dapat menggunakan kaidah Cramer.");
+        }
+        else{
+            System.out.println("Solusi:");
+            for (int i = 0; i < SPL.kaidahCramer(m).length; i++) {
+                System.out.printf("x%d = %.3f\n", i+1, SPL.kaidahCramer(m)[i][0]);
+            }
         }
     }
 
@@ -157,7 +179,12 @@ public class MainFunctions {
     public static void ekspansiKeyboard() {
         double[][] matriks = matrixIO.readMatrixKeyboard();
 
-        System.out.printf("Determinan: %.3f\n", SPL.determinan(matriks));
+        if (SPL.determinan(matriks) == -9999){
+            System.out.println("Matriks di atas tidak memiliki determinan.");
+        }
+        else{
+            System.out.printf("Determinan: %.3f\n", SPL.determinan(matriks));
+        }
     }
 
     public static void ekspansiFile() {
@@ -165,20 +192,37 @@ public class MainFunctions {
         String path = matrixIO.inputFile();
         matriks = matrixIO.fileToMatrix(path, 1);
 
-        System.out.printf("Determinan: %.3f\n", SPL.determinan(matriks));
+        if (SPL.determinan(matriks) == -9999){
+            System.out.println("Matriks di atas tidak memiliki determinan.");
+        }
+        else{
+            System.out.printf("Determinan: %.3f\n", SPL.determinan(matriks));
+        }
     }
 
     /* INVERSE MATRIKS */
     public static void inverseKeyboard () {
         double[][] m;
         m = matrixIO.readMatrixKeyboard();
-        matrixIO.displayMatrix(SPL.inverse(m));
+
+        if (SPL.noInv(SPL.inverse(m))){
+            System.out.println("Matriks di atas tidak memiliki invers.");
+        }
+        else{
+            matrixIO.displayMatrix(SPL.inverse(m));
+        }
     }
     public static void inverseFile () {
         double[][] m;
         String path = matrixIO.inputFile();
         m = matrixIO.fileToMatrix(path, 1);
-        matrixIO.displayMatrix(SPL.inverse(m));
+
+        if (SPL.noInv(SPL.inverse(m))){
+            System.out.println("Matriks di atas tidak memiliki invers.");
+        }
+        else{
+            matrixIO.displayMatrix(SPL.inverse(m));
+        }
     }
     
     /* INTERPOLASI POLINOM */
@@ -218,7 +262,7 @@ public class MainFunctions {
         double[] s = regresiLinearBerganda.solutionReg(m);
         double result = regresiLinearBerganda.estimateReg(s, x);
         regresiLinearBerganda.hasilRLB(s);
-        regresiLinearBerganda.hasilEstimateRLB(result, x);
+        regresiLinearBerganda.hasilEstimateRLB(result,x);
     }
 
     public static void RegresiFile() {
@@ -228,6 +272,6 @@ public class MainFunctions {
         double[] s = regresiLinearBerganda.solutionReg(m);
         double result = regresiLinearBerganda.estimateReg(s, x);
         regresiLinearBerganda.hasilRLB(s);
-        regresiLinearBerganda.hasilEstimateRLB(result, x);
+        regresiLinearBerganda.hasilEstimateRLB(result,x);
     }
 }

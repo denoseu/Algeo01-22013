@@ -81,7 +81,7 @@ public class matrixIO {
     // Meminta name file txt
     public static String inputFile(){
         Scanner nameSc = new Scanner(System.in);
-        System.out.print("Masukkan nama file input lengkap dengan .txt: ");
+        System.out.print("Masukkan nama file lengkap dengan .txt: ");
         String name = nameSc.nextLine();
         return name;
     }
@@ -313,8 +313,11 @@ public class matrixIO {
         // DecimalFormat df = new DecimalFormat ("0.000");
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[i].length; j++) {
+                if (m[i][j] == -0){
+                    m[i][j] = 0;
+                }
                 if (j < m[i].length-1) {
-                    System.out.print((m[i][j]) + " ");
+                    System.out.print((m[i][j]) + "\t");
                 }
                 else {
                     System.out.println((m[i][j]));
