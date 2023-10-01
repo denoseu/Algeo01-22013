@@ -530,7 +530,7 @@ public class matrixOP {
             
         }
         else if ((matrixOP.Nol(matriks)) || (getRow(matriks) < getCol(matriks)-1)) {
-            SPL.parameter(matriks, false);
+            // SPL.parameter(matriks, false);
             return solusibanyak;
         }
         else {
@@ -560,7 +560,7 @@ public class matrixOP {
             
         }
         else if ((matrixOP.Nol(matriks)) ||  (getRow(matriks) < getCol(matriks)-1)) {
-            SPL.parameter(matriks, true);
+            // SPL.parameter(matriks, true);
             return solusibanyak;
         }
         else {

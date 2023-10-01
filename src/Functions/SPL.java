@@ -581,4 +581,57 @@ public class SPL {
         return solusi;
     }
     
+    public static String[] parameterFile(double[][] m, boolean gaussJordan) {
+        String[] solusi = new String[m[0].length - 1];
+        String[] par = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+        int i, j, a, b;
+        int x = 0;
+    
+        // pertama-tama cek apakah gaussjordan=true ato false
+        // kalau true berarti dia udah di gauss jordanin (udah eselon tereduksi)
+        // kalau belom gauss jordan, di gauss jordanin dulu
+        if (!gaussJordan) {
+            GaussJ(m);
+        }
+    
+        for (j = 0; j < matrixOP.getCol(m) - 1; j++) {
+            StringBuilder result = new StringBuilder();
+            if (matrixOP.KolomNol(m, j)) {
+                solusi[x] = par[x];
+                x++;
+            } else {
+                // cek apakah elemen itu leading one
+                for (i = matrixOP.getRow(m) - 1; i >= 0; i--) {
+                    if (m[i][j] != 0) {
+                        for (b = 0; b < matrixOP.getCol(m) - 1; b++) {
+                            if (m[i][b] != 0) {
+                                break;
+                            }
+                        } // b adalah indeks leading one
+                        if (j != b) { // kalau dia bukan leading one
+                            solusi[x] = par[x];
+                            x++;
+                        } else { // kalau dia leading one
+                            if (m[i][matrixOP.getCol(m) - 1] != 0) {
+                                result.append(String.format("%.3f", m[i][matrixOP.getCol(m) - 1]));
+                            }
+                            for (a = b + 1; a < matrixOP.getCol(m) - 1; a++) {
+                                if (m[i][a] > 0) {
+                                    result.append(" - ").append(String.format("%.3f", m[i][a])).append("x").append(a + 1);
+                                } else if (m[i][a] < 0 && m[i][matrixOP.getCol(m) - 1] != 0) {
+                                    result.append(" + ").append(String.format("%.3f", (-1 * m[i][a]))).append("x").append(a + 1);
+                                } else if (m[i][a] < 0 && m[i][matrixOP.getCol(m) - 1] == 0) {
+                                    result.append("").append(String.format("%.3f", (-1 * m[i][a]))).append("x").append(a + 1);
+                                }
+                            }
+                            solusi[x] = result.toString();
+                            x++;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return solusi;
+    }
 }

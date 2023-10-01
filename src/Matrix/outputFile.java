@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import javax.swing.plaf.basic.BasicBorders.SplitPaneBorder;
+
 import src.Functions.*;
 import src.Matrix.*;
 
@@ -144,9 +146,12 @@ public class outputFile {
             } else if (isSolutionBanyak(hasil) == true){
                 writeFile.write("Matrix memiliki banyak solusi.");
                 writeFile.newLine();
-                String[] banyakS = SPL.parameter(eselon, true);
+                String[] banyakS = SPL.parameterFile(eselon, true);
                 String parametrik = "";
                 for (int i = 0; i< banyakS.length ; i++){
+                    parametrik += "x";
+                    parametrik += Integer.toString(i+1);
+                    parametrik += " = ";
                     parametrik += banyakS[i];
                     parametrik += "\n";
                 }
@@ -201,9 +206,12 @@ public class outputFile {
             } else if (isSolutionBanyak(hasil) == true){
                 writeFile.write("Matrix memiliki banyak solusi.");
                 writeFile.newLine();
-                String[] banyakS = SPL.parameter(eselon, true);
+                String[] banyakS = SPL.parameterFile(eselon, true);
                 String parametrik = "";
                 for (int i = 0; i< banyakS.length ; i++){
+                    parametrik += "x";
+                    parametrik += Integer.toString(i+1);
+                    parametrik += " = ";
                     parametrik += banyakS[i];
                     parametrik += "\n";
                 }
@@ -437,18 +445,28 @@ public class outputFile {
             writeFile.newLine();
 
             double[][] hasil = SPL.kaidahCramer(matrix);
-            String solusi = "";
-            DecimalFormat df = new DecimalFormat("0.000");
-            for (int i = 0; i< hasil.length ; i++){
-                solusi += "x";
-                solusi += Integer.toString(i+1);
-                solusi += " = ";
-                solusi += df.format(hasil[i]);
-                solusi += "\n";
+            if (hasil[0][0] == -9999){
+                writeFile.write("Matrix di atas tidak bisa diselesaikan dengan kaidah cramer");
+            } else if (hasil[0][0] == -999){
+                writeFile.write("Matrix di atas tidak memiliki solusi");
+            } else if (hasil[0][0] == -99999){
+                writeFile.write("Matrix di atas tidak bisa diselesaikan dengan kaidah cramer");
+            } else{
+
+                String solusi = "";
+                DecimalFormat df = new DecimalFormat("0.000");
+                for (int i = 0; i< hasil.length ; i++){
+                    for (int j = 0;j <hasil[0].length;j++){
+                        solusi += "x";
+                        solusi += Integer.toString(i+1);
+                        solusi += " = ";
+                        solusi += df.format(hasil[i][j]);
+                        solusi += "\n";
+                    }
+                }
+                writeFile.write(solusi);
             }
-            writeFile.write(solusi);
             
-            writeFile.write(solusi);
             // writeFile.newLine();
             
             writeFile.flush();
@@ -464,8 +482,12 @@ public class outputFile {
         String path = matrixIO.inputFile();
         double[][] mat = matrixIO.fileToMatrix(path,1);
         // fileCrammer(mat);
-        fileGaussJordan(mat);
-
+        if (SPL.noInv(SPL.inverse(mat))){
+            System.out.println("Matriks di atas tidak memiliki invers.");
+        }
+        else{
+            matrixIO.displayMatrix(SPL.inverse(mat));
+        }
     }
 }
 
