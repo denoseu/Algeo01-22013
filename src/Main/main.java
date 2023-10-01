@@ -5,7 +5,7 @@ import src.Functions.Interpolasi;
 import src.Functions.MainFunctions;
 import src.Functions.regresiLinearBerganda;
 
-public class Main {
+public class main {
     public static Scanner scan;
     public static void main (String[] args) {
         double[][] matriks;

@@ -137,7 +137,7 @@ public class outputFile {
             String mat = matrixIO.matrixString(matrix);
             writeFile.write(mat);
             
-            double[] hasil = matrixOP.hasilSPLGauss(eselon);
+            double[] hasil = matrixOP.hasilSPLGaussFile(eselon);
             if (isNoSolution(hasil) == true){
                 writeFile.write("Matrix di atas tidak memiliki solusi.");
                 writeFile.newLine();
@@ -194,7 +194,7 @@ public class outputFile {
             String mat = matrixIO.matrixString(matrix);
             writeFile.write(mat);
             
-            double[] hasil = matrixOP.hasilSPLGauss(eselon);
+            double[] hasil = matrixOP.hasilSPLGaussJordanFile(eselon);
             if (isNoSolution(hasil) == true){
                 writeFile.write("Matrix di atas tidak memiliki solusi.");
                 writeFile.newLine();
@@ -231,6 +231,7 @@ public class outputFile {
             e.printStackTrace();
         }
     }
+    
     public static void fileRLB(double[]s,double x,double[] taksiran){
         String m = matrixIO.inputFile();
         matrixIO.createFile(m);
@@ -416,23 +417,57 @@ public class outputFile {
         }
     }
     
-    
+    public static void fileCrammer(double[][] matrix){
+        String m = matrixIO.inputFile();
+        matrixIO.createFile(m);
+        String newPath = getPathOut(m);
+        FileWriter write;
+        try {
+
+            write = new FileWriter(newPath);
+
+            BufferedWriter writeFile = new BufferedWriter(write);
+
+            String mat = matrixIO.matrixString(matrix);
+            writeFile.write("-----HASIL SPL DENGAN KAIDAH CRAMMER-----");
+            writeFile.newLine();
+            writeFile.write(mat);
+
+            writeFile.write("Solusi: " );
+            writeFile.newLine();
+
+            double[][] hasil = SPL.kaidahCramer(matrix);
+            String solusi = "";
+            DecimalFormat df = new DecimalFormat("0.000");
+            for (int i = 0; i< hasil.length ; i++){
+                solusi += "x";
+                solusi += Integer.toString(i+1);
+                solusi += " = ";
+                solusi += df.format(hasil[i]);
+                solusi += "\n";
+            }
+            writeFile.write(solusi);
+            
+            writeFile.write(solusi);
+            // writeFile.newLine();
+            
+            writeFile.flush();
+            writeFile.close();
+
+        } catch (IOException e){
+            System.out.println("Terjadi Kesalahan. Tidak bisa menyimpan file.");
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args){
-        double[][] matriks;
         String path = matrixIO.inputFile();
-        matriks = matrixIO.fileToMatrix(path, 1);
-        // SPL.GaussJ(matriks);
-
-        // System.out.println("Matriks eselon baris tereduksi: ");
-        // matrixIO.displayMatrix(matriks);
-
-        // matrixOP.hasilSPLGaussJordan(matriks);
-        // double[] s = regresiLinearBerganda.solutionReg(mat);
-        // double[] s = Interpolasi.solutionInterpolasi(mat);
-        // double[] x = matrixIO.getTaksiran(path);
-        // double result = Interpolasi.estimate(s, x);
-        fileGauss(matriks);
+        double[][] mat = matrixIO.fileToMatrix(path,1);
+        // fileCrammer(mat);
+        fileGaussJordan(mat);
 
     }
 }
+
+    
+

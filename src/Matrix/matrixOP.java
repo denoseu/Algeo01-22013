@@ -516,7 +516,64 @@ public class matrixOP {
         return solusi;
     }
 
-    
+    public static double[] hasilSPLGaussFile (double[][] matriks) {
+        double[] solusi = new double[matrixOP.getRow(matriks)];
+        double[] solusibanyak = {-999};
+        double[] nosolusi = {0, 0, 0, 0};
+
+        if (matrixOP.noSolusi(matriks)) {
+            return nosolusi;
+        }
+        else if ((matrixOP.Nol(matriks)) && (getRow(matriks) > getCol(matriks)-1)) {
+            matriks = deleteZeroRows(matriks);
+            return hasilSPLGauss(matriks);
+            
+        }
+        else if ((matrixOP.Nol(matriks)) || (getRow(matriks) < getCol(matriks)-1)) {
+            SPL.parameter(matriks, false);
+            return solusibanyak;
+        }
+        else {
+            for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
+                solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
+                for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
+                    solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
+                } 
+            }
+
+            return solusi;
+            
+        }
+    }
+
+    public static double[] hasilSPLGaussJordanFile (double[][] matriks) {
+        double[] solusi = new double[matrixOP.getRow(matriks)];
+        double[] solusibanyak = {-999};
+        double[] nosolusi = {0, 0, 0, 0};
+
+        if (matrixOP.noSolusi(matriks)) {
+            return nosolusi;
+        }
+        else if ((matrixOP.Nol(matriks)) && (getRow(matriks) > getCol(matriks)-1)) {
+            matriks = deleteZeroRows(matriks);
+            return hasilSPLGaussJordan(matriks);
+            
+        }
+        else if ((matrixOP.Nol(matriks)) ||  (getRow(matriks) < getCol(matriks)-1)) {
+            SPL.parameter(matriks, true);
+            return solusibanyak;
+        }
+        else {
+            for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
+                solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
+                for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
+                    solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
+                } 
+            }
+
+            return solusi;
+        }
+    }
 
 }
 
