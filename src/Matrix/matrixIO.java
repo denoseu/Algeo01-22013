@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.io.BufferedReader;
+import java.text.DecimalFormat;
 
 public class matrixIO {
     /*------ INPUT ------- */
@@ -80,7 +81,7 @@ public class matrixIO {
     // Meminta name file txt
     public static String inputFile(){
         Scanner nameSc = new Scanner(System.in);
-        System.out.print("Masukkan nama file lengkap dengan .txt: ");
+        System.out.print("Masukkan nama file input lengkap dengan .txt: ");
         String name = nameSc.nextLine();
         return name;
     }
@@ -305,21 +306,27 @@ public class matrixIO {
     }
 
     
-
     /*------OUTPUT------- */
     // Menampilkan matrix pada layar
     // matrix buat access row, matrix[] buat access col
     public static void displayMatrix (double[][] m) {
+        // DecimalFormat df = new DecimalFormat ("0.000");
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[i].length; j++) {
                 if (j < m[i].length-1) {
-                    System.out.print(m[i][j] + " ");
+                    System.out.print((m[i][j]) + " ");
                 }
                 else {
-                    System.out.println(m[i][j]);
+                    System.out.println((m[i][j]));
                 }
             }
         }
+        // if (j < m[i].length-1) {
+        //             System.out.print(df.format(m[i][j]) + "\t");
+        //         }
+        //         else {
+        //             System.out.println(df.format(m[i][j]));
+        //         }
     }
 
     // Membuat file baru

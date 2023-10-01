@@ -111,7 +111,6 @@ public class regresiLinearBerganda {
     }
 
     public static void hasilRLB(double[] s){
-        System.out.println("Hasil regresi linear berganda: ");
         System.out.print("f(x) = ");
         DecimalFormat df = new DecimalFormat("0.000");
         for (int i = 0 ; i<s.length;i++){
@@ -125,10 +124,7 @@ public class regresiLinearBerganda {
                 if (s[i] < 0){
                     System.out.print(" - " + df.format(Math.abs(s[i])));
                     System.out.print("x" + i);
-                } else if (s[i] == 0){
-                    System.out.print("");
-                } else {
-
+                } else{
                     System.out.print(" + " + df.format(s[i]));
                     System.out.print("x" + i);
                 }
@@ -154,19 +150,4 @@ public class regresiLinearBerganda {
         System.out.print(df.format(result));
         System.out.println();
     }
-    public static void main(String[] args){
-        String path = matrixIO.inputFile();
-        double[][] m = matrixIO.fileToMatrix(path,2);
-        double[] x = matrixIO.getTaksiran(path);
-        double[] s = solutionReg(m);
-        double result = estimateReg(s, x);
-        hasilRLB(s);
-        hasilEstimateRLB(result,x);
-        
-    }
-
-
-
-
-    
 }

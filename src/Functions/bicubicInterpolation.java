@@ -83,6 +83,7 @@ public class bicubicInterpolation {
             }
         }
 
+        matrixIO.displayMatrix(X);
         return X;
     }
 
@@ -124,8 +125,8 @@ public class bicubicInterpolation {
         }
 
         // hasil matriks balikan = AInverse
-        // System.out.println("Matriks Balikan (A^(-1)): ");
-        // matrixIO.displayMatrix(AInverse);
+        System.out.println("Matriks Balikan (A^(-1)): ");
+        matrixIO.displayMatrix(AInverse);
 
         return AInverse;
     }
@@ -150,13 +151,16 @@ public class bicubicInterpolation {
         return hasil;
     }
 
-    public static void main(String[] args){
-        double[][] matrixInput = matrixIO.readMatrixKeyboard();
-        scan = new Scanner(System.in);
-        System.out.print("Masukkan x: "); double x = scan.nextDouble();
-        System.out.print("Masukkan y: "); double y = scan.nextDouble();
+    // public static void main(String[] args){
+    //     // double[][] matrixInput = matrixIO.readMatrixKeyboard();
+    //     double[][] matrixInput;
+    //     String path = matrixIO.inputFile();
+    //     matrixInput = matrixIO.fileToMatrix(path, 1);
+    //     scan = new Scanner(System.in);
+    //     System.out.print("Masukkan x: "); double x = scan.nextDouble();
+    //     System.out.print("Masukkan y: "); double y = scan.nextDouble();
         
-        double solusi = bicubicSpline(matrixInput, x, y);
-        System.out.println(solusi);
-    }
+    //     double solusi = bicubicSpline(matrixInput, x, y);
+    //     System.out.println(solusi);
+    // }
 }

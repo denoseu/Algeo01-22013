@@ -3,6 +3,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 import src.Matrix.*;
+
 public class Interpolasi {
     // Mencari hasil interpolasi
     public static Scanner scan;
@@ -36,6 +37,7 @@ public class Interpolasi {
 
     // Membaca Matrix dari Keyboard untuk interpolasi
     public static double[][] inputInterpolasi(){
+        scan = new Scanner(System.in);
         scan = new Scanner(System.in);
         System.out.print("Masukkan n: "); int n = scan.nextInt();
         System.out.println("Silakan masukan nilai (x,y):");
