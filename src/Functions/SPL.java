@@ -147,7 +147,35 @@ public class SPL {
             }
         }
     }
+    public static double[][] getGauss(double[][] matriks){
+        double[][] m = matriks;
+        boolean found = false;
 
+        for (int i = 0; i < matrixOP.getRow(matriks); i++) {
+            // cari elemen pertama yang tidak nol di baris
+            for (int j = 0; j < matrixOP.getCol(matriks); j++) {
+                if (matriks[i][j] != 0) {
+                    SPL.eselonbaris(matriks);
+                }
+                else {
+                    int max = i;
+                    for (int n = i+1; n < matrixOP.getRow(matriks); n++) { 
+                        if (matriks[n][i] != 0) {
+                            found = true;
+                            max = n;
+                            break;
+                        }
+                    }
+                    if (found == true) {
+                        matrixOP.tukar_baris(matriks, i, max);
+                        matrixIO.displayMatrix(matriks);
+                        SPL.eselonbaris(matriks);
+                    } 
+                }
+            }
+        }
+        return m;
+    }
     /*-------------- DETERMINAN DENGAN KOFAKTOR ------------------ */
     /* Mencari determinan akan dilakukan menggunakan kofaktor dari kolumn pertama, hal ini dilakukan karena pencarian deterimana
      * akan dilakuakan secara rekursif

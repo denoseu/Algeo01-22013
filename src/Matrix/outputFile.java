@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 
 import src.Functions.*;
+import src.Matrix.*;
 
 public class outputFile {
 
@@ -24,6 +25,25 @@ public class outputFile {
         }
         return newPath;
     }
+
+    public static boolean isNoSolution (double[] s){
+        for (int i =0 ;i< s.length;i++){
+            if (s[i] != 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isSolutionBanyak (double[] s){
+        for (int i =0 ;i< s.length;i++){
+            if (s[i] != -999 ){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void fileInterpolasi(double[] s, double[] taksiran,double result){
         String m = matrixIO.inputFile();
         matrixIO.createFile(m);
@@ -111,6 +131,40 @@ public class outputFile {
             BufferedWriter writeFile = new BufferedWriter(write);
             writeFile.write("-----HASIL GAUSS-----");
             writeFile.newLine();
+            double[][] eselon = SPL.getGauss(matrix);
+            writeFile.write("Hasil Eselon Baris:");
+            writeFile.newLine();
+            String mat = matrixIO.matrixString(matrix);
+            writeFile.write(mat);
+            
+            double[] hasil = matrixOP.hasilSPLGauss(eselon);
+            if (isNoSolution(hasil) == true){
+                writeFile.write("Matrix di atas tidak memiliki solusi.");
+                writeFile.newLine();
+            } else if (isSolutionBanyak(hasil) == true){
+                writeFile.write("Matrix memiliki banyak solusi.");
+                writeFile.newLine();
+                String[] banyakS = SPL.parameter(eselon, true);
+                String parametrik = "";
+                for (int i = 0; i< banyakS.length ; i++){
+                    parametrik += banyakS[i];
+                    parametrik += "\n";
+                }
+                writeFile.write(parametrik);
+            } else {
+                writeFile.write("Solusi: ");
+                writeFile.newLine();
+                String solusi = "";
+                DecimalFormat df = new DecimalFormat("0.000");
+                for (int i = 0; i< hasil.length ; i++){
+                    solusi += "x";
+                    solusi += Integer.toString(i+1);
+                    solusi += " = ";
+                    solusi += df.format(hasil[i]);
+                    solusi += "\n";
+                }
+                writeFile.write(solusi);
+            }
             // hasilGausstoFile(matrix, newPath);
             writeFile.flush();
             writeFile.close();
@@ -122,6 +176,61 @@ public class outputFile {
 
     }
     
+    public static void fileGaussJordan(double[][] matrix){
+        String m = matrixIO.inputFile();
+        matrixIO.createFile(m);
+        String newPath = getPathOut(m);
+        FileWriter write;
+        try {
+
+            write = new FileWriter(newPath);
+
+            BufferedWriter writeFile = new BufferedWriter(write);
+            writeFile.write("-----HASIL GAUSS-----");
+            writeFile.newLine();
+            double[][] eselon = SPL.getGauss(matrix);
+            writeFile.write("Hasil Eselon Baris:");
+            writeFile.newLine();
+            String mat = matrixIO.matrixString(matrix);
+            writeFile.write(mat);
+            
+            double[] hasil = matrixOP.hasilSPLGauss(eselon);
+            if (isNoSolution(hasil) == true){
+                writeFile.write("Matrix di atas tidak memiliki solusi.");
+                writeFile.newLine();
+            } else if (isSolutionBanyak(hasil) == true){
+                writeFile.write("Matrix memiliki banyak solusi.");
+                writeFile.newLine();
+                String[] banyakS = SPL.parameter(eselon, true);
+                String parametrik = "";
+                for (int i = 0; i< banyakS.length ; i++){
+                    parametrik += banyakS[i];
+                    parametrik += "\n";
+                }
+                writeFile.write(parametrik);
+            } else {
+                writeFile.write("Solusi: ");
+                writeFile.newLine();
+                String solusi = "";
+                DecimalFormat df = new DecimalFormat("0.000");
+                for (int i = 0; i< hasil.length ; i++){
+                    solusi += "x";
+                    solusi += Integer.toString(i+1);
+                    solusi += " = ";
+                    solusi += df.format(hasil[i]);
+                    solusi += "\n";
+                }
+                writeFile.write(solusi);
+            }
+            // hasilGausstoFile(matrix, newPath);
+            writeFile.flush();
+            writeFile.close();
+
+        } catch (IOException e){
+            System.out.println("Terjadi Kesalahan. Tidak bisa menyimpan file.");
+            e.printStackTrace();
+        }
+    }
     public static void fileRLB(double[]s,double x,double[] taksiran){
         String m = matrixIO.inputFile();
         matrixIO.createFile(m);
@@ -310,13 +419,20 @@ public class outputFile {
     
 
     public static void main(String[] args){
+        double[][] matriks;
         String path = matrixIO.inputFile();
-        double[][] mat = matrixIO.fileToMatrix(path,2);
+        matriks = matrixIO.fileToMatrix(path, 1);
+        // SPL.GaussJ(matriks);
+
+        // System.out.println("Matriks eselon baris tereduksi: ");
+        // matrixIO.displayMatrix(matriks);
+
+        // matrixOP.hasilSPLGaussJordan(matriks);
         // double[] s = regresiLinearBerganda.solutionReg(mat);
         // double[] s = Interpolasi.solutionInterpolasi(mat);
-        double[] x = matrixIO.getTaksiran(path);
+        // double[] x = matrixIO.getTaksiran(path);
         // double result = Interpolasi.estimate(s, x);
-        fileBicubic(mat, x);
+        fileGauss(matriks);
 
     }
 }
