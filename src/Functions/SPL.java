@@ -529,6 +529,9 @@ public class SPL {
         int i, j, a, b;
         int x = 0;
     
+        // pertama-tama cek apakah gaussjordan=true ato false
+        // kalau true berarti dia udah di gauss jordanin (udah eselon tereduksi)
+        // kalau belom gauss jordan, di gauss jordanin dulu
         if (!gaussJordan) {
             GaussJ(m);
         }
@@ -539,17 +542,18 @@ public class SPL {
                 solusi[x] = par[x];
                 x++;
             } else {
+                // cek apakah elemen itu leading one
                 for (i = matrixOP.getRow(m) - 1; i >= 0; i--) {
                     if (m[i][j] != 0) {
                         for (b = 0; b < matrixOP.getCol(m) - 1; b++) {
                             if (m[i][b] != 0) {
                                 break;
                             }
-                        }
-                        if (j != b) {
+                        } // b adalah indeks leading one
+                        if (j != b) { // kalau dia bukan leading one
                             solusi[x] = par[x];
                             x++;
-                        } else {
+                        } else { // kalau dia leading one
                             if (m[i][matrixOP.getCol(m) - 1] != 0) {
                                 result.append(String.format("%.3f", m[i][matrixOP.getCol(m) - 1]));
                             }
