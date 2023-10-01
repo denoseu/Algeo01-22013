@@ -1,0 +1,4 @@
+-----HASIL INTERPOLASI-----
+f(x)= 1.000x^3 - 2.000x^2 - 1.000x + 1.000
+Hasil taksiran: 
+f(6.000)= 139.000

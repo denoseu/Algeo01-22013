@@ -111,50 +111,62 @@ public class regresiLinearBerganda {
     }
 
     public static void hasilRLB(double[] s){
-        System.out.print("f(x)= ");
+        System.out.println("Hasil regresi linear berganda: ");
+        System.out.print("f(x) = ");
         DecimalFormat df = new DecimalFormat("0.000");
         for (int i = 0 ; i<s.length;i++){
             if (i == 0){
-                System.out.print(df.format(s[i]));
+                if (s[i] == 0){
+                    System.out.print("");
+                } else {
+                    System.out.print(df.format(s[i]));
+                }
             } else {
                 if (s[i] < 0){
                     System.out.print(" - " + df.format(Math.abs(s[i])));
-                } else{
+                    System.out.print("x" + i);
+                } else if (s[i] == 0){
+                    System.out.print("");
+                } else {
+
                     System.out.print(" + " + df.format(s[i]));
+                    System.out.print("x" + i);
                 }
             }
         }
+        System.out.println();
     }
 
-    public static void hasilEstimateRLB(double result){
+    public static void hasilEstimateRLB(double result, double[] taksiran){
         DecimalFormat df = new DecimalFormat("0.000");
-        System.out.print("Hasil taksiran: ");
+        String fx = "f(";
+        System.out.println("Hasil taksiran: ");
+        for (int i = 0;i<taksiran.length;i++){
+            if (i == (taksiran.length-1)){
+                fx += df.format(taksiran[i]);
+                fx += ")= ";
+            } else {
+                fx += df.format(taksiran[i]);
+                fx += ",";
+            }
+        }
+        System.out.print(fx);
         System.out.print(df.format(result));
+        System.out.println();
     }
     public static void main(String[] args){
-        // double [][] a = inputReg();
-        // double[][] a = matrixIO.fileToMatrix(2);
-        // matrixIO.displayMatrix(matrixReg(a));
-        // double[] s = solutionReg(a);
-        // for (int i= 0; i<s.length;i++){
-        //     System.out.print("b" + i + " ");
-        //     System.out.println(s[i]);
-        // }
-        double[][] m = matrixIO.fileToMatrix(1);
-        double[] x = matrixIO.getAB("./test/input/text.txt",2);
+        String path = matrixIO.inputFile();
+        double[][] m = matrixIO.fileToMatrix(path,2);
+        double[] x = matrixIO.getTaksiran(path);
         double[] s = solutionReg(m);
-        hasilRLB(s);
         double result = estimateReg(s, x);
-        hasilEstimateRLB(result);
-        // for (int i=0;i<s.length;i++){
-        //     System.out.println("b" + i);
-        //     System.out.println(s[i]);
-        // 
-        // System.out.println(result);
-        // matrixIO.displayMatrix(s);
-        // solutionReg(m);
-        // solutionReg(m);
+        hasilRLB(s);
+        hasilEstimateRLB(result,x);
+        
     }
+
+
+
 
     
 }

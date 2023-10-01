@@ -5,6 +5,8 @@ import src.Functions.eliminasiGauss;
 import src.Functions.eliminasiGaussJordan;
 import src.Functions.kaidahCramer;
 import src.Functions.matriksBalikan;
+import src.Functions.regresiLinearBerganda;
+import src.Functions.detMatrix;
 
 public class Main {
     public static Scanner scan;
@@ -140,6 +142,7 @@ public class Main {
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
+                                eliminasiGaussJordan.file();
                             }
                             break;
                         case 3:
@@ -162,6 +165,7 @@ public class Main {
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
+                                // BIKIN FUNCTION POTONG MATRIX UNTUK MATRIKS BALIKAN FILE
                             }
                             break;
                         case 4:
@@ -184,6 +188,7 @@ public class Main {
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
+                                kaidahCramer.file();
                             }
                             break;
                     }
@@ -209,16 +214,73 @@ public class Main {
                     switch (pilihandet) {
                         case 1:
                             System.out.println("******************** Metode Reduksi Baris ********************");
-                            break; // nanti
+                            System.out.println(input);
+                            System.out.print("Masukan pilihan input: ");
+                            int inputreduksi;
+                            inputreduksi = scan.nextInt();
+                            while (inputreduksi < 1 || inputreduksi > 2) {
+                                System.out.println("Pilihan input tidak tersedia, mohon hanya menginput bilangan 1 atau 2.");
+                                System.out.print("Masukan pilihan input: ");
+                                inputreduksi = scan.nextInt();  
+                            }
+                            System.out.println();
+                            
+                            if (inputreduksi == 1) {
+                                System.out.println("INPUT SOURCE: KEYBOARD");
+                                detMatrix.redBarisKeyboard();
+                            }
+                            else {
+                                System.out.println("INPUT SOURCE: FILE");
+                                detMatrix.redBarisfile();
+                            }
+                            break;
                         case 2:
                             System.out.println("****************** Metode Ekspansi Kofaktor ******************");
-                            break; // nanti
+                            System.out.println(input);
+                            System.out.print("Masukan pilihan input: ");
+                            int inputeks;
+                            inputeks = scan.nextInt();
+                            while (inputeks < 1 || inputeks > 2) {
+                                System.out.println("Pilihan input tidak tersedia, mohon hanya menginput bilangan 1 atau 2.");
+                                System.out.print("Masukan pilihan input: ");
+                                inputeks = scan.nextInt();  
+                            }
+                            System.out.println();
+                            
+                            if (inputeks == 1) {
+                                System.out.println("INPUT SOURCE: KEYBOARD");
+                                detMatrix.ekspansiKeyboard();
+                            }
+                            else {
+                                System.out.println("INPUT SOURCE: FILE");
+                                detMatrix.ekspansiFile();
+                            }
+                            break;
                     }
                     break;
                 case 3:
                     System.out.println("**************************************************************");
                     System.out.println("********************** MATRIKS BALIKAN ***********************");
                     System.out.println("**************************************************************");
+                    System.out.println(input);
+                    System.out.print("Masukan pilihan input: ");
+                    int inputinvers;
+                    inputinvers = scan.nextInt();
+                    while (inputinvers < 1 || inputinvers > 2) {
+                        System.out.println("Pilihan input tidak tersedia, mohon hanya menginput bilangan 1 atau 2.");
+                        System.out.print("Masukan pilihan input: ");
+                        inputinvers = scan.nextInt();  
+                    }
+                    System.out.println();
+                    
+                    if (inputinvers == 1) {
+                        System.out.println("INPUT SOURCE: KEYBOARD");
+                        matriksBalikan.inversKey();
+                    }
+                    else {
+                        System.out.println("INPUT SOURCE: FILE");
+                        matriksBalikan.inversFile();
+                    }
                     break;
                 case 4:
                     System.out.println("**************************************************************");
@@ -234,6 +296,25 @@ public class Main {
                     System.out.println("**************************************************************");
                     System.out.println("******************* REGRESI LINIER BERGANDA ******************");
                     System.out.println("**************************************************************");
+                    System.out.println(input);
+                    System.out.print("Masukan pilihan input: ");
+                    int inputrlb;
+                    inputrlb = scan.nextInt();
+                    while (inputrlb < 1 || inputrlb > 2) {
+                        System.out.println("Pilihan input tidak tersedia, mohon hanya menginput bilangan 1 atau 2.");
+                        System.out.print("Masukan pilihan input: ");
+                        inputrlb = scan.nextInt();  
+                    }
+                    System.out.println();
+                    
+                    if (inputrlb == 1) {
+                        System.out.println("INPUT SOURCE: KEYBOARD");
+                        regresiLinearBerganda.main();
+                    }
+                    else {
+                        System.out.println("INPUT SOURCE: FILE");
+                        regresiLinearBerganda.file();
+                    }
                     break; 
             }
 
