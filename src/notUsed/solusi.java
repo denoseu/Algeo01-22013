@@ -8,7 +8,7 @@ public class solusi {
         if (matrixOP.noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
         }
-        else if ((matrixOP.Nol(matriks)) || (matrixOP.KolomNol(matriks))) {
+        else if ((matrixOP.Nol(matriks))) {
             System.out.println("Matriks memiliki banyak solusi.");
             parametric.parameter(matriks, false);
         }
@@ -34,7 +34,7 @@ public class solusi {
         if (matrixOP.noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
         }
-        else if ((matrixOP.Nol(matriks)) || (matrixOP.KolomNol(matriks))) {
+        else if ((matrixOP.Nol(matriks))) {
             System.out.println("Matriks memiliki banyak solusi.");
             parametric.parameter(matriks, true);
         }

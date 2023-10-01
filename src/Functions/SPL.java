@@ -1,5 +1,7 @@
 package src.Functions;
 import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 import src.Matrix.*;
 
@@ -521,41 +523,58 @@ public class SPL {
 
     /*-------------- PERSAMAAN PARAMETER UNTUK GAUSS, GAUSS-JORDAN ------------------ */
 
-    public static String[] parameter (double[][] m, boolean gaussJordan) {
-        // boolean gaussJordan tu buat tau dia sblmnya baru di gaus aja ato udah smpe gauss jordan
-        // true = udah gauss jordan
-        // false = baru gauss aja
-
-        String[] solusi = new String[m[0].length - 1]; // array hasilnya nanti (output)
-        String hasil = "";
+    public static String[] parameter(double[][] m, boolean gaussJordan) {
+        String[] solusi = new String[m[0].length - 1];
         String[] par = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-
-        if (gaussJordan == false) { // kalo masih blm di gauss jordan, di gauss jordan in dulu 
+        int i, j, a, b;
+        int x = 0;
+    
+        if (!gaussJordan) {
             GaussJ(m);
         }
-
-        for (int j = 0; j < (matrixOP.getCol(m)) - 1; j++) { // i = kolom
-            int lOne = matrixOP.satuUtama(m, matrixOP.getRow(m), j);
-            if (lOne != (-1)) {
-                hasil = hasil + ("x" + (j + 1) + " = " + m[lOne][(matrixOP.getCol(m)) - 1]);
-                for (int i = (j + 1); i < (matrixOP.getCol(m)) - 1; i++) {
-                    double xN = m[lOne][i];
-                    if (xN != 0) {
-                        hasil = hasil + (" + (" + (-xN) + ")" + par[i+1]);
+    
+        for (j = 0; j < matrixOP.getCol(m) - 1; j++) {
+            StringBuilder result = new StringBuilder();
+            if (matrixOP.KolomNol(m, j)) {
+                solusi[x] = par[x];
+                x++;
+            } else {
+                for (i = matrixOP.getRow(m) - 1; i >= 0; i--) {
+                    if (m[i][j] != 0) {
+                        for (b = 0; b < matrixOP.getCol(m) - 1; b++) {
+                            if (m[i][b] != 0) {
+                                break;
+                            }
+                        }
+                        if (j != b) {
+                            solusi[x] = par[x];
+                            x++;
+                        } else {
+                            if (m[i][matrixOP.getCol(m) - 1] != 0) {
+                                result.append(String.format("%.3f", m[i][matrixOP.getCol(m) - 1]));
+                            }
+                            for (a = b + 1; a < matrixOP.getCol(m) - 1; a++) {
+                                if (m[i][a] > 0) {
+                                    result.append(" - ").append(String.format("%.3f", m[i][a])).append("x").append(a + 1);
+                                } else if (m[i][a] < 0 && m[i][matrixOP.getCol(m) - 1] != 0) {
+                                    result.append(" + ").append(String.format("%.3f", (-1 * m[i][a]))).append("x").append(a + 1);
+                                } else if (m[i][a] < 0 && m[i][matrixOP.getCol(m) - 1] == 0) {
+                                    result.append("").append(String.format("%.3f", (-1 * m[i][a]))).append("x").append(a + 1);
+                                }
+                            }
+                            solusi[x] = result.toString();
+                            x++;
+                        }
+                        break;
                     }
                 }
-            } 
-            else {
-                hasil = "x" + (j + 1) + " = " + par[j+1];
             }
-            solusi[j] = hasil;
-            hasil = "";
         }
-
-        for (int i = 0; i < (matrixOP.getCol(m)) - 1; i++) {
-            System.out.println(solusi[i]);
+        for (int y = 0; y < (matrixOP.getCol(m)) - 1; y++) {
+            System.out.printf("x%d = ", y+1);
+            System.out.println(solusi[y]);
         }
-
         return solusi;
     }
+    
 }
