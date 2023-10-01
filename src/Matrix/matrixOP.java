@@ -358,7 +358,7 @@ public class matrixOP {
             System.out.println("Matriks tidak memiliki solusi.");
             return nosolusi;
         }
-        else if ((matrixOP.Nol(matriks))) {
+        else if ((matrixOP.Nol(matriks)) || (getRow(matriks) != getCol(matriks)-1)) {
             System.out.println("Matriks memiliki banyak solusi.");
             SPL.parameter(matriks, false);
             return solusibanyak;
@@ -389,7 +389,7 @@ public class matrixOP {
             System.out.println("Matriks tidak memiliki solusi.");
             return nosolusi;
         }
-        else if ((matrixOP.Nol(matriks))) {
+        else if ((matrixOP.Nol(matriks)) ||  (getRow(matriks) != getCol(matriks)-1)) {
             System.out.println("Matriks memiliki banyak solusi.");
             SPL.parameter(matriks, true);
             return solusibanyak;
