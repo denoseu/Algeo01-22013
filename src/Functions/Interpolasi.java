@@ -3,6 +3,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 import src.Matrix.*;
+
 public class Interpolasi {
     // Mencari hasil interpolasi
     public static Scanner scan;

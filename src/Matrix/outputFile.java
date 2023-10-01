@@ -282,6 +282,7 @@ public class outputFile {
             writeFile.write(mat);
 
             writeFile.write("Hasil taksiran matrix di atas adalah: " );
+            writeFile.newLine();
             DecimalFormat df = new DecimalFormat("0.000");
             String fx = "f(";
             for (int i = 0;i<taksiran.length;i++){
@@ -305,6 +306,7 @@ public class outputFile {
             e.printStackTrace();
         }
     }
+    
     
 
     public static void main(String[] args){

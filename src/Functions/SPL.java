@@ -132,8 +132,8 @@ public class SPL {
                 double faktor = m[r][q];
                 for (s = 0; s < col; s++){
                     m[r][s] -= (faktor * m[p][s]);
-                    System.out.println(" ");
-                    matrixIO.displayMatrix(m);
+                    // System.out.println(" ");
+                    // matrixIO.displayMatrix(m);
                 }
             }
         }
