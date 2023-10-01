@@ -380,7 +380,7 @@ public class SPL {
         return B;
     }
     
-    public static double[][] SPLBalikan () {
+    public static double[][] SPLBalikan() {
         // membaca matriks koefisien (A)
         double[][] A = getMatrixA();
 

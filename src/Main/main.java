@@ -1,12 +1,18 @@
 package src.Main;
 import java.util.Scanner;
-
+import src.Matrix.*;
+import src.Functions.Interpolasi;
 import src.Functions.MainFunctions;
+import src.Functions.regresiLinearBerganda;
 
 public class Main {
     public static Scanner scan;
-    
     public static void main (String[] args) {
+        double[][] matriks;
+        // untuk interpolasi
+        double[] m;
+        double[] x;
+        double[] s;
 
         scan = new Scanner(System.in);
 
@@ -110,11 +116,14 @@ public class Main {
                             
                             if (inputgauss == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                MainFunctions.GaussKeyboard();
+                                matriks = matrixIO.readMatrixSPL();
+                                MainFunctions.GaussKeyboard(matriks);
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                MainFunctions.GaussFile();
+                                String path = matrixIO.inputFile();
+                                matriks = matrixIO.fileToMatrix(path, 1);
+                                MainFunctions.GaussFile(matriks);
                             }
                             break;
                         case 2:
@@ -133,11 +142,14 @@ public class Main {
                             
                             if (inputGJ == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                MainFunctions.GaussJordanKeyboard();
+                                matriks = matrixIO.readMatrixSPL();
+                                MainFunctions.GaussJordanKeyboard(matriks);
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                MainFunctions.GaussJordanFile();
+                                String path = matrixIO.inputFile();
+                                matriks = matrixIO.fileToMatrix(path, 1);
+                                MainFunctions.GaussJordanFile(matriks);
                             }
                             break;
                         case 3:
@@ -179,11 +191,14 @@ public class Main {
                             
                             if (inputcramer == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                MainFunctions.CramerKeyboard();
+                                matriks = matrixIO.readMatrixSPL();
+                                MainFunctions.CramerKeyboard(matriks);
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                MainFunctions.CramerFile();
+                                String path = matrixIO.inputFile();
+                                matriks = matrixIO.fileToMatrix(path, 1);
+                                MainFunctions.CramerFile(matriks);
                             }
                             break;
                     }
@@ -222,11 +237,14 @@ public class Main {
                             
                             if (inputreduksi == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                MainFunctions.redBarisKeyboard();
+                                matriks = matrixIO.readMatrixKeyboard();
+                                MainFunctions.redBarisKeyboard(matriks);
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                MainFunctions.redBarisfile();
+                                String path = matrixIO.inputFile();
+                                matriks = matrixIO.fileToMatrix(path, 1);
+                                MainFunctions.redBarisfile(matriks);
                             }
                             break;
                         case 2:
@@ -244,11 +262,14 @@ public class Main {
                             
                             if (inputeks == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                MainFunctions.ekspansiKeyboard();
+                                matriks = matrixIO.readMatrixKeyboard();
+                                MainFunctions.ekspansiKeyboard(matriks);
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                MainFunctions.ekspansiFile();
+                                String path = matrixIO.inputFile();
+                                matriks = matrixIO.fileToMatrix(path, 1);
+                                MainFunctions.ekspansiFile(matriks);
                             }
                             break;
                     }
@@ -270,11 +291,14 @@ public class Main {
                     
                     if (inputinvers == 1) {
                         System.out.println("INPUT SOURCE: KEYBOARD");
-                        MainFunctions.inverseKeyboard();
+                        matriks = matrixIO.readMatrixKeyboard();
+                        MainFunctions.inverseKeyboard(matriks);
                     }
                     else {
                         System.out.println("INPUT SOURCE: FILE");
-                        MainFunctions.inverseFile();
+                        String path = matrixIO.inputFile();
+                        matriks = matrixIO.fileToMatrix(path, 1);
+                        MainFunctions.inverseFile(matriks);
                     }
                     break;
                 case 4:
@@ -294,19 +318,26 @@ public class Main {
                     
                     if (inputpolinom == 1) {
                         System.out.println("INPUT SOURCE: KEYBOARD");
-                        MainFunctions.InterpolasiKeyboard();
+                        m = Interpolasi.solutionInterpolasi(Interpolasi.inputInterpolasi());
+                        x = Interpolasi.inputTaksiran();
+                        MainFunctions.InterpolasiKeyboard(m, x);
                     }
                     else {
                         System.out.println("INPUT SOURCE: FILE");
-                        MainFunctions.InterpolasiFile();
+                        String path = matrixIO.inputFile();
+                        matriks = matrixIO.fileToMatrix(path,2);
+                        x = matrixIO.getTaksiran(path);
+                        MainFunctions.InterpolasiFile(matriks, x);
                     }
                     break; 
                 case 5:
                     System.out.println("**************************************************************");
                     System.out.println("**************** INTERPOLASI BICUBIC SPLINE ******************");
                     System.out.println("**************************************************************");
-                    System.out.println("INPUT SOURCE: KEYBOARD");
-                    MainFunctions.InterpolasiSpline();
+                    System.out.println("INPUT SOURCE: FILE");
+                    String path = matrixIO.inputFile();
+                    matriks = matrixIO.fileToMatrix(path, 1);
+                    MainFunctions.InterpolasiSpline(matriks);
                     break;
                 case 6:
                     System.out.println("**************************************************************");
@@ -325,11 +356,18 @@ public class Main {
                     
                     if (inputrlb == 1) {
                         System.out.println("INPUT SOURCE: KEYBOARD");
-                        MainFunctions.RegresiKeyboard();
+                        matriks = regresiLinearBerganda.inputReg();
+                        x = regresiLinearBerganda.inputTaksiran(matriks);
+                        s = regresiLinearBerganda.solutionReg(matriks);
+                        MainFunctions.RegresiKeyboard(x, s);
                     }
                     else {
                         System.out.println("INPUT SOURCE: FILE");
-                        MainFunctions.RegresiFile();
+                        String paths = matrixIO.inputFile();
+                        matriks = matrixIO.fileToMatrix(paths,2);
+                        x = matrixIO.getTaksiran(paths);
+                        s = regresiLinearBerganda.solutionReg(matriks);
+                        MainFunctions.RegresiFile(x, s);
                     }
                     break; 
             }
