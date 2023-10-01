@@ -317,7 +317,7 @@ public class matrixIO {
                     m[i][j] = 0;
                 }
                 if (j < m[i].length-1) {
-                    System.out.print((m[i][j]) + "\t");
+                    System.out.print((m[i][j]) + " ");
                 }
                 else {
                     System.out.println((m[i][j]));

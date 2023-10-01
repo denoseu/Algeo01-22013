@@ -1,4 +1,5 @@
-package src.Functions;
+package src.notUsed;
+import src.Functions.SPL;
 import src.Matrix.*;
 
 public class matriksBalikan {
