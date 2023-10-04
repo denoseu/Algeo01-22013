@@ -1,0 +1,9 @@
+-----HASIL GAUSS-----
+Hasil Eselon Baris:
+1.000 0.000 -1.000 -0.333
+0.000 1.000 2.000 0.667
+0.000 0.000 0.000 0.000
+Matrix memiliki banyak solusi.
+x1 = -0.333 + 1.000x3
+x2 = 0.667 - 2.000x3
+x3 = c

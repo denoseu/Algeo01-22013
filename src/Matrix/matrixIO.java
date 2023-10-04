@@ -388,28 +388,4 @@ public class matrixIO {
     
     
 
-    public static double[][] createHilbert(int n){
-        double[][] hilbert = new double [n][n+1];
-        
-        for (int i=0;i < hilbert.length;i++){
-            for (int j=0; j < hilbert[0].length ; j++){
-                if (j != (hilbert[0].length -1)){
-                    hilbert[i][j] = 1 / (i + j + 1);
-                    System.out.println(1 / (i + j + 1));
-                // } else {
-                //     if (i == 0){
-                //         hilbert[i][j] = 1;
-                //     } else {
-                //         hilbert[i][j] = 0;
-                //     }
-                }
-            }
-        }
-        return hilbert;
-    }
-
-    public static void main (String[] args){
-        double[][] hil = createHilbert(6);
-        displayMatrix(hil);
-    }
 }
