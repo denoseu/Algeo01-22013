@@ -575,7 +575,58 @@ public class matrixOP {
         }
     }
 
+    public static double[][] getMatrixA() {
+        scan = new Scanner(System.in);
+        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
+        // bikin matrix uk. row x col (A)
+        double[][] A = new double[row][col];
+        // isi matrix
+        System.out.println("Elemen matriks A: ");
+        for(int i = 0;i < row;i++) {
+            for(int j = 0;j < col;j++) {
+                A[i][j] = scan.nextDouble();
+            }
+        }
+        return A;
+    }
 
+    public static double[][] getMatrixB() {
+        scan = new Scanner(System.in);
+        System.out.print("Masukkan jumlah baris (sama dengan sebelumnya): "); int row = scan.nextInt();
+        // bikin matrix uk. row A x 1 col (B)
+        double[][] B = new double[row][1];
+        // isi matrix
+        System.out.println("Elemen matriks B: ");
+        for(int p = 0; p < row; p++) {
+            for(int q = 0; q < 1; q++) {
+                B[p][q] = scan.nextDouble();
+            }
+        }
+        return B;
+    }
+
+
+    public static double[][] getABalikan(double [][] m){
+        double[][] A = new double[getRow(m)][getCol(m)-1];
+        for(int i = 0; i < getRow(m); i++) {
+            for(int j = 0; j < getCol(m)-1; j++) {
+                A[i][j] = m[i][j];
+            }
+        }
+        return A;
+    }
+
+    public static double[][] getBBalikan(double [][] m){
+        double[][] B = new double[getRow(m)][1];
+        for (int i = 0; i < getRow(m); i++) {
+            B[i][0] = m[i][getCol(m)-1];
+        }
+        return B;
+    }
+
+    //pemakaian:
+    //SPL.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
 
 }
 

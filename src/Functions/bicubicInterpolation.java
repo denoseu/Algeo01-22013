@@ -121,6 +121,7 @@ public class bicubicInterpolation {
     }
 
     public static double bicubicSpline (double[][] m, double x, double y) {
+        // x = matrixIO.getTaksiran(path);
         double[][] matrixX = createX();
         double[][] matrixY = createY(m);
         double[][] matrixa = matrixOP.multiplyMatrixMatrix(inverseX(matrixX), matrixY);

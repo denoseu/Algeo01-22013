@@ -4,6 +4,7 @@ import src.Matrix.*;
 import src.Functions.Interpolasi;
 import src.Functions.MainFunctions;
 import src.Functions.regresiLinearBerganda;
+import src.Functions.bicubicInterpolation;
 
 public class main {
     public static Scanner scan;
@@ -13,8 +14,10 @@ public class main {
         double[] m;
         double[] x;
         double[] s;
+        double[][] matA;
+        double[][] matB;
+        double result;
         int inputsave;
-        String name;
 
         scan = new Scanner(System.in);
 
@@ -187,14 +190,47 @@ public class main {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
                                 matriks = matrixIO.readMatrixSPL();
                                 MainFunctions.GaussJordanKeyboard(matriks);
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    outputFile.fileGaussJordan(matriks);
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
                                 MainFunctions.GaussJordanFile(matriks);
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    outputFile.fileGaussJordan(matriks);
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
-                            break;
                         case 3:
                             System.out.println("******************* Metode Matriks Balikan *******************");
                             // pilih cara input
@@ -211,13 +247,51 @@ public class main {
                             
                             if (inputbalikan == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                MainFunctions.BalikanKeyboard();
+                                // membaca matriks koefisien (A)
+                                matA = matrixOP.getMatrixA();
+                                matB = matrixOP.getMatrixB();
+                                matriks = MainFunctions.SPLBalikan(matA, matB);
+                                matrixIO.displayMatrix(matriks);
+                                matrixOP.hasilSPLInverse(matriks);
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                // BIKIN FUNCTION POTONG MATRIX UNTUK MATRIKS BALIKAN FILE
+                                String path = matrixIO.inputFile();
+                                matriks = matrixIO.fileToMatrix(path, 1);
+                                MainFunctions.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
-                            break;
                         case 4:
                             System.out.println("************************ Kaidah Cramer ***********************");
                             // pilih cara input
@@ -236,14 +310,47 @@ public class main {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
                                 matriks = matrixIO.readMatrixSPL();
                                 MainFunctions.CramerKeyboard(matriks);
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    outputFile.fileCrammer(matriks);
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
                                 MainFunctions.CramerFile(matriks);
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    outputFile.fileCrammer(matriks);
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
-                            break;
                     }
                     break;
                 case 2:
@@ -282,14 +389,48 @@ public class main {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
                                 matriks = matrixIO.readMatrixKeyboard();
                                 MainFunctions.redBarisKeyboard(matriks);
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    outputFile.fileDeterminan(matriks, 1);
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
+                                
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
                                 MainFunctions.redBarisfile(matriks);
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    outputFile.fileDeterminan(matriks, 1);
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
-                            break;
                         case 2:
                             System.out.println("****************** Metode Ekspansi Kofaktor ******************");
                             System.out.println(input);
@@ -307,14 +448,47 @@ public class main {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
                                 matriks = matrixIO.readMatrixKeyboard();
                                 MainFunctions.ekspansiKeyboard(matriks);
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    outputFile.fileDeterminan(matriks, 2);
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
                                 MainFunctions.ekspansiFile(matriks);
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    outputFile.fileDeterminan(matriks, 2);
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
-                            break;
                     }
                     break;
                 case 3:
@@ -336,14 +510,47 @@ public class main {
                         System.out.println("INPUT SOURCE: KEYBOARD");
                         matriks = matrixIO.readMatrixKeyboard();
                         MainFunctions.inverseKeyboard(matriks);
+                        System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                        System.out.println(save);
+                        System.out.print("Masukan pilihan input: ");
+                        inputsave = scan.nextInt();
+                        while (inputsave < 1 || inputsave > 2) {
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukkan pilihan menu: ");
+                            inputsave = scan.nextInt();
+                            
+                        }
+                        if (inputsave == 1) {
+                            outputFile.fileInverse(matriks);
+                            break;
+                        }
+                        else {
+                            continue;
+                        }
                     }
                     else {
                         System.out.println("INPUT SOURCE: FILE");
                         String path = matrixIO.inputFile();
                         matriks = matrixIO.fileToMatrix(path, 1);
                         MainFunctions.inverseFile(matriks);
+                        System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                        System.out.println(save);
+                        System.out.print("Masukan pilihan input: ");
+                        inputsave = scan.nextInt();
+                        while (inputsave < 1 || inputsave > 2) {
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukkan pilihan menu: ");
+                            inputsave = scan.nextInt();
+                            
+                        }
+                        if (inputsave == 1) {
+                            outputFile.fileInverse(matriks);
+                            break;
+                        }
+                        else {
+                            continue;
+                        }
                     }
-                    break;
                 case 4:
                     System.out.println("**************************************************************");
                     System.out.println("******************** INTERPOLASI POLINOM *********************");
@@ -364,6 +571,23 @@ public class main {
                         m = Interpolasi.solutionInterpolasi(Interpolasi.inputInterpolasi());
                         x = Interpolasi.inputTaksiran();
                         MainFunctions.InterpolasiKeyboard(m, x);
+                        System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                        System.out.println(save);
+                        System.out.print("Masukan pilihan input: ");
+                        inputsave = scan.nextInt();
+                        while (inputsave < 1 || inputsave > 2) {
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukkan pilihan menu: ");
+                            inputsave = scan.nextInt();
+                            
+                        }
+                        if (inputsave == 1) {
+                            // outputFile.fileInterpolasi();
+                            break;
+                        }
+                        else {
+                            continue;
+                        }
                     }
                     else {
                         System.out.println("INPUT SOURCE: FILE");
@@ -371,17 +595,51 @@ public class main {
                         matriks = matrixIO.fileToMatrix(path,2);
                         x = matrixIO.getTaksiran(path);
                         MainFunctions.InterpolasiFile(matriks, x);
+                        System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                        System.out.println(save);
+                        System.out.print("Masukan pilihan input: ");
+                        inputsave = scan.nextInt();
+                        while (inputsave < 1 || inputsave > 2) {
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukkan pilihan menu: ");
+                            inputsave = scan.nextInt();
+                            
+                        }
+                        if (inputsave == 1) {
+                            outputFile.fileInterpolasi(x, matriks);
+                            break;
+                        }
+                        else {
+                            continue;
+                        }
                     }
-                    break; 
                 case 5:
                     System.out.println("**************************************************************");
                     System.out.println("**************** INTERPOLASI BICUBIC SPLINE ******************");
                     System.out.println("**************************************************************");
                     System.out.println("INPUT SOURCE: FILE");
                     String path = matrixIO.inputFile();
-                    matriks = matrixIO.fileToMatrix(path, 1);
-                    MainFunctions.InterpolasiSpline(matriks);
-                    break;
+                    matriks = matrixIO.fileToMatrix(path, 2);
+                    x = matrixIO.getTaksiran(path);
+                    double hasildek = bicubicInterpolation.bicubicSpline(matriks, x[0], x[1]);
+                    System.out.println(hasildek);
+                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                    System.out.println(save);
+                    System.out.print("Masukan pilihan input: ");
+                    inputsave = scan.nextInt();
+                    while (inputsave < 1 || inputsave > 2) {
+                        System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                        System.out.println("Masukkan pilihan menu: ");
+                        inputsave = scan.nextInt();
+                        
+                    }
+                    if (inputsave == 1) {
+                        outputFile.fileBicubic(matriks, x);
+                        break;
+                    }
+                    else {
+                        continue;
+                    }
                 case 6:
                     System.out.println("**************************************************************");
                     System.out.println("******************* REGRESI LINIER BERGANDA ******************");
@@ -402,7 +660,26 @@ public class main {
                         matriks = regresiLinearBerganda.inputReg();
                         x = regresiLinearBerganda.inputTaksiran(matriks);
                         s = regresiLinearBerganda.solutionReg(matriks);
-                        MainFunctions.RegresiKeyboard(x, s);
+                        result = regresiLinearBerganda.estimateReg(s, x);
+                        regresiLinearBerganda.hasilRLB(s);
+                        regresiLinearBerganda.hasilEstimateRLB(result, x);
+                        System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                        System.out.println(save);
+                        System.out.print("Masukan pilihan input: ");
+                        inputsave = scan.nextInt();
+                        while (inputsave < 1 || inputsave > 2) {
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukkan pilihan menu: ");
+                            inputsave = scan.nextInt();
+                            
+                        }
+                        if (inputsave == 1) {
+                            outputFile.fileRLB(s, result, x);
+                            break;
+                        }
+                        else {
+                            continue;
+                        }
                     }
                     else {
                         System.out.println("INPUT SOURCE: FILE");
@@ -410,9 +687,27 @@ public class main {
                         matriks = matrixIO.fileToMatrix(paths,2);
                         x = matrixIO.getTaksiran(paths);
                         s = regresiLinearBerganda.solutionReg(matriks);
-                        MainFunctions.RegresiFile(x, s);
-                    }
-                    break; 
+                        result = regresiLinearBerganda.estimateReg(s, x);
+                        regresiLinearBerganda.hasilRLB(s);
+                        regresiLinearBerganda.hasilEstimateRLB(result, x);
+                         System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                        System.out.println(save);
+                        System.out.print("Masukan pilihan input: ");
+                        inputsave = scan.nextInt();
+                        while (inputsave < 1 || inputsave > 2) {
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukkan pilihan menu: ");
+                            inputsave = scan.nextInt();
+                            
+                        }
+                        if (inputsave == 1) {
+                            outputFile.fileRLB(s, result, x);
+                            break;
+                        }
+                        else {
+                            continue;
+                        }
+                    } 
             }
 
         } 

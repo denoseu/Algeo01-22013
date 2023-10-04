@@ -382,12 +382,7 @@ public class SPL {
         return B;
     }
     
-    public static double[][] SPLBalikan() {
-        // membaca matriks koefisien (A)
-        double[][] A = getMatrixA();
-
-        // membaca matriks hasil (B)
-        double[][] B = getMatrixB();
+    public static double[][] SPLBalikan(double[][] A, double[][] B) {
 
         // membuat matriks identitas (I)
         double[][] I = new double[matrixOP.getRow(A)][matrixOP.getRow(A)];
