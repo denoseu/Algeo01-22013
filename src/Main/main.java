@@ -264,7 +264,7 @@ public class main {
                                     
                                 }
                                 if (inputsave == 1) {
-                                    break;
+                                    outputFile.fileSPLInverse(matriks);
                                 }
                                 else {
                                     continue;
@@ -286,7 +286,7 @@ public class main {
                                     
                                 }
                                 if (inputsave == 1) {
-                                    break;
+                                    outputFile.fileSPLInverse(matriks);
                                 }
                                 else {
                                     continue;
