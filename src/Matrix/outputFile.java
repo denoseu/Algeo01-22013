@@ -481,7 +481,7 @@ public class outputFile {
         }
     }
 
-    public static void fileSPLInverse(double[][] matrix){
+    public static void fileSPLInverse(double[][] solution){
         String m = matrixIO.inputFile();
         matrixIO.createFile(m);
         String newPath = getPathOut(m);
@@ -492,36 +492,14 @@ public class outputFile {
 
             BufferedWriter writeFile = new BufferedWriter(write);
 
-            String mat = matrixIO.matrixString(matrix);
             writeFile.write("-----HASIL SPL DENGAN MATRIX BALIKAN-----");
             writeFile.newLine();
-            writeFile.write(mat);
 
             writeFile.write("Solusi: " );
             writeFile.newLine();
 
-            double[][] hasil = SPL.kaidahCramer(matrix);
-            if (hasil[0][0] == -9999){
-                writeFile.write("Matrix di atas tidak bisa diselesaikan dengan kaidah cramer");
-            } else if (hasil[0][0] == -999){
-                writeFile.write("Matrix di atas tidak memiliki solusi");
-            } else if (hasil[0][0] == -99999){
-                writeFile.write("Matrix di atas tidak bisa diselesaikan dengan kaidah cramer");
-            } else{
-
-                String solusi = "";
-                DecimalFormat df = new DecimalFormat("0.000");
-                for (int i = 0; i< hasil.length ; i++){
-                    for (int j = 0;j <hasil[0].length;j++){
-                        solusi += "x";
-                        solusi += Integer.toString(i+1);
-                        solusi += " = ";
-                        solusi += df.format(hasil[i][j]);
-                        solusi += "\n";
-                    }
-                }
-                writeFile.write(solusi);
-            }
+            
+            writeFile.write(matrixIO.matrixString(solution));
             
             // writeFile.newLine();
             

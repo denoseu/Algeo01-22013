@@ -575,7 +575,7 @@ public class matrixOP {
         }
     }
 
-    public static double[][] SPLBalikanFile(double[][] mat) {
+    public static double[][] SPLBalikanFile(double[][] A, double[][] B) {
         
 
         // membuat matriks identitas (I)
@@ -599,7 +599,7 @@ public class matrixOP {
                 augmentedMatrix[i][j + matrixOP.getRow(A)] = I[i][j];
             }
         }
-        matrixIO.displayMatrix(augmentedMatrix);
+        // matrixIO.displayMatrix(augmentedMatrix);
 
         // lakukan eliminasi Gauss-Jordan
         SPL.GaussJ(augmentedMatrix);
@@ -615,8 +615,8 @@ public class matrixOP {
         }
 
         // hasil matriks balikan = AInverse
-        System.out.println("Matriks Balikan (A^(-1)): ");
-        matrixIO.displayMatrix(AInverse);
+        // System.out.println("Matriks Balikan (A^(-1)): ");
+        // matrixIO.displayMatrix(AInverse);
 
         // mencari solusi SPL
         double[][] hasil = matrixOP.multiplyMatrixMatrix(AInverse, B);
