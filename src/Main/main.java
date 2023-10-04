@@ -18,6 +18,8 @@ public class main {
         double[][] matB;
         double result;
         int inputsave;
+        int n;
+        int jenismatrix;
 
         scan = new Scanner(System.in);
 
@@ -47,6 +49,11 @@ public class main {
         String input = """
             1. Keyboard
             2. File              
+                """;
+
+        String keyboard = """
+            1. Matriks Biasa
+            2. Matriks Hilbert              
                 """;
 
         String save = """
@@ -128,24 +135,57 @@ public class main {
                             
                             if (inputgauss == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                matriks = matrixIO.readMatrixSPL();
-                                MainFunctions.GaussKeyboard(matriks);
-                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
-                                System.out.println(save);
-                                System.out.print("Masukan pilihan input: ");
-                                inputsave = scan.nextInt();
-                                while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
-                                    System.out.println("Masukkan pilihan menu: ");
-                                    inputsave = scan.nextInt();
-                                    
+                                System.out.println("Pilih jenis matriks yang diinginkan: ");
+                                System.out.println(keyboard);
+                                jenismatrix = scan.nextInt();
+                                while (jenismatrix < 1 || jenismatrix > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                    System.out.println("Masukkan pilihan matriks: ");
+                                    jenismatrix = scan.nextInt();
                                 }
-                                if (inputsave == 1) {
-                                    outputFile.fileGauss(matriks);
-                                    break;
+                                if (jenismatrix == 1) {
+                                    matriks = matrixIO.readMatrixSPL();
+                                    MainFunctions.GaussKeyboard(matriks);
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileGauss(matriks);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
                                 }
                                 else {
-                                    continue;
+                                    System.out.println("Masukkan nilai n untuk matrix Hilbert: ");
+                                    n = scan.nextInt();
+                                    matriks = matrixIO.splHilbert(n);
+                                    MainFunctions.GaussKeyboard(matriks);
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileGauss(matriks);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
                                 }
                             }
                             else {
@@ -158,7 +198,7 @@ public class main {
                                 System.out.print("Masukan pilihan input: ");
                                 inputsave = scan.nextInt();
                                 while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                                     System.out.println("Masukkan pilihan menu: ");
                                     inputsave = scan.nextInt();
                                     
@@ -188,25 +228,61 @@ public class main {
                             
                             if (inputGJ == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                matriks = matrixIO.readMatrixSPL();
-                                MainFunctions.GaussJordanKeyboard(matriks);
-                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
-                                System.out.println(save);
-                                System.out.print("Masukan pilihan input: ");
-                                inputsave = scan.nextInt();
-                                while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
-                                    System.out.println("Masukkan pilihan menu: ");
-                                    inputsave = scan.nextInt();
-                                    
+                                System.out.println("Pilih jenis matriks yang diinginkan: ");
+                                System.out.println(keyboard);
+                                jenismatrix = scan.nextInt();
+                                while (jenismatrix < 1 || jenismatrix > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                    System.out.println("Masukkan pilihan matriks: ");
+                                    jenismatrix = scan.nextInt();
                                 }
-                                if (inputsave == 1) {
-                                    outputFile.fileGaussJordan(matriks);
-                                    break;
+
+                                if (jenismatrix == 1) {
+                                    matriks = matrixIO.readMatrixSPL();
+                                    MainFunctions.GaussJordanKeyboard(matriks);
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileGaussJordan(matriks);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
                                 }
                                 else {
-                                    continue;
+                                    System.out.println("Masukkan nilai n untuk matrix Hilbert: ");
+                                    n = scan.nextInt();
+                                    matriks = matrixIO.splHilbert(n);
+                                    MainFunctions.GaussJordanKeyboard(matriks);
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileGaussJordan(matriks);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
+
                                 }
+
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
@@ -218,7 +294,7 @@ public class main {
                                 System.out.print("Masukan pilihan input: ");
                                 inputsave = scan.nextInt();
                                 while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                                     System.out.println("Masukkan pilihan menu: ");
                                     inputsave = scan.nextInt();
                                     
@@ -247,28 +323,66 @@ public class main {
                             
                             if (inputbalikan == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                // membaca matriks koefisien (A)
-                                matA = matrixOP.getMatrixA();
-                                matB = matrixOP.getMatrixB();
-                                matriks = MainFunctions.SPLBalikan(matA, matB);
-                                matrixIO.displayMatrix(matriks);
-                                matrixOP.hasilSPLInverse(matriks);
-                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
-                                System.out.println(save);
-                                System.out.print("Masukan pilihan input: ");
-                                inputsave = scan.nextInt();
-                                while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
-                                    System.out.println("Masukkan pilihan menu: ");
-                                    inputsave = scan.nextInt();
-                                    
+                                System.out.println("Pilih jenis matriks yang diinginkan: ");
+                                System.out.println(keyboard);
+                                jenismatrix = scan.nextInt();
+                                while (jenismatrix < 1 || jenismatrix > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                    System.out.println("Masukkan pilihan matriks: ");
+                                    jenismatrix = scan.nextInt();
                                 }
-                                if (inputsave == 1) {
-                                    outputFile.fileSPLInverse(matriks);
-                                    break;
+
+                                if (jenismatrix == 1) {
+                                    matA = matrixOP.getMatrixA();
+                                    matB = matrixOP.getMatrixB();
+                                    matriks = MainFunctions.SPLBalikan(matA, matB);
+                                    matrixIO.displayMatrix(matriks);
+                                    matrixOP.hasilSPLInverse(matriks);
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileSPLInverse(matriks);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
                                 }
                                 else {
-                                    continue;
+                                    System.out.println("Masukkan nilai n untuk matrix Hilbert: ");
+                                    n = scan.nextInt();
+                                    matriks = matrixIO.splHilbert(n);
+                                    double[][] hilbertA = matrixOP.getABalikan(matriks);
+                                    double[][] hilbertB = matrixOP.getBBalikan(matriks);
+                                    double[][] balbert = MainFunctions.SPLBalikan(hilbertA, hilbertB);
+                                    matrixIO.displayMatrix(balbert);
+                                    matrixOP.hasilSPLInverse(balbert);
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileSPLInverse(matriks);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
+
                                 }
                             }
                             else {
@@ -283,7 +397,7 @@ public class main {
                                 System.out.print("Masukan pilihan input: ");
                                 inputsave = scan.nextInt();
                                 while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                                     System.out.println("Masukkan pilihan menu: ");
                                     inputsave = scan.nextInt();
                                     
@@ -312,24 +426,58 @@ public class main {
                             
                             if (inputcramer == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                matriks = matrixIO.readMatrixSPL();
-                                MainFunctions.CramerKeyboard(matriks);
-                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
-                                System.out.println(save);
-                                System.out.print("Masukan pilihan input: ");
-                                inputsave = scan.nextInt();
-                                while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
-                                    System.out.println("Masukkan pilihan menu: ");
-                                    inputsave = scan.nextInt();
-                                    
+                                System.out.println("Pilih jenis matriks yang diinginkan: ");
+                                System.out.println(keyboard);
+                                jenismatrix = scan.nextInt();
+                                while (jenismatrix < 1 || jenismatrix > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                    System.out.println("Masukkan pilihan matriks: ");
+                                    jenismatrix = scan.nextInt();
                                 }
-                                if (inputsave == 1) {
-                                    outputFile.fileCrammer(matriks);
-                                    break;
+
+                                if (jenismatrix == 1) {
+                                    matriks = matrixIO.readMatrixSPL();
+                                    MainFunctions.CramerKeyboard(matriks);
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileCrammer(matriks);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
                                 }
                                 else {
-                                    continue;
+                                    System.out.println("Masukkan nilai n untuk matrix Hilbert: ");
+                                    n = scan.nextInt();
+                                    matriks = matrixIO.splHilbert(n);
+                                    MainFunctions.CramerKeyboard(matriks);
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileCrammer(matriks);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
                                 }
                             }
                             else {
@@ -342,7 +490,7 @@ public class main {
                                 System.out.print("Masukan pilihan input: ");
                                 inputsave = scan.nextInt();
                                 while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                                     System.out.println("Masukkan pilihan menu: ");
                                     inputsave = scan.nextInt();
                                     
@@ -398,7 +546,7 @@ public class main {
                                 System.out.print("Masukan pilihan input: ");
                                 inputsave = scan.nextInt();
                                 while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                                     System.out.println("Masukkan pilihan menu: ");
                                     inputsave = scan.nextInt();
                                     
@@ -422,7 +570,7 @@ public class main {
                                 System.out.print("Masukan pilihan input: ");
                                 inputsave = scan.nextInt();
                                 while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                                     System.out.println("Masukkan pilihan menu: ");
                                     inputsave = scan.nextInt();
                                     
@@ -457,7 +605,7 @@ public class main {
                                 System.out.print("Masukan pilihan input: ");
                                 inputsave = scan.nextInt();
                                 while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                                     System.out.println("Masukkan pilihan menu: ");
                                     inputsave = scan.nextInt();
                                     
@@ -480,7 +628,7 @@ public class main {
                                 System.out.print("Masukan pilihan input: ");
                                 inputsave = scan.nextInt();
                                 while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                                     System.out.println("Masukkan pilihan menu: ");
                                     inputsave = scan.nextInt();
                                     
@@ -519,7 +667,7 @@ public class main {
                         System.out.print("Masukan pilihan input: ");
                         inputsave = scan.nextInt();
                         while (inputsave < 1 || inputsave > 2) {
-                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                             System.out.println("Masukkan pilihan menu: ");
                             inputsave = scan.nextInt();
                             
@@ -542,7 +690,7 @@ public class main {
                         System.out.print("Masukan pilihan input: ");
                         inputsave = scan.nextInt();
                         while (inputsave < 1 || inputsave > 2) {
-                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                             System.out.println("Masukkan pilihan menu: ");
                             inputsave = scan.nextInt();
                             
@@ -580,7 +728,7 @@ public class main {
                         System.out.print("Masukan pilihan input: ");
                         inputsave = scan.nextInt();
                         while (inputsave < 1 || inputsave > 2) {
-                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                             System.out.println("Masukkan pilihan menu: ");
                             inputsave = scan.nextInt();
                             
@@ -604,7 +752,7 @@ public class main {
                         System.out.print("Masukan pilihan input: ");
                         inputsave = scan.nextInt();
                         while (inputsave < 1 || inputsave > 2) {
-                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                             System.out.println("Masukkan pilihan menu: ");
                             inputsave = scan.nextInt();
                             
@@ -632,7 +780,7 @@ public class main {
                     System.out.print("Masukan pilihan input: ");
                     inputsave = scan.nextInt();
                     while (inputsave < 1 || inputsave > 2) {
-                        System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                         System.out.println("Masukkan pilihan menu: ");
                         inputsave = scan.nextInt();
                         
@@ -672,7 +820,7 @@ public class main {
                         System.out.print("Masukan pilihan input: ");
                         inputsave = scan.nextInt();
                         while (inputsave < 1 || inputsave > 2) {
-                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                             System.out.println("Masukkan pilihan menu: ");
                             inputsave = scan.nextInt();
                             
@@ -699,7 +847,7 @@ public class main {
                         System.out.print("Masukan pilihan input: ");
                         inputsave = scan.nextInt();
                         while (inputsave < 1 || inputsave > 2) {
-                            System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                            System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
                             System.out.println("Masukkan pilihan menu: ");
                             inputsave = scan.nextInt();
                             
