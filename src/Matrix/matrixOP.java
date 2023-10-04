@@ -606,5 +606,27 @@ public class matrixOP {
         return B;
     }
 
+
+    public static double[][] getABalikan(double [][] m){
+        double[][] A = new double[getRow(m)][getCol(m)-1];
+        for(int i = 0; i < getRow(m); i++) {
+            for(int j = 0; j < getCol(m)-1; j++) {
+                A[i][j] = m[i][j];
+            }
+        }
+        return A;
+    }
+
+    public static double[][] getBBalikan(double [][] m){
+        double[][] B = new double[getRow(m)][1];
+        for (int i = 0; i < getRow(m); i++) {
+            B[i][0] = m[i][getCol(m)-1];
+        }
+        return B;
+    }
+
+    //pemakaian:
+    //SPL.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
+
 }
 

@@ -272,9 +272,26 @@ public class main {
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
-                                // BIKIN FUNCTION POTONG MATRIX UNTUK MATRIKS BALIKAN FILE
+                                String path = matrixIO.inputFile();
+                                matriks = matrixIO.fileToMatrix(path, 1);
+                                MainFunctions.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
-                            break;
                         case 4:
                             System.out.println("************************ Kaidah Cramer ***********************");
                             // pilih cara input
