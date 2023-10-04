@@ -8,10 +8,8 @@ public class matrixOP {
     public int nRows;
     public int nCols;
 
-    public static Scanner scan; // buat user input
-    
-    /* KONSTRUKTOR belom, masih bikin matrixnya manual di tiap function */
-    
+    public static Scanner scan; // untuk user input
+        
     /* SELECTOR */
     public static int getRow(double[][] m) {
         return m.length;
@@ -236,8 +234,9 @@ public class matrixOP {
         return m;
     }
 
+    
     // cek apakah dia baris terakhirnya semuanya 0 kecuali solusi
-    // intinya dia ga ad solusi
+    // intinya dia ga ada solusi
     public static boolean noSolusi (double[][] m) {
         // cari sampe N-1 elemen, ada yang bukan 0 ga
         for (int j = 0; j < matrixOP.getCol(m) - 1; j++) {
@@ -265,7 +264,7 @@ public class matrixOP {
         }
         // lalu kalo udah cek atas dia ngecek elemen terakhirnya
         // klo bukan 0 terus yang lainnya 0 berarti emang ga ada solusi
-
+        
         if ((m[i][col-1] != 0)) {
             return true;
         }
@@ -273,7 +272,7 @@ public class matrixOP {
             return false;
         }
     }
-
+    
     // cek last barisnya 0 ato ga
     public static boolean Nol (double[][] m) {
         // cari sampe N elemen, ada yang bukan 0 ga
@@ -284,7 +283,7 @@ public class matrixOP {
         }
         return true;
     }
-
+    
     
     // cek apakah dalam 1 baris ada yang nol ato ga
     public static boolean barisNol(double[][] m, int col, int i) {
@@ -305,7 +304,7 @@ public class matrixOP {
         }
         return true;
     }
-
+    
     // pindahin baris nol ke bawah
     public static void pindahBarisNol (double[][] m, int row, int col) {
         for(int i = 0; i < row; i += 1) {
@@ -314,7 +313,7 @@ public class matrixOP {
             }
         }
     }
-
+    
     // bikin matriks default yang no solusi
     public static void matriksNoSolusi (double[][] m) {
         // cari sampe N-1 elemen, ada yang bukan 0 ga
@@ -340,16 +339,16 @@ public class matrixOP {
             
             return -999; // mark
         }
-
+        
     }
-
+    
     // untuk kasus dimana dia solusi unik tapi ada zero rows dibawah
     public static double[][] deleteZeroRows(double[][] matriks) {
         if (matriks == null || matriks.length == 0) {
             // handle matriks kosong
             return matriks; // lgsg return
         }
-    
+        
         int numRows = getRow(matriks);
         int numCols = getCol(matriks);
         int newRowCount = 0; // hitung non-zero rows
@@ -371,7 +370,7 @@ public class matrixOP {
         // bikin matrix baru isinya yang ga pke 0 row
         double[][] result = new double[newRowCount][numCols];
         int rowIndex = 0;
-    
+        
         for (int i = 0; i < numRows; i++) {
             boolean isZeroRow = true;
             for (int j = 0; j < numCols; j++) {
@@ -390,12 +389,12 @@ public class matrixOP {
         return result;
     }
     
-
+    
     public static double[] hasilSPLGauss (double[][] matriks) {
         double[] solusi = new double[matrixOP.getRow(matriks)];
         double[] solusibanyak = {-999};
         double[] nosolusi = {0, 0, 0, 0};
-
+        
         if (matrixOP.noSolusi(matriks)) {
             System.out.println("Matriks tidak memiliki solusi.");
             return nosolusi;
@@ -417,7 +416,7 @@ public class matrixOP {
                     solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
                 } 
             }
-
+            
             System.out.println("Solusi:");
             for (int i = 0; i < solusi.length; i++) {
                 System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
@@ -453,7 +452,7 @@ public class matrixOP {
                     solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
                 } 
             }
-
+            
             System.out.println("Solusi:");
             for (int i = 0; i < solusi.length; i++) {
                 System.out.printf("x%d = %.3f\n", i+1, (solusi[i]));
@@ -465,22 +464,22 @@ public class matrixOP {
     public static void hasilSPLInverse (double[][] matriks) {
         // simpan hasil dalam array biar bisa ditampilin
         double[] solusi = new double[matrixOP.getRow(matriks)];
-
+        
         for (int x = matrixOP.getRow(matriks) - 1; x >= 0; x -= 1) {
             solusi[x] = matriks[x][0];
         }
-
+        
         System.out.println("Solusi:");
         for (int i = 0; i < solusi.length; i++) {
             System.out.printf("x%d = %.3f\n", i+1, solusi[i]);
         }
     }
     // Hasil Gauss berbentuk matrix
-   
+    
     public static double[] getGaussMatrix(double[][] matriks){
 
         boolean found = false;
-
+        
         for (int i = 0; i < matrixOP.getRow(matriks); i++) {
             // cari elemen pertama yang tidak nol di baris
             for (int j = 0; j < matrixOP.getCol(matriks); j++) {
@@ -503,9 +502,9 @@ public class matrixOP {
                 }
             }
         }
-
+        
         double[] solusi = new double[matrixOP.getRow(matriks)];
-
+        
         for (int m = matrixOP.getRow(matriks) - 1; m >= 0; m -= 1) {
             solusi[m] = matriks[m][matrixOP.getCol(matriks)-1];
             for (int n = 1; n <= matrixOP.getRow(matriks) - m - 1; n += 1) {
@@ -520,7 +519,7 @@ public class matrixOP {
         double[] solusi = new double[matrixOP.getRow(matriks)];
         double[] solusibanyak = {-999};
         double[] nosolusi = {0, 0, 0, 0};
-
+        
         if (matrixOP.noSolusi(matriks)) {
             return nosolusi;
         }
@@ -540,7 +539,7 @@ public class matrixOP {
                     solusi[m] = solusi[m] - matriks[m][m + n] * solusi[m + n];
                 } 
             }
-
+            
             return solusi;
             
         }
@@ -574,6 +573,24 @@ public class matrixOP {
             return solusi;
         }
     }
-
+    
+    public static double[][] getABalikan(double [][] m){
+        
+        double[][] A = new double[getRow(m)][getCol(m)-1];
+        for(int i = 0; i < getRow(m); i++) {
+            for(int j = 0; j < getCol(m)-1; j++) {
+                A[i][j] = m[i][j];
+            }
+        }
+        return A;
+    }
+    
+    public static double[][] getBBalikan(double [][] m){
+        double[][] B = new double[getRow(m)][1];
+        for(int i = 0; i < getRow(m); i++) {
+            B[i][0] = m[i][getCol(m)-1];
+        }
+        return B;
+    }
 }
 

@@ -385,6 +385,20 @@ public class matrixIO {
 
         return text;
     }
+
+    public static double[][] splHilbert(int n){
+        double [][] H = new double[n][n+1];
+        int penyebut;
+        for (int i = 0; i < n; i++){
+            penyebut = i+1;
+            for (int j = 0; j < n; j++){
+                H[i][j] = (double) 1/penyebut;
+                penyebut++;
+            }
+        }
+        H[0][n] = 1;
+        return H;
+    }
     
     public static void main(String[] args){
         // System.out.println(countLine("./test/input/text.txt"));
@@ -392,7 +406,7 @@ public class matrixIO {
         // for (int i=0;i<rc.length;i++){
         //     System.out.println(rc[i]);
         // }
-        String path = inputFile();
+       // String path = inputFile();
         // double[][] m = fileToMatrix(path,2);
         // displayMatrix(m);
         // // System.out.println(getAB(path));
@@ -401,8 +415,8 @@ public class matrixIO {
         //     System.out.println(s[i]);
         // }
         // System.out.println(getAB("./test/input/text.txt"));
-        createFile(path);
-        
+        //createFile(path);
+        displayMatrix(splHilbert(6));
 
     }
 }

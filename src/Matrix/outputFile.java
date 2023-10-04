@@ -445,12 +445,10 @@ public class outputFile {
             writeFile.newLine();
 
             double[][] hasil = SPL.kaidahCramer(matrix);
-            if (hasil[0][0] == -9999){
+            if (hasil[0][0] == -9999 || hasil[0][0] == -99999){
                 writeFile.write("Matrix di atas tidak bisa diselesaikan dengan kaidah cramer");
             } else if (hasil[0][0] == -999){
                 writeFile.write("Matrix di atas tidak memiliki solusi");
-            } else if (hasil[0][0] == -99999){
-                writeFile.write("Matrix di atas tidak bisa diselesaikan dengan kaidah cramer");
             } else{
 
                 String solusi = "";

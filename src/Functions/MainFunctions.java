@@ -101,10 +101,27 @@ public class MainFunctions {
     }
 
     /* SPL DENGAN MATRIKS BALIKAN */
-    public static void BalikanKeyboard() {
-        double[][] matriks = SPL.SPLBalikan();
+    public static void BalikanKeyboard(double[][] matriks) {
+        // double[][] m;
+        // m = matrixIO.readMatrixSPL();
+        matriks = SPL.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
         matrixIO.displayMatrix(SPL.inverse(matriks));
         matrixOP.hasilSPLInverse(matriks);
+    }
+
+    public static void BalikanFile(double[][] matriks) {
+        // double[][] m;
+        // String path = matrixIO.inputFile();
+        // m = matrixIO.fileToMatrix(path, 1);
+        if (SPL.noInv(SPL.inverse(matriks))){
+            System.out.println("Matriks di atas tidak memiliki invers.");
+        }
+        else{
+            matriks = SPL.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
+            matrixIO.displayMatrix(SPL.inverse(matriks));
+            matrixOP.hasilSPLInverse(matriks);
+        }
+
     }
 
     /* SPL DENGAN KAIDAH CRAMER */

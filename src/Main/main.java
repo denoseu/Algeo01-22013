@@ -7,7 +7,7 @@ import src.Functions.regresiLinearBerganda;
 
 public class main {
     public static Scanner scan;
-    public static void main (String[] args) {
+    public static void Main (String[] args) {
         double[][] matriks;
         // untuk interpolasi
         double[] m;
@@ -168,11 +168,15 @@ public class main {
                             
                             if (inputbalikan == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                MainFunctions.BalikanKeyboard();
+                                matriks = matrixIO.readMatrixSPL();
+                                MainFunctions.BalikanKeyboard(matriks);
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
                                 // BIKIN FUNCTION POTONG MATRIX UNTUK MATRIKS BALIKAN FILE
+                                String path = matrixIO.inputFile();
+                                matriks = matrixIO.fileToMatrix(path, 1);
+                                MainFunctions.BalikanFile(matriks);
                             }
                             break;
                         case 4:
