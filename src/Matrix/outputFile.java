@@ -481,6 +481,37 @@ public class outputFile {
         }
     }
 
+    public static void fileSPLInverse(double[][] solution){
+        String m = matrixIO.inputFile();
+        matrixIO.createFile(m);
+        String newPath = getPathOut(m);
+        FileWriter write;
+        try {
+
+            write = new FileWriter(newPath);
+
+            BufferedWriter writeFile = new BufferedWriter(write);
+
+            writeFile.write("-----HASIL SPL DENGAN MATRIX BALIKAN-----");
+            writeFile.newLine();
+
+            writeFile.write("Solusi: " );
+            writeFile.newLine();
+
+            
+            writeFile.write(matrixIO.matrixString(solution));
+            
+            // writeFile.newLine();
+            
+            writeFile.flush();
+            writeFile.close();
+
+        } catch (IOException e){
+            System.out.println("Terjadi Kesalahan. Tidak bisa menyimpan file.");
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args){
         String path = matrixIO.inputFile();
         double[][] mat = matrixIO.fileToMatrix(path,1);
