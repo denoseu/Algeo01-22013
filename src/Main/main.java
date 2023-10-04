@@ -13,6 +13,8 @@ public class main {
         double[] m;
         double[] x;
         double[] s;
+        int inputsave;
+        String name;
 
         scan = new Scanner(System.in);
 
@@ -42,6 +44,11 @@ public class main {
         String input = """
             1. Keyboard
             2. File              
+                """;
+
+        String save = """
+            1. Yes
+            2. No            
                 """;
 
         scan = new Scanner(System.in);
@@ -90,6 +97,7 @@ public class main {
                     System.out.println("Masukkan pilihan menu: ");
                     
                     int pilihanspl = scan.nextInt();
+                
                     
                     while (pilihanspl < 1 || pilihanspl > 4) {
                         System.out.println("Masukan tidak valid. Mohon hanya menginput bilangan 1-4.");
@@ -107,6 +115,7 @@ public class main {
                             System.out.print("Masukan pilihan input: ");
                             int inputgauss;
                             inputgauss = scan.nextInt();  
+
                             while (inputgauss < 1 || inputgauss > 2) {
                                 System.out.println("Pilihan input tidak tersedia, mohon hanya menginput bilangan 1 atau 2.");
                                 System.out.print("Masukan pilihan input: ");
@@ -118,14 +127,48 @@ public class main {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
                                 matriks = matrixIO.readMatrixSPL();
                                 MainFunctions.GaussKeyboard(matriks);
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    outputFile.fileGauss(matriks);
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
                             else {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
                                 MainFunctions.GaussFile(matriks);
+                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                System.out.println(save);
+                                System.out.print("Masukan pilihan input: ");
+                                inputsave = scan.nextInt();
+                                while (inputsave < 1 || inputsave > 2) {
+                                    System.out.println("Masukan tidak valid. Mohon hanya menginput Y atau N.");
+                                    System.out.println("Masukkan pilihan menu: ");
+                                    inputsave = scan.nextInt();
+                                    
+                                }
+                                if (inputsave == 1) {
+                                    outputFile.fileGauss(matriks);
+                                    break;
+                                }
+                                else {
+                                    continue;
+                                }
                             }
-                            break;
+                            // break;
                         case 2:
                             System.out.println("**************** Metode Eliminasi Gauss-Jordan ***************");
                             // pilih cara input
