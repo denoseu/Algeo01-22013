@@ -46,7 +46,7 @@ public class outputFile {
         return true;
     }
 
-    public static void fileInterpolasi(double[] s, double[] taksiran,double result){
+    public static void fileInterpolasi(double[] taksiran, double[][] matrix){
         String m = matrixIO.inputFile();
         matrixIO.createFile(m);
         String newPath = getPathOut(m);
@@ -58,6 +58,9 @@ public class outputFile {
             BufferedWriter writeFile = new BufferedWriter(write);
             writeFile.write("-----HASIL INTERPOLASI-----");
             writeFile.newLine();
+
+            double[] s = regresiLinearBerganda.solutionReg(matrix);
+            double result = regresiLinearBerganda.estimateReg(s, taksiran);
             DecimalFormat df = new DecimalFormat("0.000");
             String fx = "f(x)= ";
             for (int i = s.length-1 ; i>=0;i--){

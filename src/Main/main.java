@@ -4,6 +4,7 @@ import src.Matrix.*;
 import src.Functions.Interpolasi;
 import src.Functions.MainFunctions;
 import src.Functions.regresiLinearBerganda;
+import src.Functions.bicubicInterpolation;
 
 public class main {
     public static Scanner scan;
@@ -13,6 +14,7 @@ public class main {
         double[] m;
         double[] x;
         double[] s;
+        double result;
         int inputsave;
         String name;
 
@@ -581,7 +583,7 @@ public class main {
                             
                         }
                         if (inputsave == 1) {
-                            // outputFile.fileInterpolasi();
+                            outputFile.fileInterpolasi(x, matriks);
                             break;
                         }
                         else {
@@ -594,8 +596,10 @@ public class main {
                     System.out.println("**************************************************************");
                     System.out.println("INPUT SOURCE: FILE");
                     String path = matrixIO.inputFile();
-                    matriks = matrixIO.fileToMatrix(path, 1);
-                    MainFunctions.InterpolasiSpline(matriks);
+                    matriks = matrixIO.fileToMatrix(path, 2);
+                    x = matrixIO.getTaksiran(path);
+                    double hasildek = bicubicInterpolation.bicubicSpline(matriks, x[0], x[1]);
+                    System.out.println(hasildek);
                     System.out.println("Apakah anda ingin menyimpan jawaban? ");
                     System.out.println(save);
                     System.out.print("Masukan pilihan input: ");
@@ -607,7 +611,7 @@ public class main {
                         
                     }
                     if (inputsave == 1) {
-                        // outputFile.fileBicubic();
+                        outputFile.fileBicubic(matriks, x);
                         break;
                     }
                     else {
@@ -633,7 +637,9 @@ public class main {
                         matriks = regresiLinearBerganda.inputReg();
                         x = regresiLinearBerganda.inputTaksiran(matriks);
                         s = regresiLinearBerganda.solutionReg(matriks);
-                        MainFunctions.RegresiKeyboard(x, s);
+                        result = regresiLinearBerganda.estimateReg(s, x);
+                        regresiLinearBerganda.hasilRLB(s);
+                        regresiLinearBerganda.hasilEstimateRLB(result, x);
                         System.out.println("Apakah anda ingin menyimpan jawaban? ");
                         System.out.println(save);
                         System.out.print("Masukan pilihan input: ");
@@ -645,7 +651,7 @@ public class main {
                             
                         }
                         if (inputsave == 1) {
-                            // outputFile.fileRLB();
+                            outputFile.fileRLB(s, result, x);
                             break;
                         }
                         else {
@@ -658,7 +664,9 @@ public class main {
                         matriks = matrixIO.fileToMatrix(paths,2);
                         x = matrixIO.getTaksiran(paths);
                         s = regresiLinearBerganda.solutionReg(matriks);
-                        MainFunctions.RegresiFile(x, s);
+                        result = regresiLinearBerganda.estimateReg(s, x);
+                        regresiLinearBerganda.hasilRLB(s);
+                        regresiLinearBerganda.hasilEstimateRLB(result, x);
                          System.out.println("Apakah anda ingin menyimpan jawaban? ");
                         System.out.println(save);
                         System.out.print("Masukan pilihan input: ");
@@ -670,7 +678,7 @@ public class main {
                             
                         }
                         if (inputsave == 1) {
-                            // outputFile.fileRLB();
+                            outputFile.fileRLB(s, result, x);
                             break;
                         }
                         else {

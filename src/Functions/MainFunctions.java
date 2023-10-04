@@ -240,6 +240,8 @@ public class MainFunctions {
         // double[] x = matrixIO.getTaksiran(path);
         double[] solution = Interpolasi.solutionInterpolasi(matrix);
         double result = Interpolasi.estimate(solution, x);
+        Interpolasi.hasilInterpolasi(solution);
+        Interpolasi.hasilEstimateInter(result, x);
     }
 
     /* INTERPOLASI BICUBIC SPLINE */
