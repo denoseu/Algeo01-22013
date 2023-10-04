@@ -103,7 +103,7 @@ public class MainFunctions {
     /* SPL DENGAN MATRIKS BALIKAN */
     public static void BalikanKeyboard() {
         double[][] matriks = SPL.SPLBalikan();
-        matrixIO.displayMatrix(SPL.inverse(matriks));
+        matrixIO.displayMatrix(matriks);
         matrixOP.hasilSPLInverse(matriks);
     }
 
