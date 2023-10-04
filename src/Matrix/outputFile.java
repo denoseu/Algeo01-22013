@@ -511,6 +511,7 @@ public class outputFile {
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args){
         String path = matrixIO.inputFile();
         double[][] mat = matrixIO.fileToMatrix(path,1);

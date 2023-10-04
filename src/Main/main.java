@@ -265,6 +265,7 @@ public class main {
                                 }
                                 if (inputsave == 1) {
                                     outputFile.fileSPLInverse(matriks);
+                                    break;
                                 }
                                 else {
                                     continue;
@@ -274,7 +275,9 @@ public class main {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
-                                MainFunctions.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
+                                double[][] jwbaninversbro = MainFunctions.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
+                                matrixIO.displayMatrix(jwbaninversbro);
+                                matrixOP.hasilSPLInverse(jwbaninversbro);
                                 System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                 System.out.println(save);
                                 System.out.print("Masukan pilihan input: ");
@@ -286,7 +289,8 @@ public class main {
                                     
                                 }
                                 if (inputsave == 1) {
-                                    outputFile.fileSPLInverse(matriks);
+                                    outputFile.fileSPLInverse(jwbaninversbro);
+                                    break;
                                 }
                                 else {
                                     continue;
