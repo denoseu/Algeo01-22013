@@ -385,6 +385,21 @@ public class matrixIO {
 
         return text;
     }
+
+    // Matrix Hilbert
+    public static double[][] splHilbert(int n){
+        double [][] H = new double[n][n+1];
+        int penyebut;
+        for (int i = 0; i < n; i++){
+            penyebut = i+1;
+            for (int j = 0; j < n; j++){
+                H[i][j] = (double) 1/penyebut;
+                penyebut++;
+            }
+        }
+        H[0][n] = 1;
+        return H;
+}
     
     
 
