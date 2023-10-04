@@ -386,23 +386,30 @@ public class matrixIO {
         return text;
     }
     
-    public static void main(String[] args){
-        // System.out.println(countLine("./test/input/text.txt"));
-        // int [] rc = countRowCol("./test/input/text.txt");
-        // for (int i=0;i<rc.length;i++){
-        //     System.out.println(rc[i]);
-        // }
-        String path = inputFile();
-        // double[][] m = fileToMatrix(path,2);
-        // displayMatrix(m);
-        // // System.out.println(getAB(path));
-        // double[] s = getAB(path);
-        // for (int i=0;i<s.length;i++){
-        //     System.out.println(s[i]);
-        // }
-        // System.out.println(getAB("./test/input/text.txt"));
-        createFile(path);
-        
+    
 
+    public static double[][] createHilbert(int n){
+        double[][] hilbert = new double [n][n+1];
+        
+        for (int i=0;i < hilbert.length;i++){
+            for (int j=0; j < hilbert[0].length ; j++){
+                if (j != (hilbert[0].length -1)){
+                    hilbert[i][j] = 1 / (i + j + 1);
+                    System.out.println(1 / (i + j + 1));
+                // } else {
+                //     if (i == 0){
+                //         hilbert[i][j] = 1;
+                //     } else {
+                //         hilbert[i][j] = 0;
+                //     }
+                }
+            }
+        }
+        return hilbert;
+    }
+
+    public static void main (String[] args){
+        double[][] hil = createHilbert(6);
+        displayMatrix(hil);
     }
 }
