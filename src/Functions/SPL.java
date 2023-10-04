@@ -481,14 +481,14 @@ public class SPL {
                     if (m[i][j] != 0){
                         // matrixIO.displayMatrix(m);
                         if (m[i-1][j]==0){
-                            double faktor = m[i][j]/m[FirstElementNot0(m, 0, j)][j];
+                            double faktor = (double) m[i][j]/m[FirstElementNot0(m, 0, j)][j];
                             for (int l = 0; l < n; l++)
                             {
                                 m[i][l] -= m[FirstElementNot0(m, 0, j)][l] * faktor;
                             }
                         }
                         else{
-                            double faktor = m[i][j]/m[i-1][j];
+                            double faktor = (double) m[i][j]/m[i-1][j];
                             for (int l = 0; l < n; l++){
                                 m[i][l] -= m[i-1][l] * faktor;
                             }
@@ -514,6 +514,12 @@ public class SPL {
             //Matriks tidak simetri
             return -9999;
         }
+    }
+
+    public static double detRedHilbert(double[][] m){
+        double[][] matrix = matrixOP.getABalikan(m);
+        double det = detReduksiBaris(matrix);
+        return det;
     }
 
     /*-------------- PERSAMAAN PARAMETER UNTUK GAUSS, GAUSS-JORDAN ------------------ */
