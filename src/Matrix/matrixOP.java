@@ -575,5 +575,36 @@ public class matrixOP {
         }
     }
 
+    public static double[][] getMatrixA() {
+        scan = new Scanner(System.in);
+        System.out.print("Masukkan jumlah baris: "); int row = scan.nextInt();
+        System.out.print("Masukkan jumlah kolom: "); int col = scan.nextInt();
+        // bikin matrix uk. row x col (A)
+        double[][] A = new double[row][col];
+        // isi matrix
+        System.out.println("Elemen matriks A: ");
+        for(int i = 0;i < row;i++) {
+            for(int j = 0;j < col;j++) {
+                A[i][j] = scan.nextDouble();
+            }
+        }
+        return A;
+    }
+
+    public static double[][] getMatrixB() {
+        scan = new Scanner(System.in);
+        System.out.print("Masukkan jumlah baris (sama dengan sebelumnya): "); int row = scan.nextInt();
+        // bikin matrix uk. row A x 1 col (B)
+        double[][] B = new double[row][1];
+        // isi matrix
+        System.out.println("Elemen matriks B: ");
+        for(int p = 0; p < row; p++) {
+            for(int q = 0; q < 1; q++) {
+                B[p][q] = scan.nextDouble();
+            }
+        }
+        return B;
+    }
+
 }
 

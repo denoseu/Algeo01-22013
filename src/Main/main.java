@@ -14,9 +14,10 @@ public class main {
         double[] m;
         double[] x;
         double[] s;
+        double[][] matA;
+        double[][] matB;
         double result;
         int inputsave;
-        String name;
 
         scan = new Scanner(System.in);
 
@@ -246,7 +247,12 @@ public class main {
                             
                             if (inputbalikan == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                MainFunctions.BalikanKeyboard();
+                                // membaca matriks koefisien (A)
+                                matA = matrixOP.getMatrixA();
+                                matB = matrixOP.getMatrixB();
+                                matriks = MainFunctions.SPLBalikan(matA, matB);
+                                matrixIO.displayMatrix(matriks);
+                                matrixOP.hasilSPLInverse(matriks);
                                 System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                 System.out.println(save);
                                 System.out.print("Masukan pilihan input: ");

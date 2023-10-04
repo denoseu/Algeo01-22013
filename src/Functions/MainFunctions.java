@@ -101,10 +101,53 @@ public class MainFunctions {
     }
 
     /* SPL DENGAN MATRIKS BALIKAN */
-    public static void BalikanKeyboard() {
-        double[][] matriks = SPL.SPLBalikan();
-        matrixIO.displayMatrix(matriks);
-        matrixOP.hasilSPLInverse(matriks);
+    public static double[][] SPLBalikan(double[][] A, double[][] B) {
+
+        // membuat matriks identitas (I)
+        double[][] I = new double[matrixOP.getRow(A)][matrixOP.getRow(A)];
+        for (int i = 0; i < matrixOP.getRow(A); i++) {
+            for (int j = 0; j < matrixOP.getRow(A); j++) {
+                if (i == j) {
+                    I[i][j] = 1.0;
+                } else {
+                    I[i][j] = 0.0;
+                }
+            }
+        }
+        // matrixIO.displayMatrix(I);
+
+        // menghitung matriks augmented [A | I]
+        double[][] augmentedMatrix = new double[matrixOP.getRow(A)][2 * matrixOP.getRow(A)];
+        for (int i = 0; i < matrixOP.getRow(A); i++) {
+            for (int j = 0; j < matrixOP.getRow(A); j++) {
+                augmentedMatrix[i][j] = A[i][j];
+                augmentedMatrix[i][j + matrixOP.getRow(A)] = I[i][j];
+            }
+        }
+        matrixIO.displayMatrix(augmentedMatrix);
+
+        // lakukan eliminasi Gauss-Jordan
+        SPL.GaussJ(augmentedMatrix);
+
+        // matrixIO.displayMatrix(augmentedMatrix);
+
+        // mendapatkan matriks balikan dari matriks augmented yang sudah dilakukan operasi gauss-jordan
+        double[][] AInverse = new double[matrixOP.getRow(A)][matrixOP.getRow(A)];
+        for (int i = 0; i < matrixOP.getRow(A); i++) {
+            for (int j = 0; j < matrixOP.getRow(A); j++) {
+                AInverse[i][j] = augmentedMatrix[i][j + matrixOP.getRow(A)];
+            }
+        }
+
+        // hasil matriks balikan = AInverse
+        System.out.println("Matriks Balikan (A^(-1)): ");
+        matrixIO.displayMatrix(AInverse);
+
+        // mencari solusi SPL
+        double[][] hasil = matrixOP.multiplyMatrixMatrix(AInverse, B);
+        // matrixIO.displayMatrix(hasil);
+
+        return hasil;
     }
 
     /* SPL DENGAN KAIDAH CRAMER */
