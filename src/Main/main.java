@@ -338,25 +338,35 @@ public class Main {
                                 if (jenismatrix == 1) {
                                     matA = matrixOP.getMatrixA();
                                     matB = matrixOP.getMatrixB();
-                                    matriks = MainFunctions.SPLBalikan(matA, matB);
-                                    matrixIO.displayMatrix(matriks);
-                                    matrixOP.hasilSPLInverse(matriks);
-                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
-                                    System.out.println(save);
-                                    System.out.print("Masukan pilihan input: ");
-                                    inputsave = scan.nextInt();
-                                    while (inputsave < 1 || inputsave > 2) {
-                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
-                                        System.out.println("Masukkan pilihan menu: ");
-                                        inputsave = scan.nextInt();
-                                        
+                                    if (matrixOP.determinan(matA) == 0) {
+                                        System.out.println("Determinan matriks = 0, sehingga matriks tidak memiliki inverse.");
+                                        continue;
                                     }
-                                    if (inputsave == 1) {
-                                        outputFile.fileSPLInverse(matriks);
-                                        break;
+                                    else if (matrixOP.getRow(matA) != matrixOP.getCol(matB)) {
+                                        System.out.println("Matriks tidak berukuran n x n, sehingga inverse tidak dapat dicari.");
+                                        continue;
                                     }
                                     else {
-                                        continue;
+                                        matriks = MainFunctions.SPLBalikan(matA, matB);
+                                        matrixIO.displayMatrix(matriks);
+                                        matrixOP.hasilSPLInverse(matriks);
+                                        System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                        System.out.println(save);
+                                        System.out.print("Masukan pilihan input: ");
+                                        inputsave = scan.nextInt();
+                                        while (inputsave < 1 || inputsave > 2) {
+                                            System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                            System.out.println("Masukkan pilihan menu: ");
+                                            inputsave = scan.nextInt();
+                                            
+                                        }
+                                        if (inputsave == 1) {
+                                            outputFile.fileSPLInverse(matriks);
+                                            break;
+                                        }
+                                        else {
+                                            continue;
+                                        }
                                     }
                                 }
                                 else {
@@ -393,12 +403,44 @@ public class Main {
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
                                 if (matrixOP.determinan(matrixOP.getABalikan(matriks)) == 0) {
-                                    System.out.println("Matriks tidak memiliki inverse, sehingga tidak memiliki solusi.");
-                                    continue;
+                                    System.out.println("Determinan matriks = 0, sehingga matriks tidak memiliki inverse.");
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileSPLInverse(matriks);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
                                 }
                                 else if (matrixOP.getRow(matrixOP.getABalikan(matriks)) != matrixOP.getCol(matrixOP.getABalikan(matriks))) {
                                     System.out.println("Matriks tidak berukuran n x n, sehingga inverse tidak dapat dicari.");
-                                    continue;
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileSPLInverse(matriks);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
                                 }
                                 else {
                                     double[][] jwbaninversbro = MainFunctions.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));

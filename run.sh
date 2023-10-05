@@ -2,4 +2,4 @@
 
 clear
 
-javac -d bin/ $(find ./src/* | grep .java) && jar cvmf MANIFEST.MF Kaydenji.jar  bin/src/* && java -jar Kaydenji.jar
+javac -d bin/ $(find ./src/* | grep .java) && jar cvmf MANIFEST.MF Algeo01-22013.jar  bin/src/* && java -jar Algeo01-22013.jar
