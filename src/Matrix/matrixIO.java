@@ -324,12 +324,6 @@ public class matrixIO {
                 }
             }
         }
-        // if (j < m[i].length-1) {
-        //             System.out.print(df.format(m[i][j]) + "\t");
-        //         }
-        //         else {
-        //             System.out.println(df.format(m[i][j]));
-        //         }
     }
 
     // Membuat file baru

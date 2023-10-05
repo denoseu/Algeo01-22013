@@ -6,6 +6,7 @@ import src.Functions.MainFunctions;
 import src.Functions.regresiLinearBerganda;
 import src.Functions.bicubicInterpolation;
 import src.Functions.Hilbert;
+import src.Functions.SPL;
 
 public class main {
     public static Scanner scan;
@@ -147,7 +148,7 @@ public class main {
                                 }
                                 if (jenismatrix == 1) {
                                     matriks = matrixIO.readMatrixSPL();
-                                    MainFunctions.GaussKeyboard(matriks);
+                                    MainFunctions.Gauss(matriks);
                                     System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                     System.out.println(save);
                                     System.out.print("Masukan pilihan input: ");
@@ -170,7 +171,7 @@ public class main {
                                     System.out.print("Masukkan nilai n untuk matrix Hilbert: ");
                                     n = scan.nextInt();
                                     matriks = matrixIO.splHilbert(n);
-                                    MainFunctions.GaussKeyboard(matriks);
+                                    MainFunctions.Gauss(matriks);
                                     System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                     System.out.println(save);
                                     System.out.print("Masukan pilihan input: ");
@@ -194,7 +195,7 @@ public class main {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
-                                MainFunctions.GaussFile(matriks);
+                                MainFunctions.Gauss(matriks);
                                 System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                 System.out.println(save);
                                 System.out.print("Masukan pilihan input: ");
@@ -241,7 +242,7 @@ public class main {
 
                                 if (jenismatrix == 1) {
                                     matriks = matrixIO.readMatrixSPL();
-                                    MainFunctions.GaussJordanKeyboard(matriks);
+                                    MainFunctions.GaussJordan(matriks);
                                     System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                     System.out.println(save);
                                     System.out.print("Masukan pilihan input: ");
@@ -264,7 +265,7 @@ public class main {
                                     System.out.print("Masukkan nilai n untuk matrix Hilbert: ");
                                     n = scan.nextInt();
                                     matriks = matrixIO.splHilbert(n);
-                                    MainFunctions.GaussJordanKeyboard(matriks);
+                                    MainFunctions.GaussJordan(matriks);
                                     System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                     System.out.println(save);
                                     System.out.print("Masukan pilihan input: ");
@@ -290,7 +291,7 @@ public class main {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
-                                MainFunctions.GaussJordanFile(matriks);
+                                MainFunctions.GaussJordan(matriks);
                                 System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                 System.out.println(save);
                                 System.out.print("Masukan pilihan input: ");
@@ -391,25 +392,36 @@ public class main {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
-                                double[][] jwbaninversbro = MainFunctions.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
-                                matrixIO.displayMatrix(jwbaninversbro);
-                                matrixOP.hasilSPLInverse(jwbaninversbro);
-                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
-                                System.out.println(save);
-                                System.out.print("Masukan pilihan input: ");
-                                inputsave = scan.nextInt();
-                                while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
-                                    System.out.println("Masukkan pilihan menu: ");
-                                    inputsave = scan.nextInt();
-                                    
+                                if (matrixOP.determinan(matrixOP.getABalikan(matriks)) == 0) {
+                                    System.out.println("Matriks tidak memiliki inverse, sehingga tidak memiliki solusi.");
+                                    continue;
                                 }
-                                if (inputsave == 1) {
-                                    outputFile.fileSPLInverse(jwbaninversbro);
-                                    break;
+                                else if (matrixOP.getRow(matrixOP.getABalikan(matriks)) != matrixOP.getCol(matrixOP.getABalikan(matriks))) {
+                                    System.out.println("Matriks tidak berukuran n x n, sehingga inverse tidak dapat dicari.");
+                                    continue;
                                 }
                                 else {
-                                    continue;
+                                    double[][] jwbaninversbro = MainFunctions.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
+                                    matrixIO.displayMatrix(jwbaninversbro);
+                                    matrixOP.hasilSPLInverse(jwbaninversbro);
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileSPLInverse(jwbaninversbro);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
+
                                 }
                             }
                         case 4:
@@ -439,7 +451,7 @@ public class main {
 
                                 if (jenismatrix == 1) {
                                     matriks = matrixIO.readMatrixSPL();
-                                    MainFunctions.CramerKeyboard(matriks);
+                                    MainFunctions.Cramer(matriks);
                                     System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                     System.out.println(save);
                                     System.out.print("Masukan pilihan input: ");
@@ -502,7 +514,7 @@ public class main {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
-                                MainFunctions.CramerFile(matriks);
+                                MainFunctions.Cramer(matriks);
                                 System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                 System.out.println(save);
                                 System.out.print("Masukan pilihan input: ");
@@ -558,7 +570,7 @@ public class main {
                             if (inputreduksi == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
                                 matriks = matrixIO.readMatrixKeyboard();
-                                MainFunctions.redBarisKeyboard(matriks);
+                                MainFunctions.redBaris(matriks);
                                 System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                 System.out.println(save);
                                 System.out.print("Masukan pilihan input: ");
@@ -582,7 +594,7 @@ public class main {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
-                                MainFunctions.redBarisfile(matriks);
+                                MainFunctions.redBaris(matriks);
                                 System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                 System.out.println(save);
                                 System.out.print("Masukan pilihan input: ");
@@ -617,7 +629,7 @@ public class main {
                             if (inputeks == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
                                 matriks = matrixIO.readMatrixKeyboard();
-                                MainFunctions.ekspansiKeyboard(matriks);
+                                MainFunctions.ekspansi(matriks);
                                 System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                 System.out.println(save);
                                 System.out.print("Masukan pilihan input: ");
@@ -640,7 +652,7 @@ public class main {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
-                                MainFunctions.ekspansiFile(matriks);
+                                MainFunctions.ekspansi(matriks);
                                 System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                 System.out.println(save);
                                 System.out.print("Masukan pilihan input: ");
@@ -679,7 +691,7 @@ public class main {
                     if (inputinvers == 1) {
                         System.out.println("INPUT SOURCE: KEYBOARD");
                         matriks = matrixIO.readMatrixKeyboard();
-                        MainFunctions.inverseKeyboard(matriks);
+                        MainFunctions.inverseM(matriks);
                         System.out.println("Apakah anda ingin menyimpan jawaban? ");
                         System.out.println(save);
                         System.out.print("Masukan pilihan input: ");
@@ -702,7 +714,7 @@ public class main {
                         System.out.println("INPUT SOURCE: FILE");
                         String path = matrixIO.inputFile();
                         matriks = matrixIO.fileToMatrix(path, 1);
-                        MainFunctions.inverseFile(matriks);
+                        MainFunctions.inverseM(matriks);
                         System.out.println("Apakah anda ingin menyimpan jawaban? ");
                         System.out.println(save);
                         System.out.print("Masukan pilihan input: ");
@@ -861,7 +873,7 @@ public class main {
                         result = regresiLinearBerganda.estimateReg(s, x);
                         regresiLinearBerganda.hasilRLB(s);
                         regresiLinearBerganda.hasilEstimateRLB(result, x);
-                         System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                        System.out.println("Apakah anda ingin menyimpan jawaban? ");
                         System.out.println(save);
                         System.out.print("Masukan pilihan input: ");
                         inputsave = scan.nextInt();

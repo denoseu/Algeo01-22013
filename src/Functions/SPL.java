@@ -149,6 +149,7 @@ public class SPL {
             }
         }
     }
+    
     public static double[][] getGauss(double[][] matriks){
         double[][] m = matriks;
         boolean found = false;

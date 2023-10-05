@@ -168,26 +168,6 @@ public class matrixOP {
         }
         return false;
     }
-    // isSparse
-    public static boolean isSparse(double[][] m){
-        double count = 0;
-        for (int i =0;i < getRow(m);i++){
-            for (int j=0; j<getCol(m); j++){
-                if (m[i][j] !=0){
-                    count += 1;
-                }
-            }
-        }
-        return (count <= (countElmt(m) * 5/100));
-    }
-    // negation
-    public static void negation(double[][] m){
-        for (int i=0;i<getRow(m);i++){
-            for (int j=0; j<getCol(m);j++){
-                m[i][j] *= -1;
-            }
-        }
-   }
     // transpose
     public static double[][] transpose(double[][] m){
         double[][] trans = new double[m.length][m[0].length];
@@ -628,5 +608,25 @@ public class matrixOP {
     //pemakaian:
     //SPL.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
 
+    public static double determinan(double[][]m){
+        double det;
+        det = 0;
+        if (m.length == m[0].length){
+            if (m.length == 1 && m[0].length == 1){
+                det = m[0][0];
+            } else {
+                for (int i=0;i<m.length;i++){
+                    if (i%2 == 0){
+                        det += m[i][0] * determinan(SPL.kofaktor(m, m.length, m.length, i));
+                    } else {
+                        det -= m[i][0] * determinan(SPL.kofaktor(m, m.length, m.length, i));
+                    }
+                }
+            }
+        } else {
+            det = -9999;
+        }
+        return det;
+    }
 }
 
