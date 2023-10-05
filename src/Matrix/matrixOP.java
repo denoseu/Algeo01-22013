@@ -10,8 +10,6 @@ public class matrixOP {
 
     public static Scanner scan; // buat user input
     
-    /* KONSTRUKTOR belom, masih bikin matrixnya manual di tiap function */
-    
     /* SELECTOR */
     public static int getRow(double[][] m) {
         return m.length;
