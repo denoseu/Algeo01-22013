@@ -340,11 +340,43 @@ public class main {
                                     matB = matrixOP.getMatrixB();
                                     if (matrixOP.determinan(matA) == 0) {
                                         System.out.println("Determinan matriks = 0, sehingga matriks tidak memiliki inverse.");
-                                        continue;
+                                        System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                        System.out.println(save);
+                                        System.out.print("Masukan pilihan input: ");
+                                        inputsave = scan.nextInt();
+                                        while (inputsave < 1 || inputsave > 2) {
+                                            System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                            System.out.println("Masukkan pilihan menu: ");
+                                            inputsave = scan.nextInt();
+                                            
+                                        }
+                                        if (inputsave == 1) {
+                                            outputFile.fileSPLInverseNO(1);
+                                            break;
+                                        }
+                                        else {
+                                            continue;
+                                        }
                                     }
                                     else if (matrixOP.getRow(matA) != matrixOP.getCol(matB)) {
                                         System.out.println("Matriks tidak berukuran n x n, sehingga inverse tidak dapat dicari.");
-                                        continue;
+                                        System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                        System.out.println(save);
+                                        System.out.print("Masukan pilihan input: ");
+                                        inputsave = scan.nextInt();
+                                        while (inputsave < 1 || inputsave > 2) {
+                                            System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                            System.out.println("Masukkan pilihan menu: ");
+                                            inputsave = scan.nextInt();
+                                            
+                                        }
+                                        if (inputsave == 1) {
+                                            outputFile.fileSPLInverseNO(2);
+                                            break;
+                                        }
+                                        else {
+                                            continue;
+                                        }
                                     }
                                     else {
                                         matriks = MainFunctions.SPLBalikan(matA, matB);
