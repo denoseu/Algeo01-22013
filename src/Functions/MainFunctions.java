@@ -28,7 +28,7 @@ public class MainFunctions {
                     }
                     if (found == true) {
                         matrixOP.tukar_baris(matriks, i, max);
-                        matrixIO.displayMatrix(matriks);
+                        // matrixIO.displayMatrix(matriks);
                         SPL.eselonbaris(matriks);
                     } 
                 }
@@ -36,7 +36,7 @@ public class MainFunctions {
         }
         
         System.out.println("Matriks eselon baris:");
-        matrixIO.displayMatrix(matriks);
+        // matrixIO.displayMatrix(matriks);
 
         matrixOP.hasilSPLGauss(matriks);
     }
