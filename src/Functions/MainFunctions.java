@@ -36,7 +36,7 @@ public class MainFunctions {
         }
         
         System.out.println("Matriks eselon baris:");
-        // matrixIO.displayMatrix(matriks);
+        matrixIO.displayMatrix(matriks);
 
         matrixOP.hasilSPLGauss(matriks);
     }
