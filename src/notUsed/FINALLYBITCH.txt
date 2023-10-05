@@ -1,4 +1,0 @@
------HASIL REGRESI LINEAR BERGANDA-----
-f(x)= -3.508 - 0.003x1 + 0.001x2 + 0.154x3
-Hasil taksiran: 
-f(50.000,75.000,29.300)= 0.938

@@ -1,5 +1,0 @@
------HASIL INVERSE MATRIX-----
-3.000 6.000 9.000 3.000
--1.000 0.000 1.000 0.000
-1.000 3.000 2.000 -1.000
-Matrix di atas tidak memiliki inverse.

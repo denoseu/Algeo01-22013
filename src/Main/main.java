@@ -8,7 +8,7 @@ import src.Functions.bicubicInterpolation;
 import src.Functions.Hilbert;
 import src.Functions.SPL;
 
-public class main {
+public class Main {
     public static Scanner scan;
     public static void main (String[] args) {
         double[][] matriks;
