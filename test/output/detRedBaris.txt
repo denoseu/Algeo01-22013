@@ -1,0 +1,5 @@
+-----HASIL DETERMINAN DENGAN REDUKSI BARIS-----
+3.000 -6.000 9.000
+0.000 10.000 -5.000
+0.000 0.000 5.500
+Determinan untuk matrix di atas adalah: 165.0
