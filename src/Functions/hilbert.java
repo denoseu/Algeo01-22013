@@ -1,7 +1,7 @@
 package src.Functions;
 import src.Matrix.*;
 
-public class hilbert {
+public class Hilbert {
 
     public static double[][] copyMatrixHilbert(double[][] mIn) {
         double[][] mOut = new double[matrixOP.getRow(mIn)][matrixOP.getCol(mIn)];
