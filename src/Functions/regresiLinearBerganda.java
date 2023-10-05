@@ -154,16 +154,7 @@ public class regresiLinearBerganda {
         System.out.print(df.format(result));
         System.out.println();
     }
-    // public static void main(String[] args){
-    //     String path = matrixIO.inputFile();
-    //     double[][] m = matrixIO.fileToMatrix(path,2);
-    //     double[] x = matrixIO.getTaksiran(path);
-    //     double[] s = solutionReg(m);
-    //     double result = estimateReg(s, x);
-    //     hasilRLB(s);
-    //     hasilEstimateRLB(result,x);
-        
-    // }
+    
 
 
 
