@@ -168,26 +168,6 @@ public class matrixOP {
         }
         return false;
     }
-    // isSparse
-    public static boolean isSparse(double[][] m){
-        double count = 0;
-        for (int i =0;i < getRow(m);i++){
-            for (int j=0; j<getCol(m); j++){
-                if (m[i][j] !=0){
-                    count += 1;
-                }
-            }
-        }
-        return (count <= (countElmt(m) * 5/100));
-    }
-    // negation
-    public static void negation(double[][] m){
-        for (int i=0;i<getRow(m);i++){
-            for (int j=0; j<getCol(m);j++){
-                m[i][j] *= -1;
-            }
-        }
-   }
     // transpose
     public static double[][] transpose(double[][] m){
         double[][] trans = new double[m.length][m[0].length];
