@@ -479,7 +479,58 @@ public class outputFile {
             e.printStackTrace();
         }
     }
+    public static void fileCrammerHilbert(double[][] matrix){
+        String m = matrixIO.inputFile();
+        matrixIO.createFile(m);
+        String newPath = getPathOut(m);
+        FileWriter write;
+        try {
 
+            write = new FileWriter(newPath);
+
+            BufferedWriter writeFile = new BufferedWriter(write);
+
+            String mat = matrixIO.matrixString(matrix);
+            writeFile.write("-----HASIL SPL DENGAN KAIDAH CRAMMER-----");
+            writeFile.newLine();
+            writeFile.write(mat);
+
+            writeFile.write("Solusi: " );
+            writeFile.newLine();
+
+            double[][] hasil = Hilbert.kaidahCramerBert(matrix);
+            if (hasil[0][0] == -9999){
+                writeFile.write("Matrix di atas tidak bisa diselesaikan dengan kaidah cramer");
+            } else if (hasil[0][0] == -999){
+                writeFile.write("Matrix di atas tidak memiliki solusi");
+            } else if (hasil[0][0] == -99999){
+                writeFile.write("Matrix di atas tidak bisa diselesaikan dengan kaidah cramer");
+            } else{
+
+                String solusi = "";
+                DecimalFormat df = new DecimalFormat("0.000");
+                for (int i = 0; i< hasil.length ; i++){
+                    for (int j = 0;j <hasil[0].length;j++){
+                        solusi += "x";
+                        solusi += Integer.toString(i+1);
+                        solusi += " = ";
+                        solusi += df.format(hasil[i][j]);
+                        solusi += "\n";
+                    }
+                }
+                writeFile.write(solusi);
+            }
+            
+            // writeFile.newLine();
+            
+            writeFile.flush();
+            writeFile.close();
+
+        } catch (IOException e){
+            System.out.println("Terjadi Kesalahan. Tidak bisa menyimpan file.");
+            e.printStackTrace();
+        }
+    }
     public static void fileSPLInverse(double[][] matriksA, double[][] matriksB){
         String m = matrixIO.inputFile();
         matrixIO.createFile(m);

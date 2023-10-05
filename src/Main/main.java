@@ -578,7 +578,7 @@ public class main {
                                         
                                     }
                                     if (inputsave == 1) {
-                                        outputFile.fileCrammer(matriks);
+                                        outputFile.fileCrammerHilbert(matriks);
                                         break;
                                     }
                                     else {
