@@ -5,6 +5,7 @@ import src.Functions.Interpolasi;
 import src.Functions.MainFunctions;
 import src.Functions.regresiLinearBerganda;
 import src.Functions.bicubicInterpolation;
+import src.Functions.hilbert;
 
 public class main {
     public static Scanner scan;
@@ -460,7 +461,23 @@ public class main {
                                     System.out.println("Masukkan nilai n untuk matrix Hilbert: ");
                                     n = scan.nextInt();
                                     matriks = matrixIO.splHilbert(n);
-                                    MainFunctions.CramerKeyboard(matriks);
+                                    // hilbert.kaidahCramerBert(matriks);
+                                    if (hilbert.kaidahCramerBert(matriks)[0][0] == -9999){
+                                        System.out.println("Tidak dapat menggunakan kaidah Cramer.");
+                                    }
+                                    else if (hilbert.kaidahCramerBert(matriks)[0][0] == -999){
+                                        System.out.println("Matriks tidak memiliki solusi.");
+                                    }
+                                    else if (hilbert.kaidahCramerBert(matriks)[0][0] == -99999){
+                                        System.out.println("Determinan matriks bernilai 0 sehingga tidak dapat menggunakan kaidah Cramer.");
+                                    }
+                                    else{
+                                        System.out.println("Solusi:");
+                                        for (int i = 0; i < hilbert.kaidahCramerBert(matriks).length; i++) {
+                                            System.out.printf("x%d = %.3f\n", i+1, hilbert.kaidahCramerBert(matriks)[i][0]);
+                                        }
+                                    }
+                                    // MainFunctions.CramerKeyboard(matriks);
                                     System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                     System.out.println(save);
                                     System.out.print("Masukan pilihan input: ");
