@@ -351,7 +351,7 @@ public class main {
                                             
                                         }
                                         if (inputsave == 1) {
-                                            outputFile.fileSPLInverse(matA);
+                                            outputFile.fileSPLInverseNO(1);
                                             break;
                                         }
                                         else {
@@ -371,7 +371,7 @@ public class main {
                                             
                                         }
                                         if (inputsave == 1) {
-                                            outputFile.fileSPLInverse(matA);
+                                            outputFile.fileSPLInverseNO(2);
                                             break;
                                         }
                                         else {
@@ -393,7 +393,7 @@ public class main {
                                             
                                         }
                                         if (inputsave == 1) {
-                                            outputFile.fileSPLInverse(matriks);
+                                            outputFile.fileSPLInverse(matA,matB);
                                             break;
                                         }
                                         else {
@@ -408,7 +408,7 @@ public class main {
                                     double[][] hilbertA = matrixOP.getABalikan(matriks);
                                     double[][] hilbertB = matrixOP.getBBalikan(matriks);
                                     double[][] balbert = MainFunctions.SPLBalikan(hilbertA, hilbertB);
-                                    matrixIO.displayMatrix(balbert);
+                                    // matrixIO.displayMatrix(balbert);
                                     matrixOP.hasilSPLInverse(balbert);
                                     System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                     System.out.println(save);
@@ -421,7 +421,7 @@ public class main {
                                         
                                     }
                                     if (inputsave == 1) {
-                                        outputFile.fileSPLInverse(matriks);
+                                        outputFile.fileSPLInverse(hilbertA,hilbertB);
                                         break;
                                     }
                                     else {
@@ -447,7 +447,7 @@ public class main {
                                         
                                     }
                                     if (inputsave == 1) {
-                                        outputFile.fileSPLInverse(matriks);
+                                        outputFile.fileSPLInverseNO(1);
                                         break;
                                     }
                                     else {
@@ -467,7 +467,7 @@ public class main {
                                         
                                     }
                                     if (inputsave == 1) {
-                                        outputFile.fileSPLInverse(matriks);
+                                        outputFile.fileSPLInverseNO(2);
                                         break;
                                     }
                                     else {
@@ -475,8 +475,10 @@ public class main {
                                     }
                                 }
                                 else {
-                                    double[][] jwbaninversbro = MainFunctions.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
-                                    matrixIO.displayMatrix(jwbaninversbro);
+                                    double[][] aMat = matrixOP.getABalikan(matriks);
+                                    double[][] bMat = matrixOP.getBBalikan(matriks);
+                                    double[][] jwbaninversbro = MainFunctions.SPLBalikan(aMat, bMat);
+                                    // matrixIO.displayMatrix(jwbaninversbro);
                                     matrixOP.hasilSPLInverse(jwbaninversbro);
                                     System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                     System.out.println(save);
@@ -489,7 +491,7 @@ public class main {
                                         
                                     }
                                     if (inputsave == 1) {
-                                        outputFile.fileSPLInverse(jwbaninversbro);
+                                        outputFile.fileSPLInverse(aMat,bMat);
                                         break;
                                     }
                                     else {
@@ -879,6 +881,7 @@ public class main {
                     matriks = matrixIO.fileToMatrix(path, 2);
                     x = matrixIO.getTaksiran(path);
                     double hasildek = bicubicInterpolation.bicubicSpline(matriks, x[0], x[1]);
+                    System.out.print("f(" + x[0] + "," + x[1] + ")= ");
                     System.out.println(hasildek);
                     System.out.println("Apakah anda ingin menyimpan jawaban? ");
                     System.out.println(save);

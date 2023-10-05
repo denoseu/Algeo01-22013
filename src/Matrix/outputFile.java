@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
-import javax.swing.plaf.basic.BasicBorders.SplitPaneBorder;
 
 import src.Functions.*;
 import src.Matrix.*;
@@ -59,8 +58,8 @@ public class outputFile {
             writeFile.write("-----HASIL INTERPOLASI-----");
             writeFile.newLine();
 
-            double[] s = regresiLinearBerganda.solutionReg(matrix);
-            double result = regresiLinearBerganda.estimateReg(s, taksiran);
+            double[] s = Interpolasi.solutionInterpolasi(matrix);
+            double result = Interpolasi.estimate(s, taksiran);
             DecimalFormat df = new DecimalFormat("0.000");
             String fx = "f(x)= ";
             for (int i = s.length-1 ; i>=0;i--){
@@ -194,7 +193,7 @@ public class outputFile {
             write = new FileWriter(newPath);
 
             BufferedWriter writeFile = new BufferedWriter(write);
-            writeFile.write("-----HASIL GAUSS-----");
+            writeFile.write("-----HASIL GAUSS JORDAN-----");
             writeFile.newLine();
             double[][] eselon = SPL.getGauss(matrix);
             writeFile.write("Hasil Eselon Baris:");
@@ -481,7 +480,7 @@ public class outputFile {
         }
     }
 
-    public static void fileSPLInverse(double[][] solution){
+    public static void fileSPLInverse(double[][] matriksA, double[][] matriksB){
         String m = matrixIO.inputFile();
         matrixIO.createFile(m);
         String newPath = getPathOut(m);
@@ -495,14 +494,26 @@ public class outputFile {
             writeFile.write("-----HASIL SPL DENGAN MATRIX BALIKAN-----");
             writeFile.newLine();
 
+
             writeFile.write("Solusi: " );
             writeFile.newLine();
+            double[][] matriks = MainFunctions.SPLBalikan(matriksA, matriksB);
+            double[] hasil = new double[matrixOP.getRow(matriks)];
 
-            
-            writeFile.write(matrixIO.matrixString(solution));
-            
-            // writeFile.newLine();
-            
+            for (int x = matrixOP.getRow(matriks) - 1; x >= 0; x -= 1) {
+                hasil[x] = matriks[x][0];
+            }
+
+            String solusi = "";
+            DecimalFormat df = new DecimalFormat("0.000");
+            for (int i = 0; i< hasil.length ; i++){
+                solusi += "x";
+                solusi += Integer.toString(i+1);
+                solusi += " = ";
+                solusi += df.format(hasil[i]);
+                solusi += "\n";
+            }
+            writeFile.write(solusi);
             writeFile.flush();
             writeFile.close();
 
@@ -512,17 +523,41 @@ public class outputFile {
         }
     }
 
-    public static void main(String[] args){
-        String path = matrixIO.inputFile();
-        double[][] mat = matrixIO.fileToMatrix(path,1);
-        // fileCrammer(mat);
-        if (SPL.noInv(SPL.inverse(mat))){
-            System.out.println("Matriks di atas tidak memiliki invers.");
-        }
-        else{
-            matrixIO.displayMatrix(SPL.inverse(mat));
+
+    public static void fileSPLInverseNO(int i){
+        String m = matrixIO.inputFile();
+        matrixIO.createFile(m);
+        String newPath = getPathOut(m);
+        FileWriter write;
+        try {
+
+            write = new FileWriter(newPath);
+
+            BufferedWriter writeFile = new BufferedWriter(write);
+
+            writeFile.write("-----HASIL SPL DENGAN MATRIX BALIKAN-----");
+            writeFile.newLine();
+
+
+            writeFile.write("Solusi: " );
+            writeFile.newLine();
+            
+            if (i==1){
+                writeFile.write("Determinan matriks = 0, sehingga matriks tidak memiliki inverse.");
+            } else if (i==2){
+                writeFile.write("Matriks tidak berukuran n x n, sehingga inverse tidak dapat dicari.");
+            }
+        
+            writeFile.flush();
+            writeFile.close();
+
+        } catch (IOException e){
+            System.out.println("Terjadi Kesalahan. Tidak bisa menyimpan file.");
+            e.printStackTrace();
         }
     }
+
+    
 }
 
     

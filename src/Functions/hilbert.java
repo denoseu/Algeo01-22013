@@ -1,4 +1,6 @@
 package src.Functions;
+import java.text.DecimalFormat;
+
 import src.Matrix.*;
 
 public class Hilbert {
@@ -124,5 +126,19 @@ public class Hilbert {
             }
         }
         return X;
+    }
+
+    
+
+    public static void main (String[] args){
+        double[][] hil = matrixIO.splHilbert(9);
+        double[][] ril = matrixOP.getABalikan(hil);
+        matrixIO.displayMatrix(hil);
+        DecimalFormat df = new DecimalFormat("0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+        // System.out.println(df.format(SPL.determinan(ril)));
+        // System.out.println(df.format(SPL.detReduksiBaris(ril)));
+        // double[][] ril = matrixIO.readMatrixKeyboard();
+        double det = detHilbert(ril);
+        System.out.println("dethilbert:" + df.format(det));
     }
 }

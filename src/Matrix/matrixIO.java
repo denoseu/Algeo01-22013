@@ -395,6 +395,10 @@ public class matrixIO {
         return H;
 }
     
-    
+    public static void main(String[] args){
+        String path = inputFile();
+        double[][] m = fileToMatrix(path, 1);
+        displayMatrix(m);
+    }
 
 }

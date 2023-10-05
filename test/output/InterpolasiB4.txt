@@ -1,0 +1,4 @@
+-----HASIL INTERPOLASI-----
+f(x)= 0.236x^5 - 1.421x^4 + 3.237x^3 - 3.553x^2 + 2.035x
+Hasil taksiran: 
+f(11.600)= 28486.173

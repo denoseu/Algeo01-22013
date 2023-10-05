@@ -1,0 +1,6 @@
+-----HASIL SPL DENGAN KAIDAH CRAMMER-----
+0.000 1.000 0.000 0.000 1.000 0.000 2.000
+0.000 0.000 0.000 1.000 1.000 0.000 -1.000
+0.000 1.000 0.000 0.000 0.000 1.000 1.000
+Solusi: 
+Matrix di atas tidak bisa diselesaikan dengan kaidah cramer
