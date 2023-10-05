@@ -523,17 +523,41 @@ public class outputFile {
         }
     }
 
-    public static void main(String[] args){
-        String path = matrixIO.inputFile();
-        double[][] mat = matrixIO.fileToMatrix(path,1);
-        // fileCrammer(mat);
-        if (SPL.noInv(SPL.inverse(mat))){
-            System.out.println("Matriks di atas tidak memiliki invers.");
-        }
-        else{
-            matrixIO.displayMatrix(SPL.inverse(mat));
+
+    public static void fileSPLInverseNO(int i){
+        String m = matrixIO.inputFile();
+        matrixIO.createFile(m);
+        String newPath = getPathOut(m);
+        FileWriter write;
+        try {
+
+            write = new FileWriter(newPath);
+
+            BufferedWriter writeFile = new BufferedWriter(write);
+
+            writeFile.write("-----HASIL SPL DENGAN MATRIX BALIKAN-----");
+            writeFile.newLine();
+
+
+            writeFile.write("Solusi: " );
+            writeFile.newLine();
+            
+            if (i==1){
+                writeFile.write("Determinan matriks = 0, sehingga matriks tidak memiliki inverse.");
+            } else if (i==2){
+                writeFile.write("Matriks tidak berukuran n x n, sehingga inverse tidak dapat dicari.");
+            }
+        
+            writeFile.flush();
+            writeFile.close();
+
+        } catch (IOException e){
+            System.out.println("Terjadi Kesalahan. Tidak bisa menyimpan file.");
+            e.printStackTrace();
         }
     }
+
+    
 }
 
     

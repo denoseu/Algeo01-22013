@@ -133,13 +133,13 @@ public class Interpolasi {
         // double result = estimate(solution, x)
 
     //}
-    public static void main(String[] args){
-        double[] m = solutionInterpolasi(inputInterpolasi());
-        double[] x = inputTaksiran();
-        double result = estimate(m, x);
-        hasilInterpolasi(m);
-        hasilEstimateInter(result,x);
-    }
+    // public static void main(String[] args){
+    //     double[] m = solutionInterpolasi(inputInterpolasi());
+    //     double[] x = inputTaksiran();
+    //     double result = estimate(m, x);
+    //     hasilInterpolasi(m);
+    //     hasilEstimateInter(result,x);
+    // }
 }
 
 
