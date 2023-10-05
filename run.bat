@@ -4,7 +4,7 @@ javac -d bin\ .\src\Main\main.java .\src\Functions\* .\src\Matrix\* && jar cvmf 
 :: untuk compile semua file di source (src) menjadi binary (bin)
 
 
-:: output berupa FinalApp.jar, butuh file manifest dan class dari bin
+:: output berupa Kaydenji.jar, butuh file manifest dan class dari bin
 
 
-:: running file FinalApp.jar
+:: running file Kaydenji.jar
