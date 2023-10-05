@@ -14,8 +14,8 @@ Repositori ini berisi library aljabar linear dalam bahasa Java  untuk menyelesai
 
 ## Cara mengerun program di Terminal
 
-1. ketik "javac src/Main/main.java" untuk meng-compile program
-2. ketik "java src/Main/main" untuk run
+1. Ketik "javac src/Main/main.java" untuk meng-compile program
+2. Ketik "java src/Main/main" untuk run
 
 ## Fitur
 - Penyelesaian sistem persamaan linear dengan Metode Eliminasi Gauss, Metode Eliminasi Gauss-Jordan, Matriks Balikan, dan Metode Cramer
