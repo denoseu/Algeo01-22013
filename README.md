@@ -1,5 +1,4 @@
-# Algeo01-22013
-# TUBES 01 Algeo
+# Algeo01-22013 - TUBES 01 Algeo
 
 Tugas Besar 1 - IF2123 Aljabar Linear dan Geometri 2023 
 Kelompok 13 - Kaydenji
