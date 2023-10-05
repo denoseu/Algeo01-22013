@@ -1,4 +1,4 @@
-# TUBES 01
+# TUBES Algeo 01
 
 Tugas Besar 1 - IF2123 Aljabar Linear dan Geometri 2023
 

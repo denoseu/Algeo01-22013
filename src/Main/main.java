@@ -7,7 +7,7 @@ import src.Functions.regresiLinearBerganda;
 
 public class main {
     public static Scanner scan;
-    public static void Main (String[] args) {
+    public static void main (String[] args) {
         double[][] matriks;
         // untuk interpolasi
         double[] m;
