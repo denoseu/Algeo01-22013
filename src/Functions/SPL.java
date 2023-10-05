@@ -406,7 +406,7 @@ public class SPL {
                 augmentedMatrix[i][j + matrixOP.getRow(A)] = I[i][j];
             }
         }
-        matrixIO.displayMatrix(augmentedMatrix);
+        // matrixIO.displayMatrix(augmentedMatrix);
 
         // lakukan eliminasi Gauss-Jordan
         GaussJ(augmentedMatrix);
@@ -422,8 +422,8 @@ public class SPL {
         }
 
         // hasil matriks balikan = AInverse
-        System.out.println("Matriks Balikan (A^(-1)): ");
-        matrixIO.displayMatrix(AInverse);
+        // System.out.println("Matriks Balikan (A^(-1)): ");
+        // matrixIO.displayMatrix(AInverse);
 
         // mencari solusi SPL
         double[][] hasil = matrixOP.multiplyMatrixMatrix(AInverse, B);

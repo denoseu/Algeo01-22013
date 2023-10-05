@@ -58,8 +58,8 @@ public class outputFile {
             writeFile.write("-----HASIL INTERPOLASI-----");
             writeFile.newLine();
 
-            double[] s = regresiLinearBerganda.solutionReg(matrix);
-            double result = regresiLinearBerganda.estimateReg(s, taksiran);
+            double[] s = Interpolasi.solutionInterpolasi(matrix);
+            double result = Interpolasi.estimate(s, taksiran);
             DecimalFormat df = new DecimalFormat("0.000");
             String fx = "f(x)= ";
             for (int i = s.length-1 ; i>=0;i--){
@@ -480,7 +480,7 @@ public class outputFile {
         }
     }
 
-    public static void fileSPLInverse(double[][] solution){
+    public static void fileSPLInverse(double[][] matriksA, double[][] matriksB){
         String m = matrixIO.inputFile();
         matrixIO.createFile(m);
         String newPath = getPathOut(m);
@@ -494,14 +494,26 @@ public class outputFile {
             writeFile.write("-----HASIL SPL DENGAN MATRIX BALIKAN-----");
             writeFile.newLine();
 
+
             writeFile.write("Solusi: " );
             writeFile.newLine();
+            double[][] matriks = MainFunctions.SPLBalikan(matriksA, matriksB);
+            double[] hasil = new double[matrixOP.getRow(matriks)];
 
-            
-            writeFile.write(matrixIO.matrixString(solution));
-            
-            // writeFile.newLine();
-            
+            for (int x = matrixOP.getRow(matriks) - 1; x >= 0; x -= 1) {
+                hasil[x] = matriks[x][0];
+            }
+
+            String solusi = "";
+            DecimalFormat df = new DecimalFormat("0.000");
+            for (int i = 0; i< hasil.length ; i++){
+                solusi += "x";
+                solusi += Integer.toString(i+1);
+                solusi += " = ";
+                solusi += df.format(hasil[i]);
+                solusi += "\n";
+            }
+            writeFile.write(solusi);
             writeFile.flush();
             writeFile.close();
 
