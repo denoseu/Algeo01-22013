@@ -193,7 +193,7 @@ public class outputFile {
             write = new FileWriter(newPath);
 
             BufferedWriter writeFile = new BufferedWriter(write);
-            writeFile.write("-----HASIL GAUSS-----");
+            writeFile.write("-----HASIL GAUSS JORDAN-----");
             writeFile.newLine();
             double[][] eselon = SPL.getGauss(matrix);
             writeFile.write("Hasil Eselon Baris:");

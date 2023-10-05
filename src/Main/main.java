@@ -1,17 +1,18 @@
 package src.Main;
 import java.util.Scanner;
 import src.Matrix.*;
-// import src.Functions.Interpolasi;
-// import src.Functions.MainFunctions;
-// import src.Functions.regresiLinearBerganda;
-// import src.Functions.bicubicInterpolation;
-import src.Functions.*;
+import src.Functions.Interpolasi;
+import src.Functions.MainFunctions;
+import src.Functions.regresiLinearBerganda;
+import src.Functions.bicubicInterpolation;
+import src.Functions.Hilbert;
 
 public class main {
     public static Scanner scan;
     public static void main (String[] args) {
         double[][] matriks;
         // untuk interpolasi
+        double[][] mat;
         double[] m;
         double[] x;
         double[] s;
@@ -105,14 +106,14 @@ public class main {
                     System.out.println();
                     System.out.println("Pilih metode yang kamu inginkan untuk menyelesaikan SPL!");
                     System.out.println(SPL);
-                    System.out.println("Masukkan pilihan menu: ");
+                    System.out.print("Masukkan pilihan menu: ");
                     
                     int pilihanspl = scan.nextInt();
                 
                     
                     while (pilihanspl < 1 || pilihanspl > 4) {
                         System.out.println("Masukan tidak valid. Mohon hanya menginput bilangan 1-4.");
-                        System.out.println("Masukkan pilihan menu: ");
+                        System.out.print("Masukkan pilihan menu: ");
                         pilihanspl = scan.nextInt();
                     }
 
@@ -136,8 +137,8 @@ public class main {
                             
                             if (inputgauss == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                System.out.println("Pilih jenis matriks yang diinginkan: ");
                                 System.out.println(keyboard);
+                                System.out.print("Pilih jenis matriks yang diinginkan: ");
                                 jenismatrix = scan.nextInt();
                                 while (jenismatrix < 1 || jenismatrix > 2) {
                                     System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
@@ -166,7 +167,7 @@ public class main {
                                     }
                                 }
                                 else {
-                                    System.out.println("Masukkan nilai n untuk matrix Hilbert: ");
+                                    System.out.print("Masukkan nilai n untuk matrix Hilbert: ");
                                     n = scan.nextInt();
                                     matriks = matrixIO.splHilbert(n);
                                     MainFunctions.GaussKeyboard(matriks);
@@ -229,8 +230,8 @@ public class main {
                             
                             if (inputGJ == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                System.out.println("Pilih jenis matriks yang diinginkan: ");
                                 System.out.println(keyboard);
+                                System.out.print("Pilih jenis matriks yang diinginkan: ");
                                 jenismatrix = scan.nextInt();
                                 while (jenismatrix < 1 || jenismatrix > 2) {
                                     System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
@@ -260,7 +261,7 @@ public class main {
                                     }
                                 }
                                 else {
-                                    System.out.println("Masukkan nilai n untuk matrix Hilbert: ");
+                                    System.out.print("Masukkan nilai n untuk matrix Hilbert: ");
                                     n = scan.nextInt();
                                     matriks = matrixIO.splHilbert(n);
                                     MainFunctions.GaussJordanKeyboard(matriks);
@@ -324,8 +325,8 @@ public class main {
                             
                             if (inputbalikan == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                System.out.println("Pilih jenis matriks yang diinginkan: ");
                                 System.out.println(keyboard);
+                                System.out.print("Pilih jenis matriks yang diinginkan: ");
                                 jenismatrix = scan.nextInt();
                                 while (jenismatrix < 1 || jenismatrix > 2) {
                                     System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
@@ -358,7 +359,7 @@ public class main {
                                     }
                                 }
                                 else {
-                                    System.out.println("Masukkan nilai n untuk matrix Hilbert: ");
+                                    System.out.print("Masukkan nilai n untuk matrix Hilbert: ");
                                     n = scan.nextInt();
                                     matriks = matrixIO.splHilbert(n);
                                     double[][] hilbertA = matrixOP.getABalikan(matriks);
@@ -427,8 +428,8 @@ public class main {
                             
                             if (inputcramer == 1) {
                                 System.out.println("INPUT SOURCE: KEYBOARD");
-                                System.out.println("Pilih jenis matriks yang diinginkan: ");
                                 System.out.println(keyboard);
+                                System.out.print("Pilih jenis matriks yang diinginkan: ");
                                 jenismatrix = scan.nextInt();
                                 while (jenismatrix < 1 || jenismatrix > 2) {
                                     System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
@@ -458,26 +459,26 @@ public class main {
                                     }
                                 }
                                 else {
-                                    System.out.println("Masukkan nilai n untuk matrix Hilbert: ");
+                                    System.out.print("Masukkan nilai n untuk matrix Hilbert: ");
                                     n = scan.nextInt();
                                     matriks = matrixIO.splHilbert(n);
-                            
-                                    hilbert.kaidahCramerBert(matriks);
-                                    if (hilbert.kaidahCramerBert(matriks)[0][0] == -9999){
+                                    // hilbert.kaidahCramerBert(matriks);
+                                    if (Hilbert.kaidahCramerBert(matriks)[0][0] == -9999){
                                         System.out.println("Tidak dapat menggunakan kaidah Cramer.");
                                     }
-                                    else if (hilbert.kaidahCramerBert(matriks)[0][0] == -999){
+                                    else if (Hilbert.kaidahCramerBert(matriks)[0][0] == -999){
                                         System.out.println("Matriks tidak memiliki solusi.");
                                     }
-                                    else if (hilbert.kaidahCramerBert(matriks)[0][0] == -99999){
+                                    else if (Hilbert.kaidahCramerBert(matriks)[0][0] == -99999){
                                         System.out.println("Determinan matriks bernilai 0 sehingga tidak dapat menggunakan kaidah Cramer.");
                                     }
                                     else{
                                         System.out.println("Solusi:");
-                                        for (int i = 0; i < hilbert.kaidahCramerBert(matriks).length; i++) {
-                                            System.out.printf("x%d = %.3f\n", i+1, hilbert.kaidahCramerBert(matriks)[i][0]);
+                                        for (int i = 0; i < Hilbert.kaidahCramerBert(matriks).length; i++) {
+                                            System.out.printf("x%d = %.3f\n", i+1, Hilbert.kaidahCramerBert(matriks)[i][0]);
                                         }
                                     }
+                                    // MainFunctions.CramerKeyboard(matriks);
                                     System.out.println("Apakah anda ingin menyimpan jawaban? ");
                                     System.out.println(save);
                                     System.out.print("Masukan pilihan input: ");
@@ -737,7 +738,8 @@ public class main {
                     
                     if (inputpolinom == 1) {
                         System.out.println("INPUT SOURCE: KEYBOARD");
-                        m = Interpolasi.solutionInterpolasi(Interpolasi.inputInterpolasi());
+                        mat = Interpolasi.inputInterpolasi();
+                        m = Interpolasi.solutionInterpolasi(mat);
                         x = Interpolasi.inputTaksiran();
                         MainFunctions.InterpolasiKeyboard(m, x);
                         System.out.println("Apakah anda ingin menyimpan jawaban? ");
@@ -751,7 +753,7 @@ public class main {
                             
                         }
                         if (inputsave == 1) {
-                            // outputFile.fileInterpolasi();
+                            outputFile.fileInterpolasi(x,mat);
                             break;
                         }
                         else {
