@@ -6,12 +6,14 @@ import src.Functions.MainFunctions;
 import src.Functions.regresiLinearBerganda;
 import src.Functions.bicubicInterpolation;
 import src.Functions.Hilbert;
+import src.Functions.SPL;
 
 public class main {
     public static Scanner scan;
     public static void main (String[] args) {
         double[][] matriks;
         // untuk interpolasi
+        double[][] mat;
         double[] m;
         double[] x;
         double[] s;
@@ -390,25 +392,36 @@ public class main {
                                 System.out.println("INPUT SOURCE: FILE");
                                 String path = matrixIO.inputFile();
                                 matriks = matrixIO.fileToMatrix(path, 1);
-                                double[][] jwbaninversbro = MainFunctions.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
-                                matrixIO.displayMatrix(jwbaninversbro);
-                                matrixOP.hasilSPLInverse(jwbaninversbro);
-                                System.out.println("Apakah anda ingin menyimpan jawaban? ");
-                                System.out.println(save);
-                                System.out.print("Masukan pilihan input: ");
-                                inputsave = scan.nextInt();
-                                while (inputsave < 1 || inputsave > 2) {
-                                    System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
-                                    System.out.println("Masukkan pilihan menu: ");
-                                    inputsave = scan.nextInt();
-                                    
+                                if (matrixOP.determinan(matrixOP.getABalikan(matriks)) == 0) {
+                                    System.out.println("Matriks tidak memiliki inverse, sehingga tidak memiliki solusi.");
+                                    continue;
                                 }
-                                if (inputsave == 1) {
-                                    outputFile.fileSPLInverse(jwbaninversbro);
-                                    break;
+                                else if (matrixOP.getRow(matrixOP.getABalikan(matriks)) != matrixOP.getCol(matrixOP.getABalikan(matriks))) {
+                                    System.out.println("Matriks tidak berukuran n x n, sehingga inverse tidak dapat dicari.");
+                                    continue;
                                 }
                                 else {
-                                    continue;
+                                    double[][] jwbaninversbro = MainFunctions.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
+                                    matrixIO.displayMatrix(jwbaninversbro);
+                                    matrixOP.hasilSPLInverse(jwbaninversbro);
+                                    System.out.println("Apakah anda ingin menyimpan jawaban? ");
+                                    System.out.println(save);
+                                    System.out.print("Masukan pilihan input: ");
+                                    inputsave = scan.nextInt();
+                                    while (inputsave < 1 || inputsave > 2) {
+                                        System.out.println("Masukan tidak valid. Mohon hanya menginput 1 atau 2.");
+                                        System.out.println("Masukkan pilihan menu: ");
+                                        inputsave = scan.nextInt();
+                                        
+                                    }
+                                    if (inputsave == 1) {
+                                        outputFile.fileSPLInverse(jwbaninversbro);
+                                        break;
+                                    }
+                                    else {
+                                        continue;
+                                    }
+
                                 }
                             }
                         case 4:
@@ -737,7 +750,8 @@ public class main {
                     
                     if (inputpolinom == 1) {
                         System.out.println("INPUT SOURCE: KEYBOARD");
-                        m = Interpolasi.solutionInterpolasi(Interpolasi.inputInterpolasi());
+                        mat = Interpolasi.inputInterpolasi();
+                        m = Interpolasi.solutionInterpolasi(mat);
                         x = Interpolasi.inputTaksiran();
                         MainFunctions.InterpolasiKeyboard(m, x);
                         System.out.println("Apakah anda ingin menyimpan jawaban? ");
@@ -751,7 +765,7 @@ public class main {
                             
                         }
                         if (inputsave == 1) {
-                            // outputFile.fileInterpolasi(x, m);
+                            outputFile.fileInterpolasi(x,mat);
                             break;
                         }
                         else {

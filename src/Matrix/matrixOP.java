@@ -608,5 +608,25 @@ public class matrixOP {
     //pemakaian:
     //SPL.SPLBalikan(matrixOP.getABalikan(matriks), matrixOP.getBBalikan(matriks));
 
+    public static double determinan(double[][]m){
+        double det;
+        det = 0;
+        if (m.length == m[0].length){
+            if (m.length == 1 && m[0].length == 1){
+                det = m[0][0];
+            } else {
+                for (int i=0;i<m.length;i++){
+                    if (i%2 == 0){
+                        det += m[i][0] * determinan(SPL.kofaktor(m, m.length, m.length, i));
+                    } else {
+                        det -= m[i][0] * determinan(SPL.kofaktor(m, m.length, m.length, i));
+                    }
+                }
+            }
+        } else {
+            det = -9999;
+        }
+        return det;
+    }
 }
 
