@@ -12,6 +12,11 @@ Repositori ini berisi library aljabar linear dalam bahasa Java  untuk menyelesai
 2. Angelica Kierra Ninta Gurning (13522048) <br/>
 3. Kayla Namira Mariadi (13522050) <br/>
 
+## Cara mengerun program di Terminal
+
+1. ketik "javac src/Main/main.java" untuk meng-compile program
+2. ketik "java src/Main/main" untuk run
+
 ## Fitur
 - Penyelesaian sistem persamaan linear dengan Metode Eliminasi Gauss, Metode Eliminasi Gauss-Jordan, Matriks Balikan, dan Metode Cramer
 - Menentukan matriks invers dengan Metode Eliminasi Gauss-Jordan dan Metode Adjoin
